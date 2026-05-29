@@ -4,6 +4,7 @@ import { RootStackParamList } from './types';
 import OnBoarding from '../screens/OnBoarding';
 import LanguageSelection from '../screens/LanguageSelection';
 import Login from '../screens/Login';
+import Register from '../screens/Register';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -15,6 +16,7 @@ function AppNavigator(): React.JSX.Element {
       <Stack.Screen name="OnBoarding" component={OnBoarding} />
       <Stack.Screen name="LanguageSelection" component={LanguageSelection} />
       <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Register" component={Register} />
     </Stack.Navigator>
   );
 }

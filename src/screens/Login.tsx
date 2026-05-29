@@ -24,7 +24,7 @@ import LinearGradient from 'react-native-linear-gradient';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
-function Login({ /* navigation */ }: Props): React.JSX.Element {
+function Login({ navigation }: Props): React.JSX.Element {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -69,7 +69,10 @@ function Login({ /* navigation */ }: Props): React.JSX.Element {
 
           <View style={styles.subtitleRow}>
             <Text style={styles.subtitleBlack}>New to Medicine App ?  </Text>
-            <TouchableOpacity activeOpacity={0.8}>
+            <TouchableOpacity 
+              activeOpacity={0.8}
+              onPress={() => navigation.replace('Register')}
+            >
               <Text style={styles.subtitleBlue}>Register</Text>
             </TouchableOpacity>
           </View>
