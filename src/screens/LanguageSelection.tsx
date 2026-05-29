@@ -242,7 +242,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   flagIcon: {
-    width: scale(52),
+    width: scale(36),
     height: scale(36),
     borderRadius: scale(8),
     resizeMode: 'cover',

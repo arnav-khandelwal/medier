@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootStackParamList } from './types';
 import OnBoarding from '../screens/OnBoarding';
 import LanguageSelection from '../screens/LanguageSelection';
+import Login from '../screens/Login';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -13,6 +14,7 @@ function AppNavigator(): React.JSX.Element {
       screenOptions={{ headerShown: false, animation: 'slide_from_right' }}>
       <Stack.Screen name="OnBoarding" component={OnBoarding} />
       <Stack.Screen name="LanguageSelection" component={LanguageSelection} />
+      <Stack.Screen name="Login" component={Login} />
     </Stack.Navigator>
   );
 }

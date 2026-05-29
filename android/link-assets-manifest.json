@@ -2,16 +2,24 @@
   "migIndex": 1,
   "data": [
     {
-      "path": "assets/fonts/Sora/OFL.txt",
-      "sha1": "d484dc552543ff909648b22e6d75f4b2d84fb964"
+      "path": "assets/fonts/Quicksand/Quicksand/static/Quicksand-Bold.ttf",
+      "sha1": "111e880f4de54ccf0a7fd14f38999b9c066e46bb"
     },
     {
-      "path": "assets/fonts/Sora/README.txt",
-      "sha1": "e3aef7cab55dc1ac7d2a83fa7ba70c57f643c634"
+      "path": "assets/fonts/Quicksand/Quicksand/static/Quicksand-Light.ttf",
+      "sha1": "4d3b72ff1544d92ca9a435d7e34d21eda322dd76"
     },
     {
-      "path": "assets/fonts/Sora/Sora-VariableFont_wght.ttf",
-      "sha1": "7b9fafa9a96c6331cfbbbe969953c88572a12057"
+      "path": "assets/fonts/Quicksand/Quicksand/static/Quicksand-Medium.ttf",
+      "sha1": "04b8198132a4a092b10d0631500268d6a2a0f889"
+    },
+    {
+      "path": "assets/fonts/Quicksand/Quicksand/static/Quicksand-Regular.ttf",
+      "sha1": "61504eaec812663121918199aac7d960229bd306"
+    },
+    {
+      "path": "assets/fonts/Quicksand/Quicksand/static/Quicksand-SemiBold.ttf",
+      "sha1": "339f8d3e09ad271ff12727eef33a99f7a066eee3"
     },
     {
       "path": "assets/fonts/Sora/static/Sora-Bold.ttf",
