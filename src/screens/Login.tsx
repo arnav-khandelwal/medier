@@ -164,7 +164,7 @@ function Login({ navigation }: Props): React.JSX.Element {
           <TouchableOpacity 
             style={styles.loginButton} 
             activeOpacity={0.8}
-            onPress={() => {}}
+            onPress={() => navigation.replace('MainTabs')}
           >
             <Text style={styles.loginButtonText}>Login</Text>
           </TouchableOpacity>

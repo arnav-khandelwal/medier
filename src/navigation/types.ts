@@ -3,4 +3,5 @@ export type RootStackParamList = {
   LanguageSelection: undefined;
   Login: undefined;
   Register: undefined;
+  MainTabs: undefined;
 };

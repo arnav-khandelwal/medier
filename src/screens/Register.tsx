@@ -260,7 +260,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                                   countryCode === '+44' ? '🇬🇧' :
                                     countryCode === '+971' ? '🇦🇪' :
                                       countryCode === '+20' ? '🇪🇬' :
-                                        countryCode === '+91' ? '🇮🇳' : '🇸🇦'}
+                                        countryCode === '+91' ? '🇮🇳' : ''}
                             </Text>
                           </View>
                           <Text style={styles.prefixText}>{countryCode}</Text>
