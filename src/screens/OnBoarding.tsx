@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { colors } from '../theme/colors';
 import { fonts } from '../theme/typography';
 import {
@@ -17,8 +18,11 @@ import {
   screenWidth,
   topOffset,
 } from '../theme/scaling';
+import { RootStackParamList } from '../navigation/types';
 
-function OnBoarding(): React.JSX.Element {
+type Props = NativeStackScreenProps<RootStackParamList, 'OnBoarding'>;
+
+function OnBoarding({ navigation }: Props): React.JSX.Element {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" translucent backgroundColor="transparent" />
@@ -26,30 +30,25 @@ function OnBoarding(): React.JSX.Element {
         source={require('../../assets/background/firstscreenbg.png')}
         style={styles.background}>
 
-        {/* Styled premium language selector button */}
-        <TouchableOpacity style={styles.iconButton}>
+        <TouchableOpacity onPress={() => navigation.navigate('LanguageSelection')} style={styles.iconButton}>
           <Image
             source={require('../../assets/icons/language.png')}
             style={styles.icon}
           />
         </TouchableOpacity>
 
-        {/* Doctor Image - positioned to blend behind the bottom container */}
         <Image
           source={require('../../assets/objects/manshakinghand.png')}
           style={styles.doctorImage}
         />
 
-        {/* Bottom Taller Sheet Container */}
         <View style={styles.bottomContainer}>
 
-          {/* Pagination/Pager dots indicator */}
           <View style={styles.paginationContainer}>
             <View style={styles.paginationActive} />
             <View style={styles.paginationInactive} />
           </View>
 
-          {/* Title and Subtitle Content */}
           <View style={styles.contentWrapper}>
             <Text style={styles.title}>MEDIER</Text>
             <Text style={styles.subtitle}>
@@ -57,7 +56,6 @@ function OnBoarding(): React.JSX.Element {
             </Text>
           </View>
 
-          {/* Login & Registration Actions */}
           <View style={styles.buttonContainer}>
             <TouchableOpacity style={styles.loginButton}>
               <Text style={styles.loginButtonText}>Login To Your Account</Text>

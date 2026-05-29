@@ -1,9 +1,13 @@
 import React from 'react';
-import OnBoarding from './src/screens/OnBoarding';
+import { NavigationContainer } from '@react-navigation/native';
+import AppNavigator from './src/navigation/AppNavigator';
 
 function App(): React.JSX.Element {
-  return <OnBoarding />;
+  return (
+    <NavigationContainer>
+      <AppNavigator />
+    </NavigationContainer>
+  );
 }
 
 export default App;
-

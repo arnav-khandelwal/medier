@@ -9,6 +9,14 @@ export const fonts = {
   extraBold: 'Sora-ExtraBold',
 };
 
+export const quicksandFonts = {
+  light: 'Quicksand-Light',
+  regular: 'Quicksand-Regular',
+  medium: 'Quicksand-Medium',
+  semiBold: 'Quicksand-SemiBold',
+  bold: 'Quicksand-Bold',
+};
+
 export const typography = {
   h1: {
     fontFamily: fonts.bold,
