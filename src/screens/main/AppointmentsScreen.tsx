@@ -171,23 +171,21 @@ const AppointmentsScreen: React.FC<AppointmentsScreenProps> = ({ onTabPress }) =
                         <Text style={styles.videoTagText}>Video</Text>
                       </View>
                     )}
+                    <Text style={styles.dateTime}>
+                      {appointment.date} | {appointment.time}
+                    </Text>
+                    {!appointment.isVideo && appointment.location && (
+                      <View style={styles.locationContainer}>
+                        <Image
+                          source={require('../../../assets/icons/location.png')}
+                          style={styles.locationIcon}
+                        />
+                        <Text style={styles.locationText}>{appointment.location}</Text>
+                      </View>
+                    )}
                   </View>
                 </View>
-
-                <View style={styles.cardDetails}>
-                  <Text style={styles.dateTime}>
-                    {appointment.date} | {appointment.time}
-                  </Text>
-                  {!appointment.isVideo && appointment.location && (
-                    <View style={styles.locationContainer}>
-                      <Image
-                        source={require('../../../assets/icons/location.png')}
-                        style={styles.locationIcon}
-                      />
-                      <Text style={styles.locationText}>{appointment.location}</Text>
-                    </View>
-                  )}
-                </View>
+                <View style={styles.divider} />
 
                 {appointment.status && (
                   <View style={styles.statusContainer}>
@@ -324,6 +322,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
+    borderWidth: 1,
+    borderColor: '#C8E9FF',
   },
   cardHeader: {
     flexDirection: 'row',
@@ -331,9 +331,9 @@ const styles = StyleSheet.create({
     marginBottom: verticalScale(12),
   },
   doctorPhoto: {
-    width: scale(60),
-    height: scale(60),
-    borderRadius: scale(30),
+    width: scale(80),
+    height: scale(80),
+    borderRadius: scale(8),
     resizeMode: 'cover',
   },
   doctorInfo: {
@@ -353,28 +353,30 @@ const styles = StyleSheet.create({
     fontFamily: quicksandFonts.regular,
   },
   videoTag: {
-    backgroundColor: colors.primary,
+    backgroundColor: colors.backgroundLight,
     paddingHorizontal: scale(8),
     paddingVertical: verticalScale(4),
     borderRadius: scale(4),
     alignSelf: 'flex-start',
     marginTop: verticalScale(4),
+    borderWidth: 0.5,
+    borderColor: '#0099FF',
   },
   videoTagText: {
     fontSize: moderateScale(10),
     fontWeight: '600',
-    color: colors.textLight,
+    color: '#0099FF',
     fontFamily: quicksandFonts.semiBold,
   },
   cardDetails: {
     marginBottom: verticalScale(12),
   },
   dateTime: {
-    fontSize: moderateScale(14),
-    fontWeight: '600',
+    fontSize: moderateScale(12),
     color: colors.textDark,
-    marginBottom: verticalScale(8),
-    fontFamily: quicksandFonts.semiBold,
+    marginTop: verticalScale(4),
+    marginBottom: verticalScale(4),
+    fontFamily: quicksandFonts.regular,
   },
   locationContainer: {
     flexDirection: 'row',
@@ -388,8 +390,12 @@ const styles = StyleSheet.create({
   },
   locationText: {
     fontSize: moderateScale(12),
-    color: colors.textMuted,
     fontFamily: quicksandFonts.regular,
+  },
+  divider: {
+    height: 1,
+    backgroundColor: '#E5E5EA',
+    marginVertical: verticalScale(12),
   },
   statusContainer: {
     flexDirection: 'row',
@@ -400,40 +406,38 @@ const styles = StyleSheet.create({
   statusButton: {
     paddingHorizontal: scale(12),
     paddingVertical: verticalScale(8),
-    borderRadius: scale(12),
+    borderRadius: scale(10),
   },
   statusButtonText: {
-    fontSize: moderateScale(12),
-    fontWeight: '600',
-    fontFamily: quicksandFonts.semiBold,
+    fontSize: moderateScale(11),
+    fontFamily: quicksandFonts.regular,
   },
   actionButtons: {
     flexDirection: 'row',
     gap: scale(12),
+    justifyContent: 'space-between',
   },
   cancelButton: {
-    flex: 1,
+    flex: 0.45,
     backgroundColor: '#FFE2E2',
-    paddingVertical: verticalScale(12),
+    paddingVertical: verticalScale(8),
     borderRadius: scale(8),
     alignItems: 'center',
   },
   cancelButtonText: {
-    fontSize: moderateScale(14),
-    fontWeight: '600',
+    fontSize: moderateScale(12),
     color: '#FF4444',
-    fontFamily: quicksandFonts.semiBold,
+    fontFamily: quicksandFonts.regular,
   },
   actionButton: {
-    flex: 1,
+    flex: 0.55,
     backgroundColor: colors.primary,
-    paddingVertical: verticalScale(12),
+    paddingVertical: verticalScale(8),
     borderRadius: scale(8),
     alignItems: 'center',
   },
   actionButtonText: {
-    fontSize: moderateScale(14),
-    fontWeight: '600',
+    fontSize: moderateScale(12),
     color: colors.textLight,
     fontFamily: quicksandFonts.semiBold,
   },
