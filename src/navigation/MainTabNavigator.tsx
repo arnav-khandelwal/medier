@@ -7,7 +7,7 @@ import AgendaScreen from '../screens/main/AgendaScreen';
 import MatchScreen from '../screens/main/MatchScreen';
 import ProfileScreen from '../screens/main/ProfileScreen';
 
-const SCREENS: Record<TabName, React.FC> = {
+const SCREENS: Record<TabName, React.ComponentType<any>> = {
   Home: HomeScreen,
   Appointments: AppointmentsScreen,
   Agenda: AgendaScreen,
@@ -21,8 +21,14 @@ const MainTabNavigator: React.FC = () => {
 
   return (
     <View style={styles.root}>
-      <ActiveScreen />
-      <BottomNavBar activeTab={activeTab} onTabPress={setActiveTab} />
+      {activeTab === 'Home' ? (
+        <HomeScreen activeTab={activeTab} onTabPress={setActiveTab} />
+      ) : (
+        <View style={styles.root}>
+          <ActiveScreen />
+          <BottomNavBar activeTab={activeTab} onTabPress={setActiveTab} />  
+        </View>
+      )}
     </View>
   );
 };

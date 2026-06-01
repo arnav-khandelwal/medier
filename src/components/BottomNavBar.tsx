@@ -79,10 +79,11 @@ const BottomNavBar: React.FC<BottomNavBarProps> = ({ activeTab, onTabPress }) =>
 const styles = StyleSheet.create({
   wrapper: {
     position: 'absolute',
-    bottom: Platform.OS === 'ios' ? 40 : 36,
+    bottom: Platform.OS === 'ios' ? 38 : 26,
     left: 24,
     right: 24,
     alignItems: 'center',
+    zIndex: 100,
   },
   container: {
     flexDirection: 'row',
@@ -100,6 +101,7 @@ const styles = StyleSheet.create({
     shadowRadius: 20,
     // Shadow for Android
     elevation: 12,
+    zIndex: 100,
   },
   tabButton: {
     flex: 1,
