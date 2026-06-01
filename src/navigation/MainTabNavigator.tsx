@@ -25,7 +25,7 @@ const MainTabNavigator: React.FC = () => {
         <HomeScreen activeTab={activeTab} onTabPress={setActiveTab} />
       ) : (
         <View style={styles.root}>
-          <ActiveScreen />
+          <ActiveScreen activeTab={activeTab} onTabPress={setActiveTab} />
           <BottomNavBar activeTab={activeTab} onTabPress={setActiveTab} />  
         </View>
       )}
