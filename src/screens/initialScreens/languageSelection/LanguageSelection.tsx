@@ -9,14 +9,14 @@ import {
   View,
 } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { colors } from '../theme/colors';
-import { quicksandFonts } from '../theme/typography';
+import { colors } from '../../../theme/colors';
+import { quicksandFonts } from '../../../theme/typography';
 import {
   scale,
   verticalScale,
   moderateScale,
-} from '../theme/scaling';
-import { RootStackParamList } from '../navigation/types';
+} from '../../../theme/scaling';
+import { RootStackParamList } from '../../../navigation/types';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'LanguageSelection'>;
 
@@ -33,17 +33,17 @@ function LanguageSelection({ navigation }: Props): React.JSX.Element {
     {
       id: 'English',
       name: 'English',
-      flag: require('../../assets/icons/English.png'),
+      flag: require('../../../../assets/icons/English.png'),
     },
     {
       id: 'French',
       name: 'Langue',
-      flag: require('../../assets/icons/French.png'),
+      flag: require('../../../../assets/icons/French.png'),
     },
     {
       id: 'Urdu',
       name: 'لغة',
-      flag: require('../../assets/icons/Urdu.png'),
+      flag: require('../../../../assets/icons/Urdu.png'),
     },
   ];
 
@@ -53,19 +53,19 @@ function LanguageSelection({ navigation }: Props): React.JSX.Element {
 
       {/* Swirl top-right, partially cut off */}
       <Image
-        source={require('../../assets/objects/swirlTop.png')}
+        source={require('../../../../assets/objects/swirlTop.png')}
         style={styles.swirlTop}
       />
 
       {/* Blur glow bottom-right */}
       <Image
-        source={require('../../assets/objects/bottomRightBlur.png')}
+        source={require('../../../../assets/objects/bottomRightBlur.png')}
         style={styles.bottomBlur}
       />
 
       {/* Swirl bottom-right, partially cut off */}
       <Image
-        source={require('../../assets/objects/swirlBottom.png')}
+        source={require('../../../../assets/objects/swirlBottom.png')}
         style={styles.swirlBottom}
       />
 
@@ -74,7 +74,7 @@ function LanguageSelection({ navigation }: Props): React.JSX.Element {
         {/* Medicine pill — right aligned, pushed to the edge */}
         <View style={styles.pillRow}>
           <Image
-            source={require('../../assets/objects/medicine.png')}
+            source={require('../../../../assets/objects/medicine.png')}
             style={styles.medicinePill}
           />
         </View>
@@ -83,7 +83,7 @@ function LanguageSelection({ navigation }: Props): React.JSX.Element {
         <View style={styles.iconRow}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Image
-              source={require('../../assets/icons/languageBlack.png')}
+              source={require('../../../../assets/icons/languageBlack.png')}
               style={styles.languageIcon}
             />
           </TouchableOpacity>
@@ -114,8 +114,8 @@ function LanguageSelection({ navigation }: Props): React.JSX.Element {
                 <Image
                   source={
                     isSelected
-                      ? require('../../assets/icons/rightArrowSelected.png')
-                      : require('../../assets/icons/rightArrowUnselected.png')
+                      ? require('../../../../assets/icons/rightArrowSelected.png')
+                      : require('../../../../assets/icons/rightArrowUnselected.png')
                   }
                   style={styles.arrowIcon}
                 />

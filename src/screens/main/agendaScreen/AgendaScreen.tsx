@@ -1,13 +1,13 @@
 import React from 'react';
 import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
-import { colors } from '../../theme/colors';
+import { colors } from '../../../theme/colors';
 
-const MatchScreen: React.FC = () => (
+const AgendaScreen: React.FC = () => (
   <SafeAreaView style={styles.root}>
     <View style={styles.center}>
-      <Text style={styles.emoji}>🔍</Text>
-      <Text style={styles.title}>Match</Text>
-      <Text style={styles.subtitle}>Find your perfect doctor match here</Text>
+      <Text style={styles.emoji}>📋</Text>
+      <Text style={styles.title}>Agenda</Text>
+      <Text style={styles.subtitle}>Your agenda will appear here</Text>
     </View>
   </SafeAreaView>
 );
@@ -20,4 +20,4 @@ const styles = StyleSheet.create({
   subtitle: { fontSize: 14, color: colors.textMuted },
 });
 
-export default MatchScreen;
+export default AgendaScreen;

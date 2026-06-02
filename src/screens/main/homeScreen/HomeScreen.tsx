@@ -11,10 +11,10 @@ import {
   ImageBackground,
   Platform,
 } from 'react-native';
-import BottomNavBar, { TabName } from '../../components/BottomNavBar';
-import { colors } from '../../theme/colors';
-import { scale, verticalScale, moderateScale } from '../../theme/scaling';
-import { quicksandFonts } from '../../theme/typography';
+import BottomNavBar, { TabName } from '../../../components/BottomNavBar';
+import { colors } from '../../../theme/colors';
+import { scale, verticalScale, moderateScale } from '../../../theme/scaling';
+import { quicksandFonts } from '../../../theme/typography';
 
 interface HomeScreenProps {
   activeTab: TabName;
@@ -26,7 +26,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ activeTab, onTabPress }) => {
 
   return (
     <ImageBackground
-      source={require('../../../assets/background/firstscreenbg.png')}
+      source={require('../../../../assets/background/firstscreenbg.png')}
       style={styles.root}
       resizeMode="cover"
     >
@@ -43,10 +43,10 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ activeTab, onTabPress }) => {
                 onPress={() => setDropdownOpen(!dropdownOpen)}
                 style={styles.dropdownBox}
               >
-                <Image source={require('../../../assets/icons/dropdownHome.png')} style={styles.dropdownHomeIcon} />
+                <Image source={require('../../../../assets/icons/dropdownHome.png')} style={styles.dropdownHomeIcon} />
                 <Text style={styles.dropdownText}>NovaCare</Text>
                 <Image 
-                  source={dropdownOpen ? require('../../../assets/icons/dropdownUpArrow.png') : require('../../../assets/icons/dropdownDownArrow.png')} 
+                  source={dropdownOpen ? require('../../../../assets/icons/dropdownUpArrow.png') : require('../../../../assets/icons/dropdownDownArrow.png')} 
                   style={styles.dropdownArrowIcon} 
                 />
               </TouchableOpacity>
@@ -62,10 +62,10 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ activeTab, onTabPress }) => {
             {/* Right Icons */}
               <View style={styles.topRightIcons}>
                 <TouchableOpacity style={[styles.iconCircle, { backgroundColor: '#19A3FF' }]}>
-                  <Image source={require('../../../assets/icons/chatTop.png')} style={styles.chatTopIcon} />
+                  <Image source={require('../../../../assets/icons/chatTop.png')} style={styles.chatTopIcon} />
                 </TouchableOpacity>
                 <TouchableOpacity style={[styles.iconCircle, { backgroundColor: '#FFFFFF' }]}>
-                  <Image source={require('../../../assets/icons/notification.png')} style={styles.notificationIcon} />
+                  <Image source={require('../../../../assets/icons/notification.png')} style={styles.notificationIcon} />
                   {/* Notification dot */}
                   <View style={styles.notificationDot} />
                 </TouchableOpacity>
@@ -84,7 +84,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ activeTab, onTabPress }) => {
             </View>
             
             <Image 
-              source={require('../../../assets/objects/femaleDoctorStock.png')} 
+              source={require('../../../../assets/objects/femaleDoctorStock.png')} 
               style={styles.doctorImage}
               resizeMode="contain"
             />
@@ -101,7 +101,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ activeTab, onTabPress }) => {
             <View style={[styles.card, { flex: 1.05 }]}>
               <View style={styles.cardHeader}>
                 <View style={[styles.cardIconBox, { backgroundColor: '#E1F3FF' }]}>
-                  <Image source={require('../../../assets/icons/consultations.png')} style={styles.cardIcon} />
+                  <Image source={require('../../../../assets/icons/consultations.png')} style={styles.cardIcon} />
                 </View>
                 <Text style={styles.cardTitle}>Consultations</Text>
               </View>
@@ -118,7 +118,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ activeTab, onTabPress }) => {
               </View>
               <TouchableOpacity style={styles.viewMoreBtn}>
                 <Text style={styles.viewMoreText}>View More</Text>
-                <Image source={require('../../../assets/icons/viewMore.png')} style={styles.viewMoreIcon} />
+                <Image source={require('../../../../assets/icons/viewMore.png')} style={styles.viewMoreIcon} />
               </TouchableOpacity>
             </View>
 
@@ -126,7 +126,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ activeTab, onTabPress }) => {
             <View style={[styles.card, { flex: 0.95 }]}>
               <View style={styles.cardHeader}>
                 <View style={[styles.cardIconBox, { backgroundColor: '#E1F3FF' }]}>
-                  <Image source={require('../../../assets/icons/chat.png')} style={styles.cardIcon} />
+                  <Image source={require('../../../../assets/icons/chat.png')} style={styles.cardIcon} />
                 </View>
                 <Text style={styles.cardTitle}>Chat</Text>
               </View>
@@ -143,7 +143,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ activeTab, onTabPress }) => {
               </View>
               <TouchableOpacity style={styles.viewMoreBtn}>
                 <Text style={styles.viewMoreText}>View More</Text>
-                <Image source={require('../../../assets/icons/viewMore.png')} style={styles.viewMoreIcon} />
+                <Image source={require('../../../../assets/icons/viewMore.png')} style={styles.viewMoreIcon} />
               </TouchableOpacity>
             </View>
           </View>

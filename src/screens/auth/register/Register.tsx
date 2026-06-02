@@ -20,10 +20,10 @@ import {
 } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Picker } from '@react-native-picker/picker';
-import { colors } from '../theme/colors';
-import { quicksandFonts } from '../theme/typography';
-import { scale, verticalScale, moderateScale } from '../theme/scaling';
-import { RootStackParamList } from '../navigation/types';
+import { colors } from '../../../theme/colors';
+import { quicksandFonts } from '../../../theme/typography';
+import { scale, verticalScale, moderateScale } from '../../../theme/scaling';
+import { RootStackParamList } from '../../../navigation/types';
 import LinearGradient from 'react-native-linear-gradient';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Register'>;
@@ -142,9 +142,9 @@ function Register({ navigation }: Props): React.JSX.Element {
           <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
 
           {/* Background Elements (copied from Login) */}
-          <Image source={require('../../assets/objects/swirlTop.png')} style={styles.swirlTopRight} />
-          <Image source={require('../../assets/objects/swirlTopBlack.png')} style={styles.swirlLeft} />
-          <Image source={require('../../assets/objects/swirlMid.png')} style={styles.swirlMid} />
+          <Image source={require('../../../../assets/objects/swirlTop.png')} style={styles.swirlTopRight} />
+          <Image source={require('../../../../assets/objects/swirlTopBlack.png')} style={styles.swirlLeft} />
+          <Image source={require('../../../../assets/objects/swirlMid.png')} style={styles.swirlMid} />
           <SafeAreaView style={styles.safeArea}>
             <View style={styles.content}>
 
@@ -190,7 +190,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                         <LinearGradient colors={['#FFFFFF', '#C6D3E7']} start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }} style={styles.gradientBackground} />
                       )}
                       <View style={[styles.inputBoxInner, isFirstNameFocused && styles.inputBoxInnerFocused]}>
-                        <Image source={isFirstNameFocused ? require('../../assets/icons/usernameSelected.png') : require('../../assets/icons/usernameUnselected.png')} style={styles.inputIcon} />
+                        <Image source={isFirstNameFocused ? require('../../../../assets/icons/usernameSelected.png') : require('../../../../assets/icons/usernameUnselected.png')} style={styles.inputIcon} />
                         <TextInput
                           style={[styles.textInput, { fontFamily: firstName.length > 0 ? quicksandFonts.semiBold : quicksandFonts.light, fontSize: firstName.length > 0 ? moderateScale(15) : moderateScale(12) }]}
                           placeholder="Enter First Name"
@@ -210,7 +210,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                         <LinearGradient colors={['#FFFFFF', '#C6D3E7']} start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }} style={styles.gradientBackground} />
                       )}
                       <View style={[styles.inputBoxInner, isLastNameFocused && styles.inputBoxInnerFocused]}>
-                        <Image source={isLastNameFocused ? require('../../assets/icons/usernameSelected.png') : require('../../assets/icons/usernameUnselected.png')} style={styles.inputIcon} />
+                        <Image source={isLastNameFocused ? require('../../../../assets/icons/usernameSelected.png') : require('../../../../assets/icons/usernameUnselected.png')} style={styles.inputIcon} />
                         <TextInput
                           style={[styles.textInput, { fontFamily: lastName.length > 0 ? quicksandFonts.semiBold : quicksandFonts.light, fontSize: lastName.length > 0 ? moderateScale(15) : moderateScale(12) }]}
                           placeholder="Enter Last Name"
@@ -230,7 +230,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                         <LinearGradient colors={['#FFFFFF', '#C6D3E7']} start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }} style={styles.gradientBackground} />
                       )}
                       <View style={[styles.inputBoxInner, isEmailFocused && styles.inputBoxInnerFocused]}>
-                        <Image source={isEmailFocused ? require('../../assets/icons/emailSelected.png') : require('../../assets/icons/emailUnselected.png')} style={styles.inputIcon} />
+                        <Image source={isEmailFocused ? require('../../../../assets/icons/emailSelected.png') : require('../../../../assets/icons/emailUnselected.png')} style={styles.inputIcon} />
                         <TextInput
                           style={[styles.textInput, { fontFamily: email.length > 0 ? quicksandFonts.semiBold : quicksandFonts.light, fontSize: email.length > 0 ? moderateScale(15) : moderateScale(12) }]}
                           placeholder="Enter Email"
@@ -252,7 +252,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                         <LinearGradient colors={['#FFFFFF', '#C6D3E7']} start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }} style={styles.gradientBackground} />
                       )}
                       <View style={[styles.inputBoxInner, isMobileFocused && styles.inputBoxInnerFocused]}>
-                        <TouchableOpacity style={styles.mobilePrefixContainer} onPress={() => setShowCountryDropdown(!showCountryDropdown)}>
+                        <TouchableOpacity style={styles.mobilePrefixContainer} onPress={() => setShowCountryDropdown(!showCountryDropdown)}>  
                           <View style={styles.flagPlaceholder}>
                             <Text style={{ fontSize: moderateScale(12) }}>
                               {countryCode === '+966' ? '🇸🇦' :
@@ -264,11 +264,11 @@ function Register({ navigation }: Props): React.JSX.Element {
                             </Text>
                           </View>
                           <Text style={styles.prefixText}>{countryCode}</Text>
-                          <Image source={require('../../assets/icons/dropdown.png')} style={styles.dropdownIcon} />
+                          <Image source={require('../../../../assets/icons/dropdown.png')} style={styles.dropdownIcon} />
                         </TouchableOpacity>
 
                         <View style={styles.divider} />
-                        <Image source={isMobileFocused ? require('../../assets/icons/mobileSelected.png') : require('../../assets/icons/mobileUnselected.png')} style={styles.inputIcon} />
+                        <Image source={isMobileFocused ? require('../../../../assets/icons/mobileSelected.png') : require('../../../../assets/icons/mobileUnselected.png')} style={styles.inputIcon} />
                         <TextInput
                           style={[styles.textInput, { fontFamily: mobile.length > 0 ? quicksandFonts.semiBold : quicksandFonts.light, fontSize: mobile.length > 0 ? moderateScale(15) : moderateScale(12) }]}
                           placeholder="Enter Number"
@@ -289,7 +289,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                         <LinearGradient colors={['#FFFFFF', '#C6D3E7']} start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }} style={styles.gradientBackground} />
                       )}
                       <View style={[styles.inputBoxInner, isPasswordFocused && styles.inputBoxInnerFocused]}>
-                        <Image source={isPasswordFocused ? require('../../assets/icons/passwordSelected.png') : require('../../assets/icons/passwordUnselected.png')} style={styles.inputIcon} />
+                        <Image source={isPasswordFocused ? require('../../../../assets/icons/passwordSelected.png') : require('../../../../assets/icons/passwordUnselected.png')} style={styles.inputIcon} />
                         <TextInput
                           style={[styles.textInput, { fontFamily: password.length > 0 ? quicksandFonts.semiBold : quicksandFonts.light, fontSize: password.length > 0 ? moderateScale(15) : moderateScale(12) }]}
                           placeholder="Enter Password"
@@ -301,7 +301,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                           secureTextEntry={!showPassword}
                         />
                         <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
-                          <Image source={showPassword ? require('../../assets/icons/hidePassword.png') : require('../../assets/icons/showPassword.png')} style={styles.eyeIcon} />
+                          <Image source={showPassword ? require('../../../../assets/icons/hidePassword.png') : require('../../../../assets/icons/showPassword.png')} style={styles.eyeIcon} />
                         </TouchableOpacity>
                       </View>
                     </View>
@@ -314,7 +314,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                         style={[styles.genderButton, gender === 'female' ? styles.genderButtonSelected : styles.genderButtonUnselected]}
                         onPress={() => setGender('female')}
                       >
-                        <Image source={require('../../assets/icons/female.png')} style={styles.genderIcon} resizeMode="contain" />
+                        <Image source={require('../../../../assets/icons/female.png')} style={styles.genderIcon} resizeMode="contain" />
                         <Text style={[styles.genderText, gender === 'female' && styles.genderTextSelected]}>Female</Text>
                       </TouchableOpacity>
 
@@ -323,7 +323,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                         style={[styles.genderButton, gender === 'male' ? styles.genderButtonSelected : styles.genderButtonUnselected, { marginLeft: scale(15) }]}
                         onPress={() => setGender('male')}
                       >
-                        <Image source={require('../../assets/icons/male.png')} style={styles.genderIcon} resizeMode="contain" />
+                        <Image source={require('../../../../assets/icons/male.png')} style={styles.genderIcon} resizeMode="contain" />
                         <Text style={[styles.genderText, gender === 'male' && styles.genderTextSelected]}>Male</Text>
                       </TouchableOpacity>
 
@@ -360,7 +360,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                         setCvFile('cv_dr_ahmed.pdf');
                       }}
                     >
-                      <Image source={require('../../assets/icons/upload.png')} style={styles.uploadIcon} />
+                      <Image source={require('../../../../assets/icons/upload.png')} style={styles.uploadIcon} />
                       <Text style={[styles.uploadText, cvFile ? styles.uploadTextSelected : styles.uploadTextPlaceholder]}>
                         {cvFile ? cvFile : 'Upload CV'}
                       </Text>
@@ -375,7 +375,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                         setLicenseFile('medical_license.pdf');
                       }}
                     >
-                      <Image source={require('../../assets/icons/upload.png')} style={styles.uploadIcon} />
+                      <Image source={require('../../../../assets/icons/upload.png')} style={styles.uploadIcon} />
                       <Text style={[styles.uploadText, licenseFile ? styles.uploadTextSelected : styles.uploadTextPlaceholder]}>
                         {licenseFile ? licenseFile : 'Upload'}
                       </Text>
@@ -392,7 +392,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                       onPress={() => setShowProfileDropdown(true)}
                     >
                       <Image
-                        source={selectedProfile ? require('../../assets/icons/usernameSelected.png') : require('../../assets/icons/usernameUnselected.png')}
+                        source={selectedProfile ? require('../../../../assets/icons/usernameSelected.png') : require('../../../../assets/icons/usernameUnselected.png')}
                         style={styles.dropdownLeftIcon}
                       />
                       <Text style={[
@@ -401,7 +401,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                       ]}>
                         {selectedProfile ? selectedProfile : 'Select'}
                       </Text>
-                      <Image source={require('../../assets/icons/dropdown.png')} style={styles.dropdownRightIcon} />
+                      <Image source={require('../../../../assets/icons/dropdown.png')} style={styles.dropdownRightIcon} />
                     </TouchableOpacity>
 
                     {/* Specialization */}
@@ -415,7 +415,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                       onPress={() => setShowSpecializationDropdown(true)}
                     >
                       <Image
-                        source={specialization ? require('../../assets/icons/doctorSpecialisationSelected.png') : require('../../assets/icons/doctorSpecialisationUnselected.png')}
+                        source={specialization ? require('../../../../assets/icons/doctorSpecialisationSelected.png') : require('../../../../assets/icons/doctorSpecialisationUnselected.png')}
                         style={styles.dropdownLeftIcon}
                       />
                       <Text style={[
@@ -424,7 +424,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                       ]}>
                         {specialization ? specialization : 'Enter Specialization'}
                       </Text>
-                      <Image source={require('../../assets/icons/dropdown.png')} style={styles.dropdownRightIcon} />
+                      <Image source={require('../../../../assets/icons/dropdown.png')} style={styles.dropdownRightIcon} />
                     </TouchableOpacity>
 
                     {/* Select Sector */}
@@ -443,7 +443,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                             onPress={() => setSector(option)}
                           >
                             <Image
-                              source={require('../../assets/icons/doctorSector.png')}
+                              source={require('../../../../assets/icons/doctorSector.png')}
                               style={[
                                 styles.sectorIcon,
                                 isSelected ? styles.sectorIconSelected : styles.sectorIconUnselected
@@ -471,7 +471,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                       onPress={() => setShowCountrySelectDropdown(true)}
                     >
                       <Image
-                        source={selectedCountry ? require('../../assets/icons/countrySelectSelected.png') : require('../../assets/icons/countrySelectUnselected.png')}
+                        source={selectedCountry ? require('../../../../assets/icons/countrySelectSelected.png') : require('../../../../assets/icons/countrySelectUnselected.png')}
                         style={styles.dropdownLeftIcon}
                       />
                       <Text style={[
@@ -480,7 +480,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                       ]}>
                         {selectedCountry ? selectedCountry : 'Select'}
                       </Text>
-                      <Image source={require('../../assets/icons/dropdown.png')} style={styles.dropdownRightIcon} />
+                      <Image source={require('../../../../assets/icons/dropdown.png')} style={styles.dropdownRightIcon} />
                     </TouchableOpacity>
 
                     {/* Address */}
@@ -509,8 +509,8 @@ function Register({ navigation }: Props): React.JSX.Element {
                       <Image
                         source={
                           acceptedTerms
-                            ? require('../../assets/icons/checkboxTermsCondSelected.png')
-                            : require('../../assets/icons/checkboxTermsCondUnselected.png')
+                            ? require('../../../../assets/icons/checkboxTermsCondSelected.png')
+                            : require('../../../../assets/icons/checkboxTermsCondUnselected.png')
                         }
                         style={styles.checkboxIcon}
                       />

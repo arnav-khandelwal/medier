@@ -12,14 +12,14 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { colors } from '../theme/colors';
-import { quicksandFonts } from '../theme/typography';
+import { colors } from '../../../theme/colors';
+import { quicksandFonts } from '../../../theme/typography';
 import {
   scale,
   verticalScale,
   moderateScale,
-} from '../theme/scaling';
-import { RootStackParamList } from '../navigation/types';
+} from '../../../theme/scaling';
+import { RootStackParamList } from '../../../navigation/types';
 import LinearGradient from 'react-native-linear-gradient';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
@@ -39,23 +39,23 @@ function Login({ navigation }: Props): React.JSX.Element {
 
         {/* Swirl Top Right */}
       <Image
-        source={require('../../assets/objects/swirlTop.png')}
+        source={require('../../../../assets/objects/swirlTop.png')}
         style={styles.swirlTopRight}
       />
       {/* Swirl Top Left */}
       <Image
-        source={require('../../assets/objects/swirlTopBlack.png')}
+        source={require('../../../../assets/objects/swirlTopBlack.png')}
         style={styles.swirlLeft}
       />
       {/* Swirl Mid */}
       <Image
-        source={require('../../assets/objects/swirlMid.png')}
+        source={require('../../../../assets/objects/swirlMid.png')}
         style={styles.swirlMid}
       />
       
       {/* Bottom Left Blur */}
       <Image
-        source={require('../../assets/objects/bottomLeftBlur.png')}
+        source={require('../../../../assets/objects/bottomLeftBlur.png')}
         style={styles.blurLeft}
       />
 
@@ -92,8 +92,8 @@ function Login({ navigation }: Props): React.JSX.Element {
               <View style={[styles.inputBoxInner, isUsernameFocused && styles.inputBoxInnerFocused]}>
                 <Image 
                   source={isUsernameFocused 
-                    ? require('../../assets/icons/usernameSelected.png')
-                    : require('../../assets/icons/usernameUnselected.png')} 
+                    ? require('../../../../assets/icons/usernameSelected.png')
+                    : require('../../../../assets/icons/usernameUnselected.png')} 
                   style={styles.inputIcon} 
                 />
                 <TextInput
@@ -127,8 +127,8 @@ function Login({ navigation }: Props): React.JSX.Element {
               <View style={[styles.inputBoxInner, isPasswordFocused && styles.inputBoxInnerFocused]}>
                 <Image 
                   source={isPasswordFocused 
-                    ? require('../../assets/icons/passwordSelected.png')
-                    : require('../../assets/icons/passwordUnselected.png')} 
+                    ? require('../../../../assets/icons/passwordSelected.png')
+                    : require('../../../../assets/icons/passwordUnselected.png')} 
                   style={styles.inputIcon} 
                 />
                 <TextInput
@@ -148,14 +148,14 @@ function Login({ navigation }: Props): React.JSX.Element {
                 />
                 <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
                   <Image 
-                    source={showPassword ? require('../../assets/icons/hidePassword.png') : require('../../assets/icons/showPassword.png')} 
+                    source={showPassword ? require('../../../../assets/icons/hidePassword.png') : require('../../../../assets/icons/showPassword.png')} 
                     style={styles.eyeIcon} 
                   />
                 </TouchableOpacity>
               </View>
             </View>
 
-            <TouchableOpacity activeOpacity={0.8} style={styles.forgotPasswordButton}>
+            <TouchableOpacity activeOpacity={0.8} style={styles.forgotPasswordButton}  onPress={() => navigation.replace('ForgotPassword')}>
               <Text style={styles.forgotPasswordText}>Forget Password ?</Text>
             </TouchableOpacity>
           </View>

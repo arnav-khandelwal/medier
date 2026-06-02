@@ -9,9 +9,9 @@ import {
   Image,
   StatusBar,
 } from 'react-native';
-import { colors } from '../../theme/colors';
-import { scale, verticalScale, moderateScale } from '../../theme/scaling';
-import { quicksandFonts } from '../../theme/typography';
+import { colors } from '../../../theme/colors';
+import { scale, verticalScale, moderateScale } from '../../../theme/scaling';
+import { quicksandFonts } from '../../../theme/typography';
 
 interface Appointment {
   id: string;
@@ -39,7 +39,7 @@ const AppointmentsScreen: React.FC<AppointmentsScreenProps> = ({ onTabPress }) =
       id: '1',
       doctorName: 'Dr. Sara Williams',
       doctorId: 'ID001212',
-      photo: require('../../../assets/objects/personInAppointments.png'),
+      photo: require('../../../../assets/objects/personInAppointments.png'),
       date: 'Today',
       time: '16:00 PM',
       location: '1233 Central Ave, Lake Stati...',
@@ -50,7 +50,7 @@ const AppointmentsScreen: React.FC<AppointmentsScreenProps> = ({ onTabPress }) =
       id: '2',
       doctorName: 'Dr. Claire Rousseau',
       doctorId: 'ID001212',
-      photo: require('../../../assets/objects/personInAppointments.png'),
+      photo: require('../../../../assets/objects/personInAppointments.png'),
       date: 'Today',
       time: '16:00 PM',
       location: '',
@@ -108,7 +108,7 @@ const AppointmentsScreen: React.FC<AppointmentsScreenProps> = ({ onTabPress }) =
     <SafeAreaView style={styles.root}>
       <StatusBar barStyle="light-content" backgroundColor={colors.primary} />
       <Image
-        source={require('../../../assets/background/firstscreenbg.png')}
+        source={require('../../../../assets/background/firstscreenbg.png')}
         style={styles.backgroundImage}
       />
       
@@ -117,7 +117,7 @@ const AppointmentsScreen: React.FC<AppointmentsScreenProps> = ({ onTabPress }) =
         <View style={styles.header}>
           <TouchableOpacity style={styles.backButton} onPress={() => onTabPress?.('Home')}>
             <Image
-              source={require('../../../assets/icons/backArrow.png')}
+              source={require('../../../../assets/icons/backArrow.png')}
               style={styles.backIcon}
             />
           </TouchableOpacity>
@@ -177,7 +177,7 @@ const AppointmentsScreen: React.FC<AppointmentsScreenProps> = ({ onTabPress }) =
                     {!appointment.isVideo && appointment.location && (
                       <View style={styles.locationContainer}>
                         <Image
-                          source={require('../../../assets/icons/location.png')}
+                          source={require('../../../../assets/icons/location.png')}
                           style={styles.locationIcon}
                         />
                         <Text style={styles.locationText}>{appointment.location}</Text>

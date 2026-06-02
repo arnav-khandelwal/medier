@@ -9,40 +9,32 @@ import {
   Image,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { colors } from '../../theme/colors';
-import { scale, verticalScale, moderateScale } from '../../theme/scaling';
-import { quicksandFonts } from '../../theme/typography';
+import { colors } from '../../../theme/colors';
+import { scale, verticalScale, moderateScale } from '../../../theme/scaling';
+import { quicksandFonts } from '../../../theme/typography';
+import { DrawerItem } from './DrawerItem';
 
-interface DrawerItemProps {
+export interface DrawerItemProps {
   icon: any;
   label: string;
   onPress?: () => void;
 }
 
-const DrawerItem: React.FC<DrawerItemProps> = ({ icon, label, onPress }) => (
-  <TouchableOpacity style={styles.drawerItem} onPress={onPress}>
-    <View style={styles.iconBackground}>
-      <Image source={icon} style={styles.drawerIcon} />
-    </View>
-    <Text style={styles.drawerLabel}>{label}</Text>
-  </TouchableOpacity>
-);
-
 const ProfileScreen: React.FC = () => {
   const drawerItems = [
-    { icon: require('../../../assets/icons/drawer/myAccount.png'), label: 'My Account' },
-    { icon: require('../../../assets/icons/drawer/myLocation.png'), label: 'My Location' },
-    { icon: require('../../../assets/icons/drawer/myRating.png'), label: 'My Rating' },
-    { icon: require('../../../assets/icons/drawer/myContract.png'), label: 'My Contract' },
-    { icon: require('../../../assets/icons/drawer/payments.png'), label: 'Payments' },
-    { icon: require('../../../assets/icons/drawer/Notifications.png'), label: 'Notification' },
-    { icon: require('../../../assets/icons/drawer/language.png'), label: 'Language' },
-    { icon: require('../../../assets/icons/drawer/myQuestions.png'), label: 'My Questions' },
-    { icon: require('../../../assets/icons/drawer/setAccess.png'), label: 'Set Access' },
-    { icon: require('../../../assets/icons/drawer/Security.png'), label: 'Security' },
-    { icon: require('../../../assets/icons/drawer/about.png'), label: 'About' },
-    { icon: require('../../../assets/icons/drawer/mySubscription.png'), label: 'My Subscription' },
-    { icon: require('../../../assets/icons/drawer/myExpertise.png'), label: 'My Expertise' },
+    { icon: require('../../../../assets/icons/drawer/myAccount.png'), label: 'My Account' },
+    { icon: require('../../../../assets/icons/drawer/myLocation.png'), label: 'My Location' },
+    { icon: require('../../../../assets/icons/drawer/myRating.png'), label: 'My Rating' },
+    { icon: require('../../../../assets/icons/drawer/myContract.png'), label: 'My Contract' },
+    { icon: require('../../../../assets/icons/drawer/payments.png'), label: 'Payments' },
+    { icon: require('../../../../assets/icons/drawer/Notifications.png'), label: 'Notification' },
+    { icon: require('../../../../assets/icons/drawer/language.png'), label: 'Language' },
+    { icon: require('../../../../assets/icons/drawer/myQuestions.png'), label: 'My Questions' },
+    { icon: require('../../../../assets/icons/drawer/setAccess.png'), label: 'Set Access' },
+    { icon: require('../../../../assets/icons/drawer/Security.png'), label: 'Security' },
+    { icon: require('../../../../assets/icons/drawer/about.png'), label: 'About' },
+    { icon: require('../../../../assets/icons/drawer/mySubscription.png'), label: 'My Subscription' },
+    { icon: require('../../../../assets/icons/drawer/myExpertise.png'), label: 'My Expertise' },
   ];
 
   return (
@@ -62,13 +54,13 @@ const ProfileScreen: React.FC = () => {
               <View style={styles.profileSection}>
                 <View style={styles.profileImageContainer}>
                   <Image
-                    source={require('../../../assets/objects/profilePlaceHolder.png')}
+                    source={require('../../../../assets/objects/profilePlaceHolder.png')}
                     style={styles.profileImage}
                   />
                   {/* Edit Button */}
                   <TouchableOpacity style={styles.editButton}>
                     <Image
-                      source={require('../../../assets/icons/drawer/edit.png')}
+                      source={require('../../../../assets/icons/drawer/edit.png')}
                       style={styles.editIcon}
                     />
                   </TouchableOpacity>
@@ -92,7 +84,7 @@ const ProfileScreen: React.FC = () => {
             {/* Logout Button */}
             <TouchableOpacity style={styles.logoutButton}>
               <Image
-                source={require('../../../assets/icons/drawer/logout.png')}
+                source={require('../../../../assets/icons/drawer/logout.png')}
                 style={styles.logoutIcon}
               />
               <Text style={styles.logoutText}>Logout</Text>
@@ -102,12 +94,12 @@ const ProfileScreen: React.FC = () => {
           {/* Right Half - Right Drawer Image */}
           <View style={styles.rightHalf}>
             <Image
-              source={require('../../../assets/objects/rightDrawerImage.png')}
+              source={require('../../../../assets/objects/rightDrawerImage.png')}
               style={styles.rightDrawerImage}
             />
             {/* Bottom Right Blur */}
             <Image
-              source={require('../../../assets/objects/bottomRightBlur.png')}
+              source={require('../../../../assets/objects/bottomRightBlur.png')}
               style={styles.bottomRightBlur}
             />
           </View>
@@ -117,7 +109,7 @@ const ProfileScreen: React.FC = () => {
   );
 };
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   root: {
     flex: 1,
   },

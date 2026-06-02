@@ -9,16 +9,16 @@ import {
   View,
 } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { colors } from '../theme/colors';
-import { fonts } from '../theme/typography';
+import { colors } from '../../../theme/colors';
+import { fonts } from '../../../theme/typography';
 import {
   scale,
   verticalScale,
   moderateScale,
   screenWidth,
   topOffset,
-} from '../theme/scaling';
-import { RootStackParamList } from '../navigation/types';
+} from '../../../theme/scaling';
+import { RootStackParamList } from '../../../navigation/types';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'OnBoarding'>;
 
@@ -27,18 +27,18 @@ function OnBoarding({ navigation }: Props): React.JSX.Element {
     <View style={styles.container}>
       <StatusBar barStyle="light-content" translucent backgroundColor="transparent" />
       <ImageBackground
-        source={require('../../assets/background/firstscreenbg.png')}
+        source={require('../../../../assets/background/firstscreenbg.png')}
         style={styles.background}>
 
         <TouchableOpacity onPress={() => navigation.navigate('LanguageSelection')} style={styles.iconButton}>
           <Image
-            source={require('../../assets/icons/language.png')}
+            source={require('../../../../assets/icons/language.png')}
             style={styles.icon}
           />
         </TouchableOpacity>
 
         <Image
-          source={require('../../assets/objects/manshakinghand.png')}
+          source={require('../../../../assets/objects/manshakinghand.png')}
           style={styles.doctorImage}
         />
 

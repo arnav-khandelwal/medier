@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import BottomNavBar, { TabName } from '../components/BottomNavBar';
-import HomeScreen from '../screens/main/HomeScreen';
-import AppointmentsScreen from '../screens/main/AppointmentsScreen';
-import AgendaScreen from '../screens/main/AgendaScreen';
-import MatchScreen from '../screens/main/MatchScreen';
-import ProfileScreen from '../screens/main/ProfileScreen';
+import HomeScreen from '../screens/main/homeScreen/HomeScreen';
+import AppointmentsScreen from '../screens/main/appointmentsScreen/AppointmentsScreen';
+import AgendaScreen from '../screens/main/agendaScreen/AgendaScreen';
+import MatchScreen from '../screens/main/matchScreen/MatchScreen';
+import ProfileScreen from '../screens/main/profileScreen/ProfileScreen';
 
 const SCREENS: Record<TabName, React.ComponentType<any>> = {
   Home: HomeScreen,
