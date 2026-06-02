@@ -168,8 +168,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   editIcon: {
-    width: scale(14),
-    height: scale(14),
+    width: scale(10),
+    height: scale(10),
     resizeMode: 'contain',
     tintColor: '#FFFFFF',
   },
