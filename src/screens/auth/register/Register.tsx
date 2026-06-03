@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   Image,
   SafeAreaView,
@@ -70,6 +70,7 @@ function Register({ navigation }: Props): React.JSX.Element {
 
   const [step, setStep] = useState(1);
   const slideAnim = useRef(new Animated.Value(0)).current;
+  const progressAnim = useRef(new Animated.Value(0)).current;
 
   // Calculate progress based on filled fields in Personnel step
   const calculatePersonnelProgress = (): number => {
@@ -90,6 +91,15 @@ function Register({ navigation }: Props): React.JSX.Element {
 
   // Calculate total progress: Personnel takes first 50%, Professional takes second 50%
   const totalProgress = (personnelProgress * 0.5) + (professionalProgress * 0.5);
+
+  // Animate progress bar smoothly
+  useEffect(() => {
+    Animated.timing(progressAnim, {
+      toValue: totalProgress,
+      duration: 300,
+      useNativeDriver: false,
+    }).start();
+  }, [totalProgress]);
 
   const validateEmail = (email: string): boolean => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -274,7 +284,10 @@ function Register({ navigation }: Props): React.JSX.Element {
                     <Text style={step === 2 ? styles.tabTextActive : styles.tabTextInactive}>2. professional</Text>
                   </TouchableOpacity>
                 </View>
-                <View style={[styles.tabDividerLine, { width: `${totalProgress * 100}%` }]} />
+                <Animated.View style={[styles.tabDividerLine, { width: progressAnim.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: ['0%', '100%'],
+                }) }]} />
               </View>
 
               <Animated.View style={[styles.sliderContainer, { transform: [{ translateX: slideAnim }] }]}>
