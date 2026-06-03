@@ -10,6 +10,7 @@ import {
   View,
   Keyboard,
   TouchableWithoutFeedback,
+  Alert,
 } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { colors } from '../../../theme/colors';
@@ -27,6 +28,25 @@ type Props = NativeStackScreenProps<RootStackParamList, 'ForgotPassword'>;
 function ForgotPassword({ navigation }: Props): React.JSX.Element {
   const [email, setEmail] = useState('');
   const [isEmailFocused, setIsEmailFocused] = useState(false);
+
+  const validateEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const handleSubmit = () => {
+    if (!email.trim()) {
+      Alert.alert('Error', 'Please enter your email address.');
+      return;
+    }
+    if (!validateEmail(email)) {
+      Alert.alert('Error', 'Please enter a valid email address.');
+      return;
+    }
+    // If validation passes, navigate back or show success message
+    Alert.alert('Success', 'Password reset link has been sent to your email.');
+    navigation.goBack();
+  };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -119,7 +139,7 @@ function ForgotPassword({ navigation }: Props): React.JSX.Element {
             <TouchableOpacity 
               style={styles.submitButton} 
               activeOpacity={0.8}
-              onPress={() => navigation.goBack()}
+              onPress={handleSubmit}
             >
               <Text style={styles.submitButtonText}>Send Reset Link</Text>
             </TouchableOpacity>

@@ -10,6 +10,7 @@ import {
   View,
   Keyboard,
   TouchableWithoutFeedback,
+  Alert,
 } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { colors } from '../../../theme/colors';
@@ -31,6 +32,23 @@ function Login({ navigation }: Props): React.JSX.Element {
   
   const [isUsernameFocused, setIsUsernameFocused] = useState(false);
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
+
+  const handleLogin = () => {
+    if (!username.trim()) {
+      Alert.alert('Error', 'Please enter your username.');
+      return;
+    }
+    if (!password.trim()) {
+      Alert.alert('Error', 'Please enter your password.');
+      return;
+    }
+    if (password.length < 6) {
+      Alert.alert('Error', 'Password must be at least 6 characters long.');
+      return;
+    }
+    // If validation passes, navigate to MainTabs
+    navigation.replace('MainTabs');
+  };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -164,7 +182,7 @@ function Login({ navigation }: Props): React.JSX.Element {
           <TouchableOpacity 
             style={styles.loginButton} 
             activeOpacity={0.8}
-            onPress={() => navigation.replace('MainTabs')}
+            onPress={handleLogin}
           >
             <Text style={styles.loginButtonText}>Login</Text>
           </TouchableOpacity>

@@ -71,13 +71,108 @@ function Register({ navigation }: Props): React.JSX.Element {
   const [step, setStep] = useState(1);
   const slideAnim = useRef(new Animated.Value(0)).current;
 
-  const handleNext = () => {
-    setStep(2);
+  // Calculate progress based on filled fields in Personnel step
+  const calculatePersonnelProgress = (): number => {
+    const fields = [firstName, lastName, email, mobile, password, gender];
+    const filledFields = fields.filter(field => field !== null && field !== '' && field !== undefined).length;
+    return filledFields / fields.length;
+  };
+
+  // Calculate progress based on filled fields in Professional step
+  const calculateProfessionalProgress = (): number => {
+    const fields = [cvFile, licenseFile, selectedProfile, specialization, selectedCountry, address, acceptedTerms];
+    const filledFields = fields.filter(field => field !== null && field !== '' && field !== undefined).length;
+    return filledFields / fields.length;
+  };
+
+  const personnelProgress = calculatePersonnelProgress();
+  const professionalProgress = calculateProfessionalProgress();
+
+  // Calculate total progress: Personnel takes first 50%, Professional takes second 50%
+  const totalProgress = (personnelProgress * 0.5) + (professionalProgress * 0.5);
+
+  const validateEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validatePhone = (phone: string): boolean => {
+    const phoneRegex = /^\d{10}$/;
+    return phoneRegex.test(phone);
+  };
+
+  const validatePassword = (password: string): boolean => {
+    return password.length >= 6;
+  };
+
+  const validatePersonnelFields = (): boolean => {
+    if (!firstName.trim()) return false;
+    if (!lastName.trim()) return false;
+    if (!email.trim()) return false;
+    if (!validateEmail(email)) return false;
+    if (!mobile.trim()) return false;
+    if (!validatePhone(mobile)) return false;
+    if (!password.trim()) return false;
+    if (!validatePassword(password)) return false;
+    if (!gender) return false;
+    return true;
+  };
+
+  const handleTabPress = (targetStep: number) => {
+    if (targetStep === 2 && !validatePersonnelFields()) {
+      Alert.alert('Incomplete Fields', 'Please complete all Personnel fields before proceeding to Professional.');
+      return;
+    }
+    
+    setStep(targetStep);
     Animated.timing(slideAnim, {
-      toValue: -width,
+      toValue: targetStep === 1 ? 0 : -width,
       duration: 300,
       useNativeDriver: true,
     }).start();
+  };
+
+  const handleNext = () => {
+    // Validate Step 1 fields
+    if (!firstName.trim()) {
+      Alert.alert('Required Field', 'Please enter your First Name.');
+      return;
+    }
+    if (!lastName.trim()) {
+      Alert.alert('Required Field', 'Please enter your Last Name.');
+      return;
+    }
+    if (!email.trim()) {
+      Alert.alert('Required Field', 'Please enter your Email.');
+      return;
+    }
+    if (!validateEmail(email)) {
+      Alert.alert('Invalid Email', 'Please enter a valid email address.');
+      return;
+    }
+    if (!mobile.trim()) {
+      Alert.alert('Required Field', 'Please enter your Mobile Number.');
+      return;
+    }
+    if (!validatePhone(mobile)) {
+      Alert.alert('Invalid Phone', 'Please enter a valid 10-digit mobile number.');
+      return;
+    }
+    if (!password.trim()) {
+      Alert.alert('Required Field', 'Please enter your Password.');
+      return;
+    }
+    if (!validatePassword(password)) {
+      Alert.alert('Weak Password', 'Password must be at least 6 characters long.');
+      return;
+    }
+    if (!gender) {
+      Alert.alert('Required Field', 'Please select your Gender.');
+      return;
+    }
+    
+    // All validations passed, move to step 2
+    handleTabPress(2);
   };
 
   const renderDropdownModal = (
@@ -164,15 +259,22 @@ function Register({ navigation }: Props): React.JSX.Element {
 
                 {/* Tabs */}
                 <View style={styles.tabsContainer}>
-                  <View style={styles.tabActive}>
+                  <TouchableOpacity 
+                    activeOpacity={0.8}
+                    onPress={() => handleTabPress(1)}
+                    style={styles.tabActive}
+                  >
                     <Text style={styles.tabTextActive}>1. Personnel</Text>
-                    {step === 1 && <View style={styles.tabActiveLine} />}
-                  </View>
-                  <View style={step === 2 ? styles.tabActive : styles.tabInactive}>
+                  </TouchableOpacity>
+                  <TouchableOpacity 
+                    activeOpacity={0.8}
+                    onPress={() => handleTabPress(2)}
+                    style={step === 2 ? styles.tabActive : styles.tabInactive}
+                  >
                     <Text style={step === 2 ? styles.tabTextActive : styles.tabTextInactive}>2. professional</Text>
-                  </View>
+                  </TouchableOpacity>
                 </View>
-                <View style={step === 2 ? styles.tabDividerLineActive : styles.tabDividerLine} />
+                <View style={[styles.tabDividerLine, { width: `${totalProgress * 100}%` }]} />
               </View>
 
               <Animated.View style={[styles.sliderContainer, { transform: [{ translateX: slideAnim }] }]}>
@@ -274,10 +376,17 @@ function Register({ navigation }: Props): React.JSX.Element {
                           placeholder="Enter Number"
                           placeholderTextColor="#7a7676"
                           value={mobile}
-                          onChangeText={setMobile}
+                          onChangeText={(text) => {
+                            // Only allow numbers and limit to 10 digits
+                            const numericText = text.replace(/[^0-9]/g, '');
+                            if (numericText.length <= 10) {
+                              setMobile(numericText);
+                            }
+                          }}
                           onFocus={() => setIsMobileFocused(true)}
                           onBlur={() => setIsMobileFocused(false)}
                           keyboardType="phone-pad"
+                          maxLength={10}
                         />
                       </View>
                     </View>
@@ -533,8 +642,51 @@ function Register({ navigation }: Props): React.JSX.Element {
                       style={styles.signUpButton}
                       activeOpacity={0.8}
                       onPress={() => {
-                        if (!cvFile || !licenseFile) {
-                          Alert.alert('Required Fields', 'Please upload both your CV and Medical License Document.');
+                        // Validate Step 1 fields again (in case user went back)
+                        if (!firstName.trim()) {
+                          Alert.alert('Required Field', 'Please enter your First Name.');
+                          return;
+                        }
+                        if (!lastName.trim()) {
+                          Alert.alert('Required Field', 'Please enter your Last Name.');
+                          return;
+                        }
+                        if (!email.trim()) {
+                          Alert.alert('Required Field', 'Please enter your Email.');
+                          return;
+                        }
+                        if (!validateEmail(email)) {
+                          Alert.alert('Invalid Email', 'Please enter a valid email address.');
+                          return;
+                        }
+                        if (!mobile.trim()) {
+                          Alert.alert('Required Field', 'Please enter your Mobile Number.');
+                          return;
+                        }
+                        if (!validatePhone(mobile)) {
+                          Alert.alert('Invalid Phone', 'Please enter a valid 10-digit mobile number.');
+                          return;
+                        }
+                        if (!password.trim()) {
+                          Alert.alert('Required Field', 'Please enter your Password.');
+                          return;
+                        }
+                        if (!validatePassword(password)) {
+                          Alert.alert('Weak Password', 'Password must be at least 6 characters long.');
+                          return;
+                        }
+                        if (!gender) {
+                          Alert.alert('Required Field', 'Please select your Gender.');
+                          return;
+                        }
+                        
+                        // Validate Step 2 fields
+                        if (!cvFile) {
+                          Alert.alert('Required Field', 'Please upload your CV.');
+                          return;
+                        }
+                        if (!licenseFile) {
+                          Alert.alert('Required Field', 'Please upload your Medical License Document.');
                           return;
                         }
                         if (!selectedProfile) {
@@ -549,10 +701,16 @@ function Register({ navigation }: Props): React.JSX.Element {
                           Alert.alert('Required Field', 'Please select a Country.');
                           return;
                         }
+                        if (!address.trim()) {
+                          Alert.alert('Required Field', 'Please enter your Address.');
+                          return;
+                        }
                         if (!acceptedTerms) {
                           Alert.alert('Required Field', 'Please accept the terms & conditions and privacy policy.');
                           return;
                         }
+                        
+                        // All validations passed
                         Alert.alert('Registration Successful', 'Welcome to Medier!');
                       }}
                     >
@@ -616,12 +774,11 @@ const styles = StyleSheet.create({
   subtitleBlue: { fontFamily: quicksandFonts.bold, fontSize: moderateScale(15), color: colors.primary, lineHeight: moderateScale(15) },
 
   tabsContainer: { flexDirection: 'row', marginTop: verticalScale(10) },
-  tabActive: { marginRight: scale(30), alignItems: 'center' },
+  tabActive: { marginRight: scale(30), alignItems: 'center', width: '50%' },
   tabTextActive: { fontFamily: quicksandFonts.bold, fontSize: moderateScale(15), color: colors.primary, paddingBottom: verticalScale(8) },
-  tabActiveLine: { width: '100%', height: 2, backgroundColor: colors.primary },
-  tabInactive: { alignItems: 'center' },
+  tabInactive: { alignItems: 'center', width: '50%' },
   tabTextInactive: { fontFamily: quicksandFonts.medium, fontSize: moderateScale(15), color: '#7a7676', paddingBottom: verticalScale(8) },
-  tabDividerLine: { width: '100%', height: 1, backgroundColor: '#E2E8F0', marginTop: -1 },
+  tabDividerLine: { height: 2, backgroundColor: colors.primary, marginTop: verticalScale(8), width: '0%' },
 
   sliderContainer: { flex: 1, flexDirection: 'row', width: width * 2 },
   pageScreen: { width: width, paddingHorizontal: scale(16), paddingTop: verticalScale(20) },
