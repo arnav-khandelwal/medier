@@ -19,14 +19,12 @@ import {
   Platform
 } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Picker } from '@react-native-picker/picker';
-import DocumentPicker, { types } from 'react-native-document-picker';
 import { colors } from '../../../theme/colors';
 import { quicksandFonts } from '../../../theme/typography';
 import { scale, verticalScale, moderateScale } from '../../../theme/scaling';
 import { RootStackParamList } from '../../../navigation/types';
 import LinearGradient from 'react-native-linear-gradient';
-
+import { handlePickCV, handlePickLicense } from './handleDocPicker';
 type Props = NativeStackScreenProps<RootStackParamList, 'Register'>;
 
 const { width } = Dimensions.get('window');
@@ -129,51 +127,7 @@ function Register({ navigation }: Props): React.JSX.Element {
     return true;
   };
 
-  const handlePickCV = async () => {
-    try {
-      const result = await DocumentPicker.pick({
-        type: [types.pdf, types.images],
-        allowMultiSelection: false,
-      });
-      if (result.length > 0) {
-        setCvFile({
-          uri: result[0].uri || '',
-          name: result[0].name || 'CV File',
-          type: result[0].type || 'application/pdf',
-        });
-      }
-    } catch (err) {
-      if (DocumentPicker.isCancel(err)) {
-        // User cancelled the picker
-      } else {
-        Alert.alert('Error', 'Failed to pick CV file');
-        console.error(err);
-      }
-    }
-  };
-
-  const handlePickLicense = async () => {
-    try {
-      const result = await DocumentPicker.pick({
-        type: [types.pdf, types.images],
-        allowMultiSelection: false,
-      });
-      if (result.length > 0) {
-        setLicenseFile({
-          uri: result[0].uri || '',
-          name: result[0].name || 'License File',
-          type: result[0].type || 'application/pdf',
-        });
-      }
-    } catch (err) {
-      if (DocumentPicker.isCancel(err)) {
-        // User cancelled the picker
-      } else {
-        Alert.alert('Error', 'Failed to pick license file');
-        console.error(err);
-      }
-    }
-  };
+  
 
   const handleTabPress = (targetStep: number) => {
     if (targetStep === 2 && !validatePersonnelFields()) {
@@ -525,7 +479,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                     <TouchableOpacity
                       activeOpacity={0.8}
                       style={styles.dashedUploadBox}
-                      onPress={handlePickCV}
+                      onPress={() => handlePickCV(setCvFile)}
                     >
                       <Image source={require('../../../../assets/icons/upload.png')} style={styles.uploadIcon} />
                       <Text style={[styles.uploadText, cvFile ? styles.uploadTextSelected : styles.uploadTextPlaceholder]}>
@@ -538,7 +492,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                     <TouchableOpacity
                       activeOpacity={0.8}
                       style={styles.dashedUploadBox}
-                      onPress={handlePickLicense}
+                      onPress={() => handlePickLicense(setLicenseFile)}
                     >
                       <Image source={require('../../../../assets/icons/upload.png')} style={styles.uploadIcon} />
                       <Text style={[styles.uploadText, licenseFile ? styles.uploadTextSelected : styles.uploadTextPlaceholder]}>
