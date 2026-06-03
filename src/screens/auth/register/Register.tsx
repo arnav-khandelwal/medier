@@ -20,6 +20,7 @@ import {
 } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Picker } from '@react-native-picker/picker';
+import DocumentPicker, { types } from 'react-native-document-picker';
 import { colors } from '../../../theme/colors';
 import { quicksandFonts } from '../../../theme/typography';
 import { scale, verticalScale, moderateScale } from '../../../theme/scaling';
@@ -48,8 +49,8 @@ function Register({ navigation }: Props): React.JSX.Element {
   const [gender, setGender] = useState<'female' | 'male' | null>(null);
 
   // Step 2 Form States
-  const [cvFile, setCvFile] = useState<string | null>(null);
-  const [licenseFile, setLicenseFile] = useState<string | null>(null);
+  const [cvFile, setCvFile] = useState<{ uri: string; name: string; type: string } | null>(null);
+  const [licenseFile, setLicenseFile] = useState<{ uri: string; name: string; type: string } | null>(null);
   const [selectedProfile, setSelectedProfile] = useState<string | null>(null);
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   const [specialization, setSpecialization] = useState<string | null>(null);
@@ -126,6 +127,52 @@ function Register({ navigation }: Props): React.JSX.Element {
     if (!validatePassword(password)) return false;
     if (!gender) return false;
     return true;
+  };
+
+  const handlePickCV = async () => {
+    try {
+      const result = await DocumentPicker.pick({
+        type: [types.pdf, types.images],
+        allowMultiSelection: false,
+      });
+      if (result.length > 0) {
+        setCvFile({
+          uri: result[0].uri || '',
+          name: result[0].name || 'CV File',
+          type: result[0].type || 'application/pdf',
+        });
+      }
+    } catch (err) {
+      if (DocumentPicker.isCancel(err)) {
+        // User cancelled the picker
+      } else {
+        Alert.alert('Error', 'Failed to pick CV file');
+        console.error(err);
+      }
+    }
+  };
+
+  const handlePickLicense = async () => {
+    try {
+      const result = await DocumentPicker.pick({
+        type: [types.pdf, types.images],
+        allowMultiSelection: false,
+      });
+      if (result.length > 0) {
+        setLicenseFile({
+          uri: result[0].uri || '',
+          name: result[0].name || 'License File',
+          type: result[0].type || 'application/pdf',
+        });
+      }
+    } catch (err) {
+      if (DocumentPicker.isCancel(err)) {
+        // User cancelled the picker
+      } else {
+        Alert.alert('Error', 'Failed to pick license file');
+        console.error(err);
+      }
+    }
   };
 
   const handleTabPress = (targetStep: number) => {
@@ -478,13 +525,11 @@ function Register({ navigation }: Props): React.JSX.Element {
                     <TouchableOpacity
                       activeOpacity={0.8}
                       style={styles.dashedUploadBox}
-                      onPress={() => {
-                        setCvFile('cv_dr_ahmed.pdf');
-                      }}
+                      onPress={handlePickCV}
                     >
                       <Image source={require('../../../../assets/icons/upload.png')} style={styles.uploadIcon} />
                       <Text style={[styles.uploadText, cvFile ? styles.uploadTextSelected : styles.uploadTextPlaceholder]}>
-                        {cvFile ? cvFile : 'Upload CV'}
+                        {cvFile ? cvFile.name : 'Upload CV'}
                       </Text>
                     </TouchableOpacity>
 
@@ -493,13 +538,11 @@ function Register({ navigation }: Props): React.JSX.Element {
                     <TouchableOpacity
                       activeOpacity={0.8}
                       style={styles.dashedUploadBox}
-                      onPress={() => {
-                        setLicenseFile('medical_license.pdf');
-                      }}
+                      onPress={handlePickLicense}
                     >
                       <Image source={require('../../../../assets/icons/upload.png')} style={styles.uploadIcon} />
                       <Text style={[styles.uploadText, licenseFile ? styles.uploadTextSelected : styles.uploadTextPlaceholder]}>
-                        {licenseFile ? licenseFile : 'Upload'}
+                        {licenseFile ? licenseFile.name : 'Upload'}
                       </Text>
                     </TouchableOpacity>
 
