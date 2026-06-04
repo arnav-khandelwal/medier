@@ -59,6 +59,18 @@ const translations: Record<string, Record<LanguageCode, any>> = {
     hi: require('./onBoarding/hi.json'),
     ur: require('./onBoarding/ur.json'),
   },
+  privacyPolicy: {
+    en: require('./privacyPolicy/en.json'),
+    fr: require('./privacyPolicy/fr.json'),
+    hi: require('./privacyPolicy/hi.json'),
+    ur: require('./privacyPolicy/ur.json'),
+  },
+  termsAndConditions: {
+    en: require('./termsAndConditions/en.json'),
+    fr: require('./termsAndConditions/fr.json'),
+    hi: require('./termsAndConditions/hi.json'),
+    ur: require('./termsAndConditions/ur.json'),
+  },
 };
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
