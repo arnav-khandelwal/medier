@@ -13,6 +13,12 @@ import { colors } from '../../../theme/colors';
 import { scale, verticalScale, moderateScale } from '../../../theme/scaling';
 import { quicksandFonts } from '../../../theme/typography';
 import { DrawerItem } from './DrawerItem';
+import { useTranslation } from '../../../utils/translations/LanguageContext';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../../navigation/types';
+
+type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 export interface DrawerItemProps {
   icon: any;
@@ -21,20 +27,23 @@ export interface DrawerItemProps {
 }
 
 const ProfileScreen: React.FC = () => {
+  const { t } = useTranslation();
+  const navigation = useNavigation<NavigationProp>();
+
   const drawerItems = [
-    { icon: require('../../../../assets/icons/drawer/myAccount.png'), label: 'My Account' },
-    { icon: require('../../../../assets/icons/drawer/myLocation.png'), label: 'My Location' },
-    { icon: require('../../../../assets/icons/drawer/myRating.png'), label: 'My Rating' },
-    { icon: require('../../../../assets/icons/drawer/myContract.png'), label: 'My Contract' },
-    { icon: require('../../../../assets/icons/drawer/payments.png'), label: 'Payments' },
-    { icon: require('../../../../assets/icons/drawer/Notifications.png'), label: 'Notification' },
-    { icon: require('../../../../assets/icons/drawer/language.png'), label: 'Language' },
-    { icon: require('../../../../assets/icons/drawer/myQuestions.png'), label: 'My Questions' },
-    { icon: require('../../../../assets/icons/drawer/setAccess.png'), label: 'Set Access' },
-    { icon: require('../../../../assets/icons/drawer/Security.png'), label: 'Security' },
-    { icon: require('../../../../assets/icons/drawer/about.png'), label: 'About' },
-    { icon: require('../../../../assets/icons/drawer/mySubscription.png'), label: 'My Subscription' },
-    { icon: require('../../../../assets/icons/drawer/myExpertise.png'), label: 'My Expertise' },
+    { icon: require('../../../../assets/icons/drawer/myAccount.png'), label: t('profileScreen', 'drawerItems.myAccount') },
+    { icon: require('../../../../assets/icons/drawer/myLocation.png'), label: t('profileScreen', 'drawerItems.myLocation') },
+    { icon: require('../../../../assets/icons/drawer/myRating.png'), label: t('profileScreen', 'drawerItems.myRating') },
+    { icon: require('../../../../assets/icons/drawer/myContract.png'), label: t('profileScreen', 'drawerItems.myContract') },
+    { icon: require('../../../../assets/icons/drawer/payments.png'), label: t('profileScreen', 'drawerItems.payments') },
+    { icon: require('../../../../assets/icons/drawer/Notifications.png'), label: t('profileScreen', 'drawerItems.notification') },
+    { icon: require('../../../../assets/icons/drawer/language.png'), label: t('profileScreen', 'drawerItems.language'), onPress: () => navigation.navigate('LanguageSelection') },
+    { icon: require('../../../../assets/icons/drawer/myQuestions.png'), label: t('profileScreen', 'drawerItems.myQuestions') },
+    { icon: require('../../../../assets/icons/drawer/setAccess.png'), label: t('profileScreen', 'drawerItems.setAccess') },
+    { icon: require('../../../../assets/icons/drawer/Security.png'), label: t('profileScreen', 'drawerItems.security') },
+    { icon: require('../../../../assets/icons/drawer/about.png'), label: t('profileScreen', 'drawerItems.about') },
+    { icon: require('../../../../assets/icons/drawer/mySubscription.png'), label: t('profileScreen', 'drawerItems.mySubscription') },
+    { icon: require('../../../../assets/icons/drawer/myExpertise.png'), label: t('profileScreen', 'drawerItems.myExpertise') },
   ];
 
   return (
@@ -77,17 +86,18 @@ const ProfileScreen: React.FC = () => {
                   key={index}
                   icon={item.icon}
                   label={item.label}
+                  onPress={item.onPress}
                 />
               ))}
             </View>
 
             {/* Logout Button */}
-            <TouchableOpacity style={styles.logoutButton}>
+            <TouchableOpacity style={styles.logoutButton} onPress={() => navigation.navigate('OnBoarding')}>
               <Image
                 source={require('../../../../assets/icons/drawer/logout.png')}
                 style={styles.logoutIcon}
               />
-              <Text style={styles.logoutText}>Logout</Text>
+              <Text style={styles.logoutText}>{t('profileScreen', 'logout')}</Text>
             </TouchableOpacity>
           </ScrollView>
 

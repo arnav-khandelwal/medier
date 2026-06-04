@@ -9,6 +9,7 @@ import {
 import { colors } from '../../../theme/colors';
 import { scale, verticalScale, moderateScale } from '../../../theme/scaling';
 import { quicksandFonts } from '../../../theme/typography';
+import { useTranslation } from '../../../utils/translations/LanguageContext';
 
 interface AppointmentCardProps {
   id: string;
@@ -40,6 +41,7 @@ const AppointmentCard: React.FC<AppointmentCardProps> = ({
   onCancel,
   onAction,
 }) => {
+  const { t } = useTranslation();
   const renderStatusButton = (
     title: string,
     isSelected: boolean,
@@ -72,7 +74,7 @@ const AppointmentCard: React.FC<AppointmentCardProps> = ({
           <Text style={styles.doctorId}>{doctorId}</Text>
           {isOnline && (
             <View style={styles.videoTag}>
-              <Text style={styles.videoTagText}>Video</Text>
+              <Text style={styles.videoTagText}>{t('appointmentsScreen', 'card.video')}</Text>
             </View>
           )}
           <Text style={styles.dateTime}>
@@ -94,22 +96,22 @@ const AppointmentCard: React.FC<AppointmentCardProps> = ({
       {status && (
         <View style={styles.statusContainer}>
           {renderStatusButton(
-            'Arrived',
+            t('appointmentsScreen', 'card.status.arrived'),
             selectedStatus === 'arrived',
             () => onStatusChange?.('arrived')
           )}
           {renderStatusButton(
-            'Left',
+            t('appointmentsScreen', 'card.status.left'),
             selectedStatus === 'left',
             () => onStatusChange?.('left')
           )}
           {renderStatusButton(
-            'In Consultation',
+            t('appointmentsScreen', 'card.status.inConsultation'),
             selectedStatus === 'in_consultation',
             () => onStatusChange?.('in_consultation')
           )}
           {renderStatusButton(
-            'Waiting',
+            t('appointmentsScreen', 'card.status.waiting'),
             selectedStatus === 'waiting',
             () => onStatusChange?.('waiting')
           )}
@@ -118,11 +120,11 @@ const AppointmentCard: React.FC<AppointmentCardProps> = ({
 
       <View style={styles.actionButtons}>
         <TouchableOpacity style={styles.cancelButton} onPress={onCancel}>
-          <Text style={styles.cancelButtonText}>Cancel</Text>
+          <Text style={styles.cancelButtonText}>{t('appointmentsScreen', 'card.actions.cancel')}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.actionButton} onPress={onAction}>
           <Text style={styles.actionButtonText}>
-            {isOnline ? 'Join' : 'Start Consultation'}
+            {isOnline ? t('appointmentsScreen', 'card.actions.join') : t('appointmentsScreen', 'card.actions.startConsultation')}
           </Text>
         </TouchableOpacity>
       </View>

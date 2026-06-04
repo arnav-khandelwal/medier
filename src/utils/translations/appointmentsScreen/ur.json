@@ -1,0 +1,24 @@
+{
+  "title": "میری اپوائنٹمنٹس",
+  "filters": {
+    "upcoming": "آنے والی",
+    "completed": "مکمل",
+    "expired": "ختم",
+    "cancelledByMe": "میرے ذریعہ منسوخ",
+    "cancelledByPatient": "مریض کے ذریعہ منسوخ"
+  },
+  "card": {
+    "video": "ویڈیو",
+    "status": {
+      "arrived": "پہنچ گئے",
+      "left": "چلے گئے",
+      "inConsultation": "مشاورت میں",
+      "waiting": "انتظار میں"
+    },
+    "actions": {
+      "cancel": "منسوخ کریں",
+      "join": "شامل ہوں",
+      "startConsultation": "مشاورت شروع کریں"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "title": "My Appointments",
+  "filters": {
+    "upcoming": "Upcoming",
+    "completed": "Completed",
+    "expired": "Expired",
+    "cancelledByMe": "Cancelled By Me",
+    "cancelledByPatient": "Cancelled By Patient"
+  },
+  "card": {
+    "video": "Video",
+    "status": {
+      "arrived": "Arrived",
+      "left": "Left",
+      "inConsultation": "In Consultation",
+      "waiting": "Waiting"
+    },
+    "actions": {
+      "cancel": "Cancel",
+      "join": "Join",
+      "startConsultation": "Start Consultation"
+    }
+  }
+}

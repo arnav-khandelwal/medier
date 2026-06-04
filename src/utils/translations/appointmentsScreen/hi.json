@@ -1,0 +1,24 @@
+{
+  "title": "मेरी नियुक्तियां",
+  "filters": {
+    "upcoming": "आगामी",
+    "completed": "पूर्ण",
+    "expired": "समाप्त",
+    "cancelledByMe": "मेरे द्वारा रद्द",
+    "cancelledByPatient": "रोगी द्वारा रद्द"
+  },
+  "card": {
+    "video": "वीडियो",
+    "status": {
+      "arrived": "पहुंचे",
+      "left": "चले गए",
+      "inConsultation": "परामर्श में",
+      "waiting": "प्रतीक्षारत"
+    },
+    "actions": {
+      "cancel": "रद्द करें",
+      "join": "शामिल हों",
+      "startConsultation": "परामर्श शुरू करें"
+    }
+  }
+}

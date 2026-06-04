@@ -14,6 +14,7 @@ import { scale, verticalScale, moderateScale } from '../../../theme/scaling';
 import { quicksandFonts } from '../../../theme/typography';
 import AppointmentCard from './AppointmentCard';
 import ScreenTitle from '../../../components/ScreenTitle';
+import { useTranslation } from '../../../utils/translations/LanguageContext';
 
 interface Appointment {
   id: string;
@@ -33,6 +34,7 @@ interface AppointmentsScreenProps {
 }
 
 const AppointmentsScreen: React.FC<AppointmentsScreenProps> = ({ onTabPress }) => {
+  const { t } = useTranslation();
   const [selectedFilter, setSelectedFilter] = useState('upcoming');
   const [selectedStatus, setSelectedStatus] = useState<string>('arrived');
 
@@ -104,19 +106,19 @@ const AppointmentsScreen: React.FC<AppointmentsScreenProps> = ({ onTabPress }) =
       
       <View style={styles.container}>
         {/* Header */}
-        <ScreenTitle title="My Appointments" onBackPress={() => onTabPress?.('Home')} />
+        <ScreenTitle title={t('appointmentsScreen', 'title')} onBackPress={() => onTabPress?.('Home')} />
 
         <View style={styles.whiteContainer}>
           <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
           {/* Primary Filters */}
           <View style={styles.filterContainer}>
-            {renderFilterButton('Upcoming', selectedFilter === 'upcoming', () =>
+            {renderFilterButton(t('appointmentsScreen', 'filters.upcoming'), selectedFilter === 'upcoming', () =>
               setSelectedFilter('upcoming')
             )}
-            {renderFilterButton('Completed', selectedFilter === 'completed', () =>
+            {renderFilterButton(t('appointmentsScreen', 'filters.completed'), selectedFilter === 'completed', () =>
               setSelectedFilter('completed')
             )}
-            {renderFilterButton('Expired', selectedFilter === 'expired', () =>
+            {renderFilterButton(t('appointmentsScreen', 'filters.expired'), selectedFilter === 'expired', () =>
               setSelectedFilter('expired')
             )}
           </View>
@@ -124,12 +126,12 @@ const AppointmentsScreen: React.FC<AppointmentsScreenProps> = ({ onTabPress }) =
           {/* Secondary Filters */}
           <View style={styles.secondaryFilterContainer}>
             {renderFilterButton(
-              'Cancelled By Me',
+              t('appointmentsScreen', 'filters.cancelledByMe'),
               selectedFilter === 'cancelled_by_me',
               () => setSelectedFilter('cancelled_by_me')
             )}
             {renderFilterButton(
-              'Cancelled By Patient',
+              t('appointmentsScreen', 'filters.cancelledByPatient'),
               selectedFilter === 'cancelled_by_patient',
               () => setSelectedFilter('cancelled_by_patient')
             )}

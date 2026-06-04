@@ -1,0 +1,26 @@
+{
+  "greeting": "Hope You're Feeling Well Today!",
+  "doctor": {
+    "name": "Dr. William Jhonon",
+    "specialty": "Dentist"
+  },
+  "dropdown": {
+    "novaCare": "NovaCare",
+    "advantalClinic": "Advantal Clinic"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "consultations": {
+      "title": "Consultations",
+      "total": "Total",
+      "upcoming": "Upcoming",
+      "viewMore": "View More"
+    },
+    "chat": {
+      "title": "Chat",
+      "total": "Total",
+      "new": "New",
+      "viewMore": "View More"
+    }
+  }
+}

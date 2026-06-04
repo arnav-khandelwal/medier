@@ -1,0 +1,24 @@
+{
+  "title": "Mes rendez-vous",
+  "filters": {
+    "upcoming": "À venir",
+    "completed": "Terminé",
+    "expired": "Expiré",
+    "cancelledByMe": "Annulé par moi",
+    "cancelledByPatient": "Annulé par le patient"
+  },
+  "card": {
+    "video": "Vidéo",
+    "status": {
+      "arrived": "Arrivé",
+      "left": "Parti",
+      "inConsultation": "En consultation",
+      "waiting": "En attente"
+    },
+    "actions": {
+      "cancel": "Annuler",
+      "join": "Rejoindre",
+      "startConsultation": "Commencer la consultation"
+    }
+  }
+}

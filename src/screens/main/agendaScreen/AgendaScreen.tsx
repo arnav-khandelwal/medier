@@ -1,16 +1,21 @@
 import React from 'react';
 import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
 import { colors } from '../../../theme/colors';
+import { useTranslation } from '../../../utils/translations/LanguageContext';
 
-const AgendaScreen: React.FC = () => (
-  <SafeAreaView style={styles.root}>
-    <View style={styles.center}>
-      <Text style={styles.emoji}>📋</Text>
-      <Text style={styles.title}>Agenda</Text>
-      <Text style={styles.subtitle}>Your agenda will appear here</Text>
-    </View>
-  </SafeAreaView>
-);
+const AgendaScreen: React.FC = () => {
+  const { t } = useTranslation();
+
+  return (
+    <SafeAreaView style={styles.root}>
+      <View style={styles.center}>
+        <Text style={styles.emoji}>📋</Text>
+        <Text style={styles.title}>{t('agendaScreen', 'title')}</Text>
+        <Text style={styles.subtitle}>{t('agendaScreen', 'subtitle')}</Text>
+      </View>
+    </SafeAreaView>
+  );
+};
 
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: '#F5F7FA' },

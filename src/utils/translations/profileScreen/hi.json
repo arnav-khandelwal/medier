@@ -1,0 +1,18 @@
+{
+  "drawerItems": {
+    "myAccount": "मेरा खाता",
+    "myLocation": "मेरा स्थान",
+    "myRating": "मेरी रेटिंग",
+    "myContract": "मेरा अनुबंध",
+    "payments": "भुगतान",
+    "notification": "सूचना",
+    "language": "भाषा",
+    "myQuestions": "मेरे प्रश्न",
+    "setAccess": "पहुंच सेट करें",
+    "security": "सुरक्षा",
+    "about": "के बारे में",
+    "mySubscription": "मेरी सदस्यता",
+    "myExpertise": "मेरी विशेषज्ञता"
+  },
+  "logout": "लॉग आउट"
+}

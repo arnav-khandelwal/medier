@@ -1,0 +1,18 @@
+{
+  "drawerItems": {
+    "myAccount": "Mon compte",
+    "myLocation": "Ma localisation",
+    "myRating": "Ma note",
+    "myContract": "Mon contrat",
+    "payments": "Paiements",
+    "notification": "Notification",
+    "language": "Langue",
+    "myQuestions": "Mes questions",
+    "setAccess": "Définir l'accès",
+    "security": "Sécurité",
+    "about": "À propos",
+    "mySubscription": "Mon abonnement",
+    "myExpertise": "Mon expertise"
+  },
+  "logout": "Déconnexion"
+}

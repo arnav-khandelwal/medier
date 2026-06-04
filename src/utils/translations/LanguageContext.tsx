@@ -71,6 +71,36 @@ const translations: Record<string, Record<LanguageCode, any>> = {
     hi: require('./termsAndConditions/hi.json'),
     ur: require('./termsAndConditions/ur.json'),
   },
+  agendaScreen: {
+    en: require('./agendaScreen/en.json'),
+    fr: require('./agendaScreen/fr.json'),
+    hi: require('./agendaScreen/hi.json'),
+    ur: require('./agendaScreen/ur.json'),
+  },
+  appointmentsScreen: {
+    en: require('./appointmentsScreen/en.json'),
+    fr: require('./appointmentsScreen/fr.json'),
+    hi: require('./appointmentsScreen/hi.json'),
+    ur: require('./appointmentsScreen/ur.json'),
+  },
+  homeScreen: {
+    en: require('./homeScreen/en.json'),
+    fr: require('./homeScreen/fr.json'),
+    hi: require('./homeScreen/hi.json'),
+    ur: require('./homeScreen/ur.json'),
+  },
+  matchScreen: {
+    en: require('./matchScreen/en.json'),
+    fr: require('./matchScreen/fr.json'),
+    hi: require('./matchScreen/hi.json'),
+    ur: require('./matchScreen/ur.json'),
+  },
+  profileScreen: {
+    en: require('./profileScreen/en.json'),
+    fr: require('./profileScreen/fr.json'),
+    hi: require('./profileScreen/hi.json'),
+    ur: require('./profileScreen/ur.json'),
+  },
 };
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
