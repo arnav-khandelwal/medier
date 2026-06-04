@@ -5,7 +5,6 @@ import {
   StatusBar,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
   Keyboard,
@@ -22,16 +21,13 @@ import {
 } from '../../../theme/scaling';
 import { RootStackParamList } from '../../../navigation/types';
 import LinearGradient from 'react-native-linear-gradient';
+import StyledTextInput from '../../../components/StyledTextInput';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
 function Login({ navigation }: Props): React.JSX.Element {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  
-  const [isUsernameFocused, setIsUsernameFocused] = useState(false);
-  const [isPasswordFocused, setIsPasswordFocused] = useState(false);
 
   const handleLogin = () => {
     if (!username.trim()) {
@@ -98,80 +94,25 @@ function Login({ navigation }: Props): React.JSX.Element {
           {/* Form Fields */}
           <View style={styles.formContainer}>
             <Text style={styles.inputLabel}>User Name *</Text>
-            <View style={[styles.gradientWrapper, isUsernameFocused ? styles.shadowFocused : styles.shadowUnfocused]}>
-              {!isUsernameFocused && (
-                <LinearGradient
-                  colors={['#FFFFFF', '#C6D3E7']}
-                  start={{x: 0, y: 0}}
-                  end={{x: 0, y: 1}}
-                  style={styles.gradientBackground}
-                />
-              )}
-              <View style={[styles.inputBoxInner, isUsernameFocused && styles.inputBoxInnerFocused]}>
-                <Image 
-                  source={isUsernameFocused 
-                    ? require('../../../../assets/icons/usernameSelected.png')
-                    : require('../../../../assets/icons/usernameUnselected.png')} 
-                  style={styles.inputIcon} 
-                />
-                <TextInput
-                  style={[
-                    styles.textInput,
-                    { fontFamily: username.length > 0 ? quicksandFonts.semiBold : quicksandFonts.light, 
-                      fontSize: username.length > 0 ? moderateScale(15) : moderateScale(12),
-                    }
-                  ]}
-                  placeholder="Enter Username"
-                  placeholderTextColor="#7a7676"
-                  value={username}
-                  onChangeText={setUsername}
-                  onFocus={() => setIsUsernameFocused(true)}
-                  onBlur={() => setIsUsernameFocused(false)}
-                  autoCapitalize="none"
-                />
-              </View>
-            </View>
+            <StyledTextInput
+              value={username}
+              onChangeText={setUsername}
+              placeholder="Enter Username"
+              iconUnselected={require('../../../../assets/icons/usernameUnselected.png')}
+              iconSelected={require('../../../../assets/icons/usernameSelected.png')}
+              autoCapitalize="none"
+            />
 
             <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>Password *</Text>
-            <View style={[styles.gradientWrapper, isPasswordFocused ? styles.shadowFocused : styles.shadowUnfocused]}>
-              {!isPasswordFocused && (
-                <LinearGradient
-                  colors={['#FFFFFF', '#C6D3E7']}
-                  start={{x: 0, y: 0}}
-                  end={{x: 0, y: 1}}
-                  style={styles.gradientBackground}
-                />
-              )}
-              <View style={[styles.inputBoxInner, isPasswordFocused && styles.inputBoxInnerFocused]}>
-                <Image 
-                  source={isPasswordFocused 
-                    ? require('../../../../assets/icons/passwordSelected.png')
-                    : require('../../../../assets/icons/passwordUnselected.png')} 
-                  style={styles.inputIcon} 
-                />
-                <TextInput
-                  style={[
-                    styles.textInput,
-                    { fontFamily: password.length > 0 ? quicksandFonts.semiBold : quicksandFonts.light,
-                      fontSize: password.length > 0 ? moderateScale(15) : moderateScale(12),
-                     }
-                  ]}
-                  placeholder="Enter Password"
-                  placeholderTextColor="#7a7676"
-                  value={password}
-                  onChangeText={setPassword}
-                  onFocus={() => setIsPasswordFocused(true)}
-                  onBlur={() => setIsPasswordFocused(false)}
-                  secureTextEntry={!showPassword}
-                />
-                <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
-                  <Image 
-                    source={showPassword ? require('../../../../assets/icons/hidePassword.png') : require('../../../../assets/icons/showPassword.png')} 
-                    style={styles.eyeIcon} 
-                  />
-                </TouchableOpacity>
-              </View>
-            </View>
+            <StyledTextInput
+              value={password}
+              onChangeText={setPassword}
+              placeholder="Enter Password"
+              iconUnselected={require('../../../../assets/icons/passwordUnselected.png')}
+              iconSelected={require('../../../../assets/icons/passwordSelected.png')}
+              secureTextEntry
+              showPasswordToggle
+            />
 
             <TouchableOpacity activeOpacity={0.8} style={styles.forgotPasswordButton}  onPress={() => navigation.replace('ForgotPassword')}>
               <Text style={styles.forgotPasswordText}>Forget Password ?</Text>
@@ -289,61 +230,6 @@ const styles = StyleSheet.create({
     color: '#000000',
     marginBottom: verticalScale(8),
     lineHeight: moderateScale(14),
-  },
-  gradientWrapper: {
-    height: verticalScale(56),
-    borderRadius: scale(16),
-    backgroundColor: '#FFFFFF',
-  },
-  shadowUnfocused: {
-    shadowColor: '#C6D3E7',
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.6,
-    shadowRadius: 8,
-    elevation: 3,
-  },
-  shadowFocused: {
-    shadowColor: colors.primary,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 6,
-    elevation: 3,
-  },
-  gradientBackground: {
-    ...StyleSheet.absoluteFill,
-    borderRadius: scale(16),
-  },
-  inputBoxInner: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderRadius: scale(15), 
-    flex: 1,
-    margin: 1, // Leaves 1px space for the gradient underneath to show as a border
-    paddingHorizontal: scale(15),
-    backgroundColor: '#FFFFFF',
-  },
-  inputBoxInnerFocused: {
-    margin: 0, // Fill the entire space
-    borderWidth: 1,
-    borderColor: colors.primary,
-    borderRadius: scale(16),
-  },
-  inputIcon: {
-    width: scale(16),
-    height: scale(16),
-    resizeMode: 'contain',
-    marginRight: scale(12),
-  },
-  eyeIcon: {
-    width: scale(18),
-    height: scale(18),
-    resizeMode: 'contain',
-    tintColor: '#000000', // Override if the image isn't purely black, or remove tint if it is
-  },
-  textInput: {
-    flex: 1,
-    height: '100%',
-    color: '#0E1726',
   },
   forgotPasswordButton: {
     alignSelf: 'flex-end',

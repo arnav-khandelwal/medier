@@ -5,7 +5,6 @@ import {
   StatusBar,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
   Keyboard,
@@ -22,12 +21,12 @@ import {
 } from '../../../theme/scaling';
 import { RootStackParamList } from '../../../navigation/types';
 import LinearGradient from 'react-native-linear-gradient';
+import StyledTextInput from '../../../components/StyledTextInput';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ForgotPassword'>;
 
 function ForgotPassword({ navigation }: Props): React.JSX.Element {
   const [email, setEmail] = useState('');
-  const [isEmailFocused, setIsEmailFocused] = useState(false);
 
   const validateEmail = (email: string): boolean => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -90,40 +89,15 @@ function ForgotPassword({ navigation }: Props): React.JSX.Element {
             {/* Form Fields */}
             <View style={styles.formContainer}>
               <Text style={styles.inputLabel}>Email Address *</Text>
-              <View style={[styles.gradientWrapper, isEmailFocused ? styles.shadowFocused : styles.shadowUnfocused]}>
-                {!isEmailFocused && (
-                  <LinearGradient
-                    colors={['#FFFFFF', '#C6D3E7']}
-                    start={{x: 0, y: 0}}
-                    end={{x: 0, y: 1}}
-                    style={styles.gradientBackground}
-                  />
-                )}
-                <View style={[styles.inputBoxInner, isEmailFocused && styles.inputBoxInnerFocused]}>
-                  <Image 
-                    source={isEmailFocused 
-                      ? require('../../../../assets/icons/usernameSelected.png')
-                      : require('../../../../assets/icons/usernameUnselected.png')} 
-                    style={styles.inputIcon} 
-                  />
-                  <TextInput
-                    style={[
-                      styles.textInput,
-                      { fontFamily: email.length > 0 ? quicksandFonts.semiBold : quicksandFonts.light, 
-                        fontSize: email.length > 0 ? moderateScale(15) : moderateScale(12),
-                      }
-                    ]}
-                    placeholder="Enter Email Address"
-                    placeholderTextColor="#7a7676"
-                    value={email}
-                    onChangeText={setEmail}
-                    onFocus={() => setIsEmailFocused(true)}
-                    onBlur={() => setIsEmailFocused(false)}
-                    autoCapitalize="none"
-                    keyboardType="email-address"
-                  />
-                </View>
-              </View>
+              <StyledTextInput
+                value={email}
+                onChangeText={setEmail}
+                placeholder="Enter Email Address"
+                iconUnselected={require('../../../../assets/icons/usernameUnselected.png')}
+                iconSelected={require('../../../../assets/icons/usernameSelected.png')}
+                autoCapitalize="none"
+                keyboardType="email-address"
+              />
             </View>
 
             {/* Back to Login */}
@@ -236,55 +210,6 @@ const styles = StyleSheet.create({
     color: '#000000',
     marginBottom: verticalScale(8),
     lineHeight: moderateScale(14),
-  },
-  gradientWrapper: {
-    height: verticalScale(56),
-    borderRadius: scale(16),
-    backgroundColor: '#FFFFFF',
-  },
-  shadowUnfocused: {
-    shadowColor: '#C6D3E7',
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.6,
-    shadowRadius: 8,
-    elevation: 3,
-  },
-  shadowFocused: {
-    shadowColor: colors.primary,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 6,
-    elevation: 3,
-  },
-  gradientBackground: {
-    ...StyleSheet.absoluteFill,
-    borderRadius: scale(16),
-  },
-  inputBoxInner: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderRadius: scale(15), 
-    flex: 1,
-    margin: 1,
-    paddingHorizontal: scale(15),
-    backgroundColor: '#FFFFFF',
-  },
-  inputBoxInnerFocused: {
-    margin: 0,
-    borderWidth: 1,
-    borderColor: colors.primary,
-    borderRadius: scale(16),
-  },
-  inputIcon: {
-    width: scale(16),
-    height: scale(16),
-    resizeMode: 'contain',
-    marginRight: scale(12),
-  },
-  textInput: {
-    flex: 1,
-    height: '100%',
-    color: '#0E1726',
   },
   backToLoginButton: {
     alignSelf: 'center',

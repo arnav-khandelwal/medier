@@ -25,6 +25,7 @@ import { scale, verticalScale, moderateScale } from '../../../theme/scaling';
 import { RootStackParamList } from '../../../navigation/types';
 import LinearGradient from 'react-native-linear-gradient';
 import { handlePickCV, handlePickLicense } from './handleDocPicker';
+import StyledTextInput from '../../../components/StyledTextInput';
 type Props = NativeStackScreenProps<RootStackParamList, 'Register'>;
 
 const { width } = Dimensions.get('window');
@@ -57,15 +58,7 @@ function Register({ navigation }: Props): React.JSX.Element {
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
   const [showCountrySelectDropdown, setShowCountrySelectDropdown] = useState(false);
   const [address, setAddress] = useState('');
-  const [isAddressFocused, setIsAddressFocused] = useState(false);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
-
-  // Focus states
-  const [isFirstNameFocused, setIsFirstNameFocused] = useState(false);
-  const [isLastNameFocused, setIsLastNameFocused] = useState(false);
-  const [isEmailFocused, setIsEmailFocused] = useState(false);
-  const [isMobileFocused, setIsMobileFocused] = useState(false);
-  const [isPasswordFocused, setIsPasswordFocused] = useState(false);
 
   const [step, setStep] = useState(1);
   const slideAnim = useRef(new Animated.Value(0)).current;
@@ -301,73 +294,41 @@ function Register({ navigation }: Props): React.JSX.Element {
                   <View style={styles.formContainer}>
                     {/* First Name */}
                     <Text style={styles.inputLabel}>First Name *</Text>
-                    <View style={[styles.gradientWrapper, isFirstNameFocused ? styles.shadowFocused : styles.shadowUnfocused]}>
-                      {!isFirstNameFocused && (
-                        <LinearGradient colors={['#FFFFFF', '#C6D3E7']} start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }} style={styles.gradientBackground} />
-                      )}
-                      <View style={[styles.inputBoxInner, isFirstNameFocused && styles.inputBoxInnerFocused]}>
-                        <Image source={isFirstNameFocused ? require('../../../../assets/icons/usernameSelected.png') : require('../../../../assets/icons/usernameUnselected.png')} style={styles.inputIcon} />
-                        <TextInput
-                          style={[styles.textInput, { fontFamily: firstName.length > 0 ? quicksandFonts.semiBold : quicksandFonts.light, fontSize: firstName.length > 0 ? moderateScale(15) : moderateScale(12) }]}
-                          placeholder="Enter First Name"
-                          placeholderTextColor="#7a7676"
-                          value={firstName}
-                          onChangeText={setFirstName}
-                          onFocus={() => setIsFirstNameFocused(true)}
-                          onBlur={() => setIsFirstNameFocused(false)}
-                        />
-                      </View>
-                    </View>
+                    <StyledTextInput
+                      value={firstName}
+                      onChangeText={setFirstName}
+                      placeholder="Enter First Name"
+                      iconUnselected={require('../../../../assets/icons/usernameUnselected.png')}
+                      iconSelected={require('../../../../assets/icons/usernameSelected.png')}
+                    />
 
                     {/* Last Name */}
                     <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>Last Name *</Text>
-                    <View style={[styles.gradientWrapper, isLastNameFocused ? styles.shadowFocused : styles.shadowUnfocused]}>
-                      {!isLastNameFocused && (
-                        <LinearGradient colors={['#FFFFFF', '#C6D3E7']} start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }} style={styles.gradientBackground} />
-                      )}
-                      <View style={[styles.inputBoxInner, isLastNameFocused && styles.inputBoxInnerFocused]}>
-                        <Image source={isLastNameFocused ? require('../../../../assets/icons/usernameSelected.png') : require('../../../../assets/icons/usernameUnselected.png')} style={styles.inputIcon} />
-                        <TextInput
-                          style={[styles.textInput, { fontFamily: lastName.length > 0 ? quicksandFonts.semiBold : quicksandFonts.light, fontSize: lastName.length > 0 ? moderateScale(15) : moderateScale(12) }]}
-                          placeholder="Enter Last Name"
-                          placeholderTextColor="#7a7676"
-                          value={lastName}
-                          onChangeText={setLastName}
-                          onFocus={() => setIsLastNameFocused(true)}
-                          onBlur={() => setIsLastNameFocused(false)}
-                        />
-                      </View>
-                    </View>
+                    <StyledTextInput
+                      value={lastName}
+                      onChangeText={setLastName}
+                      placeholder="Enter Last Name"
+                      iconUnselected={require('../../../../assets/icons/usernameUnselected.png')}
+                      iconSelected={require('../../../../assets/icons/usernameSelected.png')}
+                    />
 
                     {/* Email */}
                     <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>Email *</Text>
-                    <View style={[styles.gradientWrapper, isEmailFocused ? styles.shadowFocused : styles.shadowUnfocused]}>
-                      {!isEmailFocused && (
-                        <LinearGradient colors={['#FFFFFF', '#C6D3E7']} start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }} style={styles.gradientBackground} />
-                      )}
-                      <View style={[styles.inputBoxInner, isEmailFocused && styles.inputBoxInnerFocused]}>
-                        <Image source={isEmailFocused ? require('../../../../assets/icons/emailSelected.png') : require('../../../../assets/icons/emailUnselected.png')} style={styles.inputIcon} />
-                        <TextInput
-                          style={[styles.textInput, { fontFamily: email.length > 0 ? quicksandFonts.semiBold : quicksandFonts.light, fontSize: email.length > 0 ? moderateScale(15) : moderateScale(12) }]}
-                          placeholder="Enter Email"
-                          placeholderTextColor="#7a7676"
-                          value={email}
-                          onChangeText={setEmail}
-                          onFocus={() => setIsEmailFocused(true)}
-                          onBlur={() => setIsEmailFocused(false)}
-                          keyboardType="email-address"
-                          autoCapitalize="none"
-                        />
-                      </View>
-                    </View>
+                    <StyledTextInput
+                      value={email}
+                      onChangeText={setEmail}
+                      placeholder="Enter Email"
+                      iconUnselected={require('../../../../assets/icons/emailUnselected.png')}
+                      iconSelected={require('../../../../assets/icons/emailSelected.png')}
+                      keyboardType="email-address"
+                      autoCapitalize="none"
+                    />
 
                     {/* Mobile No */}
                     <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>Mobile No.</Text>
-                    <View style={[styles.gradientWrapper, isMobileFocused ? styles.shadowFocused : styles.shadowUnfocused]}>
-                      {!isMobileFocused && (
-                        <LinearGradient colors={['#FFFFFF', '#C6D3E7']} start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }} style={styles.gradientBackground} />
-                      )}
-                      <View style={[styles.inputBoxInner, isMobileFocused && styles.inputBoxInnerFocused]}>
+                    <View style={[styles.gradientWrapper, styles.shadowUnfocused]}>
+                      <LinearGradient colors={['#FFFFFF', '#C6D3E7']} start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }} style={styles.gradientBackground} />
+                      <View style={styles.inputBoxInner}>
                         <TouchableOpacity style={styles.mobilePrefixContainer} onPress={() => setShowCountryDropdown(!showCountryDropdown)}>  
                           <View style={styles.flagPlaceholder}>
                             <Text style={{ fontSize: moderateScale(12) }}>
@@ -384,21 +345,19 @@ function Register({ navigation }: Props): React.JSX.Element {
                         </TouchableOpacity>
 
                         <View style={styles.divider} />
-                        <Image source={isMobileFocused ? require('../../../../assets/icons/mobileSelected.png') : require('../../../../assets/icons/mobileUnselected.png')} style={styles.inputIcon} />
+                        <Image source={require('../../../../assets/icons/mobileUnselected.png')} style={styles.inputIcon} />
                         <TextInput
                           style={[styles.textInput, { fontFamily: mobile.length > 0 ? quicksandFonts.semiBold : quicksandFonts.light, fontSize: mobile.length > 0 ? moderateScale(15) : moderateScale(12) }]}
                           placeholder="Enter Number"
                           placeholderTextColor="#7a7676"
                           value={mobile}
-                          onChangeText={(text) => {
+                          onChangeText={(text: string) => {
                             // Only allow numbers and limit to 10 digits
                             const numericText = text.replace(/[^0-9]/g, '');
                             if (numericText.length <= 10) {
                               setMobile(numericText);
                             }
                           }}
-                          onFocus={() => setIsMobileFocused(true)}
-                          onBlur={() => setIsMobileFocused(false)}
                           keyboardType="phone-pad"
                           maxLength={10}
                         />
@@ -407,27 +366,15 @@ function Register({ navigation }: Props): React.JSX.Element {
 
                     {/* Password */}
                     <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>Password *</Text>
-                    <View style={[styles.gradientWrapper, isPasswordFocused ? styles.shadowFocused : styles.shadowUnfocused]}>
-                      {!isPasswordFocused && (
-                        <LinearGradient colors={['#FFFFFF', '#C6D3E7']} start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }} style={styles.gradientBackground} />
-                      )}
-                      <View style={[styles.inputBoxInner, isPasswordFocused && styles.inputBoxInnerFocused]}>
-                        <Image source={isPasswordFocused ? require('../../../../assets/icons/passwordSelected.png') : require('../../../../assets/icons/passwordUnselected.png')} style={styles.inputIcon} />
-                        <TextInput
-                          style={[styles.textInput, { fontFamily: password.length > 0 ? quicksandFonts.semiBold : quicksandFonts.light, fontSize: password.length > 0 ? moderateScale(15) : moderateScale(12) }]}
-                          placeholder="Enter Password"
-                          placeholderTextColor="#7a7676"
-                          value={password}
-                          onChangeText={setPassword}
-                          onFocus={() => setIsPasswordFocused(true)}
-                          onBlur={() => setIsPasswordFocused(false)}
-                          secureTextEntry={!showPassword}
-                        />
-                        <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
-                          <Image source={showPassword ? require('../../../../assets/icons/hidePassword.png') : require('../../../../assets/icons/showPassword.png')} style={styles.eyeIcon} />
-                        </TouchableOpacity>
-                      </View>
-                    </View>
+                    <StyledTextInput
+                      value={password}
+                      onChangeText={setPassword}
+                      placeholder="Enter Password"
+                      iconUnselected={require('../../../../assets/icons/passwordUnselected.png')}
+                      iconSelected={require('../../../../assets/icons/passwordSelected.png')}
+                      secureTextEntry
+                      showPasswordToggle
+                    />
 
                     {/* Select Gender */}
                     <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>Select Gender</Text>
@@ -604,7 +551,7 @@ function Register({ navigation }: Props): React.JSX.Element {
 
                     {/* Address */}
                     <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>Address</Text>
-                    <View style={[styles.addressInputWrapper, isAddressFocused && styles.addressInputWrapperFocused]}>
+                    <View style={[styles.addressInputWrapper]}>
                       <TextInput
                         style={styles.addressInput}
                         multiline
@@ -613,8 +560,6 @@ function Register({ navigation }: Props): React.JSX.Element {
                         placeholderTextColor="#7a7676"
                         value={address}
                         onChangeText={setAddress}
-                        onFocus={() => setIsAddressFocused(true)}
-                        onBlur={() => setIsAddressFocused(false)}
                         textAlignVertical="top"
                       />
                     </View>
@@ -803,10 +748,8 @@ const styles = StyleSheet.create({
   shadowFocused: { shadowColor: colors.primary, shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.2, shadowRadius: 6, elevation: 3 },
   gradientBackground: { ...StyleSheet.absoluteFill, borderRadius: scale(16) },
   inputBoxInner: { flexDirection: 'row', alignItems: 'center', borderRadius: scale(15), flex: 1, margin: 1, paddingHorizontal: scale(15), backgroundColor: '#FFFFFF' },
-  inputBoxInnerFocused: { margin: 0, borderWidth: 1, borderColor: colors.primary, borderRadius: scale(16) },
 
   inputIcon: { width: scale(16), height: scale(16), resizeMode: 'contain', marginRight: scale(12) },
-  eyeIcon: { width: scale(18), height: scale(18), resizeMode: 'contain', tintColor: '#000000' },
   textInput: { flex: 1, height: '100%', color: '#0E1726' },
 
   mobilePrefixContainer: { flexDirection: 'row', alignItems: 'center', marginRight: scale(8) },
@@ -855,7 +798,6 @@ const styles = StyleSheet.create({
   sectorTextSelected: { color: '#0E1726' },
 
   addressInputWrapper: { borderWidth: 1, borderColor: '#E2E8F0', borderRadius: scale(16), paddingHorizontal: scale(15), paddingVertical: scale(10), backgroundColor: '#FFFFFF', minHeight: verticalScale(100) },
-  addressInputWrapperFocused: { borderColor: colors.primary },
   addressInput: { flex: 1, fontFamily: quicksandFonts.regular, fontSize: moderateScale(14), color: '#0E1726', textAlignVertical: 'top' },
 
   termsContainer: { flexDirection: 'row', alignItems: 'center', marginTop: verticalScale(20), paddingHorizontal: scale(4) },
