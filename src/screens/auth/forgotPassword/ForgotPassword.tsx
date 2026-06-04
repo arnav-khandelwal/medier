@@ -22,10 +22,12 @@ import {
 import { RootStackParamList } from '../../../navigation/types';
 import LinearGradient from 'react-native-linear-gradient';
 import StyledTextInput from '../../../components/StyledTextInput';
+import { useTranslation } from '../../../utils/translations/LanguageContext';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ForgotPassword'>;
 
 function ForgotPassword({ navigation }: Props): React.JSX.Element {
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
 
   const validateEmail = (email: string): boolean => {
@@ -35,15 +37,15 @@ function ForgotPassword({ navigation }: Props): React.JSX.Element {
 
   const handleSubmit = () => {
     if (!email.trim()) {
-      Alert.alert('Error', 'Please enter your email address.');
+      Alert.alert(t('forgotPassword', 'errors.error'), t('forgotPassword', 'errors.enterEmail'));
       return;
     }
     if (!validateEmail(email)) {
-      Alert.alert('Error', 'Please enter a valid email address.');
+      Alert.alert(t('forgotPassword', 'errors.error'), t('forgotPassword', 'errors.validEmail'));
       return;
     }
     // If validation passes, navigate back or show success message
-    Alert.alert('Success', 'Password reset link has been sent to your email.');
+    Alert.alert(t('forgotPassword', 'errors.success'), t('forgotPassword', 'errors.resetLinkSent'));
     navigation.goBack();
   };
 
@@ -78,21 +80,21 @@ function ForgotPassword({ navigation }: Props): React.JSX.Element {
           <View style={styles.content}>
             {/* Header Texts */}
             <Text style={styles.titleContainer}>
-              <Text style={styles.titleBlue}>Forgot</Text>
-              <Text style={styles.titleBlack}> Password</Text>
+              <Text style={styles.titleBlue}>{t('forgotPassword', 'title.blue')}</Text>
+              <Text style={styles.titleBlack}>{t('forgotPassword', 'title.black')}</Text>
             </Text>
 
             <Text style={styles.description}>
-              Enter your email address and we'll send you a link to reset your password.
+              {t('forgotPassword', 'description')}
             </Text>
 
             {/* Form Fields */}
             <View style={styles.formContainer}>
-              <Text style={styles.inputLabel}>Email Address *</Text>
+              <Text style={styles.inputLabel}>{t('forgotPassword', 'form.emailLabel')}</Text>
               <StyledTextInput
                 value={email}
                 onChangeText={setEmail}
-                placeholder="Enter Email Address"
+                placeholder={t('forgotPassword', 'form.emailPlaceholder')}
                 iconUnselected={require('../../../../assets/icons/usernameUnselected.png')}
                 iconSelected={require('../../../../assets/icons/usernameSelected.png')}
                 autoCapitalize="none"
@@ -101,21 +103,21 @@ function ForgotPassword({ navigation }: Props): React.JSX.Element {
             </View>
 
             {/* Back to Login */}
-            <TouchableOpacity 
+            <TouchableOpacity
               activeOpacity={0.8}
               onPress={() => navigation.replace('Login')}
               style={styles.backToLoginButton}
             >
-              <Text style={styles.backToLoginText}>Back to Login</Text>
+              <Text style={styles.backToLoginText}>{t('forgotPassword', 'button.backToLogin')}</Text>
             </TouchableOpacity>
 
             {/* Submit Button */}
-            <TouchableOpacity 
-              style={styles.submitButton} 
+            <TouchableOpacity
+              style={styles.submitButton}
               activeOpacity={0.8}
               onPress={handleSubmit}
             >
-              <Text style={styles.submitButtonText}>Send Reset Link</Text>
+              <Text style={styles.submitButtonText}>{t('forgotPassword', 'button.sendResetLink')}</Text>
             </TouchableOpacity>
           </View>
         </SafeAreaView>

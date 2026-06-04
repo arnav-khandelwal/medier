@@ -1,0 +1,87 @@
+{
+  "title": {
+    "blue": "S'ins",
+    "black": "crire"
+  },
+  "subtitle": {
+    "black": "Vous avez déjà un compte ?  ",
+    "blue": "Connexion"
+  },
+  "tabs": {
+    "personnel": "1. Personnel",
+    "professional": "2. Professionnel"
+  },
+  "personnel": {
+    "firstNameLabel": "Prénom *",
+    "firstNamePlaceholder": "Entrez votre prénom",
+    "lastNameLabel": "Nom *",
+    "lastNamePlaceholder": "Entrez votre nom",
+    "emailLabel": "Email *",
+    "emailPlaceholder": "Entrez votre email",
+    "mobileLabel": "Mobile",
+    "mobilePlaceholder": "Entrez le numéro",
+    "passwordLabel": "Mot de passe *",
+    "passwordPlaceholder": "Entrez votre mot de passe",
+    "genderLabel": "Sélectionner le sexe",
+    "genderFemale": "Femme",
+    "genderMale": "Homme",
+    "nextButton": "Suivant"
+  },
+  "professional": {
+    "cvLabel": "CV *",
+    "cvPlaceholder": "Télécharger le CV",
+    "licenseLabel": "Document de licence médicale *",
+    "licensePlaceholder": "Télécharger",
+    "profileLabel": "Sélectionner le profil",
+    "profilePlaceholder": "Sélectionner",
+    "specializationLabel": "Spécialisation",
+    "specializationPlaceholder": "Entrez la spécialisation",
+    "sectorLabel": "Sélectionner le secteur",
+    "countryLabel": "Sélectionner le pays",
+    "countryPlaceholder": "Sélectionner",
+    "addressLabel": "Adresse",
+    "addressPlaceholder": "Entrez l'adresse",
+    "terms": "J'accepte ",
+    "termsLink": "les conditions d'utilisation",
+    "and": " et ",
+    "privacyLink": "la politique de confidentialité",
+    "signUpButton": "S'inscrire"
+  },
+  "modal": {
+    "selectCountryCode": "Sélectionner l'indicatif du pays",
+    "selectProfile": "Sélectionner le profil",
+    "selectSpecialization": "Sélectionner la spécialisation",
+    "selectCountry": "Sélectionner le pays"
+  },
+  "errors": {
+    "incompleteFields": "Champs incomplets",
+    "completePersonnel": "Veuillez remplir tous les champs du personnel avant de passer à Professionnel.",
+    "requiredField": "Champ requis",
+    "enterFirstName": "Veuillez entrer votre prénom.",
+    "enterLastName": "Veuillez entrer votre nom.",
+    "enterEmail": "Veuillez entrer votre email.",
+    "invalidEmail": "Email invalide",
+    "validEmail": "Veuillez entrer une adresse email valide.",
+    "enterMobile": "Veuillez entrer votre numéro de mobile.",
+    "invalidPhone": "Téléphone invalide",
+    "validPhone": "Veuillez entrer un numéro de mobile valide à 10 chiffres.",
+    "enterPassword": "Veuillez entrer votre mot de passe.",
+    "weakPassword": "Mot de passe faible",
+    "passwordLength": "Le mot de passe doit comporter au moins 6 caractères.",
+    "selectGender": "Veuillez sélectionner votre sexe.",
+    "uploadCV": "Veuillez télécharger votre CV.",
+    "uploadLicense": "Veuillez télécharger votre document de licence médicale.",
+    "selectProfile": "Veuillez sélectionner un profil.",
+    "selectSpecialization": "Veuillez sélectionner votre spécialisation.",
+    "selectCountry": "Veuillez sélectionner un pays.",
+    "enterAddress": "Veuillez entrer votre adresse.",
+    "acceptTerms": "Veuillez accepter les conditions d'utilisation et la politique de confidentialité.",
+    "registrationSuccessful": "Inscription réussie",
+    "welcome": "Bienvenue sur Medier!"
+  },
+  "sectors": {
+    "private": "Privé",
+    "public": "Public",
+    "both": "Les deux"
+  }
+}

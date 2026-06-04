@@ -1,0 +1,22 @@
+{
+  "title": {
+    "blue": "Forgot",
+    "black": " Password"
+  },
+  "description": "Enter your email address and we'll send you a link to reset your password.",
+  "form": {
+    "emailLabel": "Email Address *",
+    "emailPlaceholder": "Enter Email Address"
+  },
+  "button": {
+    "backToLogin": "Back to Login",
+    "sendResetLink": "Send Reset Link"
+  },
+  "errors": {
+    "error": "Error",
+    "enterEmail": "Please enter your email address.",
+    "validEmail": "Please enter a valid email address.",
+    "success": "Success",
+    "resetLinkSent": "Password reset link has been sent to your email."
+  }
+}

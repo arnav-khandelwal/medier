@@ -1,0 +1,26 @@
+{
+  "title": {
+    "blue": "لاگ ان",
+    "black": " کریں"
+  },
+  "subtitle": {
+    "black": "میڈیسن ایپ پر نیا ہیں؟  ",
+    "blue": "رجسٹر کریں"
+  },
+  "form": {
+    "usernameLabel": "صارف نام *",
+    "usernamePlaceholder": "صارف نام درج کریں",
+    "passwordLabel": "پاس ورڈ *",
+    "passwordPlaceholder": "پاس ورڈ درج کریں",
+    "forgotPassword": "پاس ورڈ بھول گئے؟"
+  },
+  "button": {
+    "login": "لاگ ان"
+  },
+  "errors": {
+    "error": "خرابی",
+    "enterUsername": "براہ کرم اپنا صارف نام درج کریں۔",
+    "enterPassword": "براہ کرم اپنا پاس ورڈ درج کریں۔",
+    "passwordLength": "پاس ورڈ کم از کم 6 حروف کا ہونا چاہیے۔"
+  }
+}

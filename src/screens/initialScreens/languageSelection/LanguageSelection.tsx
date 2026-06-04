@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Image,
   SafeAreaView,
@@ -17,6 +17,7 @@ import {
   moderateScale,
 } from '../../../theme/scaling';
 import { RootStackParamList } from '../../../navigation/types';
+import { useTranslation, languageNameToCode } from '../../../utils/translations/LanguageContext';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'LanguageSelection'>;
 
@@ -27,7 +28,19 @@ interface LanguageOption {
 }
 
 function LanguageSelection({ navigation }: Props): React.JSX.Element {
+  const { language, setLanguage } = useTranslation();
   const [selectedLanguage, setSelectedLanguage] = useState<string>('English');
+
+  useEffect(() => {
+    // Map language code back to display name
+    const languageMap: Record<string, string> = {
+      'en': 'English',
+      'fr': 'French',
+      'hi': 'Hindi',
+      'ur': 'Urdu',
+    };
+    setSelectedLanguage(languageMap[language] || 'English');
+  }, [language]);
 
   const languages: LanguageOption[] = [
     {
@@ -44,6 +57,11 @@ function LanguageSelection({ navigation }: Props): React.JSX.Element {
       id: 'Urdu',
       name: 'لغة',
       flag: require('../../../../assets/icons/Urdu.png'),
+    },
+    {
+      id: 'Hindi',
+      name: 'हिंदी',
+      flag: require('../../../../assets/icons/Hindi.png'),
     },
   ];
 
@@ -102,7 +120,10 @@ function LanguageSelection({ navigation }: Props): React.JSX.Element {
               <TouchableOpacity
                 key={item.id}
                 activeOpacity={0.8}
-                onPress={() => setSelectedLanguage(item.id)}
+                onPress={() => {
+                  setSelectedLanguage(item.id);
+                  setLanguage(languageNameToCode(item.id));
+                }}
                 style={[
                   styles.card,
                   isSelected ? styles.cardSelected : styles.cardUnselected,

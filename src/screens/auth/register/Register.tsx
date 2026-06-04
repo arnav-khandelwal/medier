@@ -28,6 +28,7 @@ import { handlePickCV, handlePickLicense } from './handleDocPicker';
 import StyledTextInput from '../../../components/StyledTextInput';
 import PrivacyPolicyModal from '../PrivacyPolicy/PrivacyPolicyModal';
 import TermsAndConditionsModal from '../TermsAndConditions/TermsAndConditionsModal';
+import { useTranslation } from '../../../utils/translations/LanguageContext';
 type Props = NativeStackScreenProps<RootStackParamList, 'Register'>;
 
 const { width } = Dimensions.get('window');
@@ -38,6 +39,7 @@ const countries = ['Saudi Arabia', 'United Arab Emirates', 'Qatar', 'Kuwait', 'O
 const countryCodes = ['+966 (Saudi Arabia)', '+1 (USA)', '+44 (UK)', '+971 (UAE)', '+20 (Egypt)', '+91 (India)'];
 
 function Register({ navigation }: Props): React.JSX.Element {
+  const { t } = useTranslation();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -128,10 +130,10 @@ function Register({ navigation }: Props): React.JSX.Element {
 
   const handleTabPress = (targetStep: number) => {
     if (targetStep === 2 && !validatePersonnelFields()) {
-      Alert.alert('Incomplete Fields', 'Please complete all Personnel fields before proceeding to Professional.');
+      Alert.alert(t('register', 'errors.incompleteFields'), t('register', 'errors.completePersonnel'));
       return;
     }
-    
+
     setStep(targetStep);
     Animated.timing(slideAnim, {
       toValue: targetStep === 1 ? 0 : -width,
@@ -143,42 +145,42 @@ function Register({ navigation }: Props): React.JSX.Element {
   const handleNext = () => {
     // Validate Step 1 fields
     if (!firstName.trim()) {
-      Alert.alert('Required Field', 'Please enter your First Name.');
+      Alert.alert(t('register', 'errors.requiredField'), t('register', 'errors.enterFirstName'));
       return;
     }
     if (!lastName.trim()) {
-      Alert.alert('Required Field', 'Please enter your Last Name.');
+      Alert.alert(t('register', 'errors.requiredField'), t('register', 'errors.enterLastName'));
       return;
     }
     if (!email.trim()) {
-      Alert.alert('Required Field', 'Please enter your Email.');
+      Alert.alert(t('register', 'errors.requiredField'), t('register', 'errors.enterEmail'));
       return;
     }
     if (!validateEmail(email)) {
-      Alert.alert('Invalid Email', 'Please enter a valid email address.');
+      Alert.alert(t('register', 'errors.invalidEmail'), t('register', 'errors.validEmail'));
       return;
     }
     if (!mobile.trim()) {
-      Alert.alert('Required Field', 'Please enter your Mobile Number.');
+      Alert.alert(t('register', 'errors.requiredField'), t('register', 'errors.enterMobile'));
       return;
     }
     if (!validatePhone(mobile)) {
-      Alert.alert('Invalid Phone', 'Please enter a valid 10-digit mobile number.');
+      Alert.alert(t('register', 'errors.invalidPhone'), t('register', 'errors.validPhone'));
       return;
     }
     if (!password.trim()) {
-      Alert.alert('Required Field', 'Please enter your Password.');
+      Alert.alert(t('register', 'errors.requiredField'), t('register', 'errors.enterPassword'));
       return;
     }
     if (!validatePassword(password)) {
-      Alert.alert('Weak Password', 'Password must be at least 6 characters long.');
+      Alert.alert(t('register', 'errors.weakPassword'), t('register', 'errors.passwordLength'));
       return;
     }
     if (!gender) {
-      Alert.alert('Required Field', 'Please select your Gender.');
+      Alert.alert(t('register', 'errors.requiredField'), t('register', 'errors.selectGender'));
       return;
     }
-    
+
     // All validations passed, move to step 2
     handleTabPress(2);
   };
@@ -254,32 +256,32 @@ function Register({ navigation }: Props): React.JSX.Element {
               {/* Header texts */}
               <View style={styles.headerArea}>
                 <Text style={styles.titleContainer}>
-                  <Text style={styles.titleBlue}>Sign </Text>
-                  <Text style={styles.titleBlack}>Up</Text>
+                  <Text style={styles.titleBlue}>{t('register', 'title.blue')}</Text>
+                  <Text style={styles.titleBlack}>{t('register', 'title.black')}</Text>
                 </Text>
 
                 <View style={styles.subtitleRow}>
-                  <Text style={styles.subtitleBlack}>Already Have An Account ?  </Text>
+                  <Text style={styles.subtitleBlack}>{t('register', 'subtitle.black')}</Text>
                   <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.replace('Login')}>
-                    <Text style={styles.subtitleBlue}>Login</Text>
+                    <Text style={styles.subtitleBlue}>{t('register', 'subtitle.blue')}</Text>
                   </TouchableOpacity>
                 </View>
 
                 {/* Tabs */}
                 <View style={styles.tabsContainer}>
-                  <TouchableOpacity 
+                  <TouchableOpacity
                     activeOpacity={0.8}
                     onPress={() => handleTabPress(1)}
                     style={styles.tabActive}
                   >
-                    <Text style={styles.tabTextActive}>1. Personnel</Text>
+                    <Text style={styles.tabTextActive}>{t('register', 'tabs.personnel')}</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity 
+                  <TouchableOpacity
                     activeOpacity={0.8}
                     onPress={() => handleTabPress(2)}
                     style={step === 2 ? styles.tabActive : styles.tabInactive}
                   >
-                    <Text style={step === 2 ? styles.tabTextActive : styles.tabTextInactive}>2. professional</Text>
+                    <Text style={step === 2 ? styles.tabTextActive : styles.tabTextInactive}>{t('register', 'tabs.professional')}</Text>
                   </TouchableOpacity>
                 </View>
                 <Animated.View style={[styles.tabDividerLine, { width: progressAnim.interpolate({
@@ -297,31 +299,31 @@ function Register({ navigation }: Props): React.JSX.Element {
                 >
                   <View style={styles.formContainer}>
                     {/* First Name */}
-                    <Text style={styles.inputLabel}>First Name *</Text>
+                    <Text style={styles.inputLabel}>{t('register', 'personnel.firstNameLabel')}</Text>
                     <StyledTextInput
                       value={firstName}
                       onChangeText={setFirstName}
-                      placeholder="Enter First Name"
+                      placeholder={t('register', 'personnel.firstNamePlaceholder')}
                       iconUnselected={require('../../../../assets/icons/usernameUnselected.png')}
                       iconSelected={require('../../../../assets/icons/usernameSelected.png')}
                     />
 
                     {/* Last Name */}
-                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>Last Name *</Text>
+                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>{t('register', 'personnel.lastNameLabel')}</Text>
                     <StyledTextInput
                       value={lastName}
                       onChangeText={setLastName}
-                      placeholder="Enter Last Name"
+                      placeholder={t('register', 'personnel.lastNamePlaceholder')}
                       iconUnselected={require('../../../../assets/icons/usernameUnselected.png')}
                       iconSelected={require('../../../../assets/icons/usernameSelected.png')}
                     />
 
                     {/* Email */}
-                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>Email *</Text>
+                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>{t('register', 'personnel.emailLabel')}</Text>
                     <StyledTextInput
                       value={email}
                       onChangeText={setEmail}
-                      placeholder="Enter Email"
+                      placeholder={t('register', 'personnel.emailPlaceholder')}
                       iconUnselected={require('../../../../assets/icons/emailUnselected.png')}
                       iconSelected={require('../../../../assets/icons/emailSelected.png')}
                       keyboardType="email-address"
@@ -329,7 +331,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                     />
 
                     {/* Mobile No */}
-                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>Mobile No.</Text>
+                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>{t('register', 'personnel.mobileLabel')}</Text>
                     <View style={[styles.gradientWrapper, styles.shadowUnfocused]}>
                       <LinearGradient colors={['#FFFFFF', '#C6D3E7']} start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }} style={styles.gradientBackground} />
                       <View style={styles.inputBoxInner}>
@@ -352,7 +354,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                         <Image source={require('../../../../assets/icons/mobileUnselected.png')} style={styles.inputIcon} />
                         <TextInput
                           style={[styles.textInput, { fontFamily: mobile.length > 0 ? quicksandFonts.semiBold : quicksandFonts.light, fontSize: mobile.length > 0 ? moderateScale(15) : moderateScale(12) }]}
-                          placeholder="Enter Number"
+                          placeholder={t('register', 'personnel.mobilePlaceholder')}
                           placeholderTextColor="#7a7676"
                           value={mobile}
                           onChangeText={(text: string) => {
@@ -369,11 +371,11 @@ function Register({ navigation }: Props): React.JSX.Element {
                     </View>
 
                     {/* Password */}
-                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>Password *</Text>
+                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>{t('register', 'personnel.passwordLabel')}</Text>
                     <StyledTextInput
                       value={password}
                       onChangeText={setPassword}
-                      placeholder="Enter Password"
+                      placeholder={t('register', 'personnel.passwordPlaceholder')}
                       iconUnselected={require('../../../../assets/icons/passwordUnselected.png')}
                       iconSelected={require('../../../../assets/icons/passwordSelected.png')}
                       secureTextEntry
@@ -381,7 +383,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                     />
 
                     {/* Select Gender */}
-                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>Select Gender</Text>
+                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>{t('register', 'personnel.genderLabel')}</Text>
                     <View style={styles.genderRow}>
                       <TouchableOpacity
                         activeOpacity={0.8}
@@ -389,7 +391,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                         onPress={() => setGender('female')}
                       >
                         <Image source={require('../../../../assets/icons/female.png')} style={styles.genderIcon} resizeMode="contain" />
-                        <Text style={[styles.genderText, gender === 'female' && styles.genderTextSelected]}>Female</Text>
+                        <Text style={[styles.genderText, gender === 'female' && styles.genderTextSelected]}>{t('register', 'personnel.genderFemale')}</Text>
                       </TouchableOpacity>
 
                       <TouchableOpacity
@@ -398,12 +400,12 @@ function Register({ navigation }: Props): React.JSX.Element {
                         onPress={() => setGender('male')}
                       >
                         <Image source={require('../../../../assets/icons/male.png')} style={styles.genderIcon} resizeMode="contain" />
-                        <Text style={[styles.genderText, gender === 'male' && styles.genderTextSelected]}>Male</Text>
+                        <Text style={[styles.genderText, gender === 'male' && styles.genderTextSelected]}>{t('register', 'personnel.genderMale')}</Text>
                       </TouchableOpacity>
 
                     </View>
                     <TouchableOpacity style={styles.loginButton} activeOpacity={0.8} onPress={handleNext}>
-                      <Text style={styles.loginButtonText}>Next</Text>
+                      <Text style={styles.loginButtonText}>{t('register', 'personnel.nextButton')}</Text>
                     </TouchableOpacity>
                   </View>
 
@@ -414,7 +416,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                     countryCodes,
                     countryCodes.find(c => c.startsWith(countryCode)) || '+966 (Saudi Arabia)',
                     (val) => setCountryCode(val.split(' ')[0]),
-                    'Select Country Code'
+                    t('register', 'modal.selectCountryCode')
                   )}
                 </ScrollView>
 
@@ -426,7 +428,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                 >
                   <View style={styles.formContainer}>
                     {/* CV Upload */}
-                    <Text style={styles.inputLabel}>CV *</Text>
+                    <Text style={styles.inputLabel}>{t('register', 'professional.cvLabel')}</Text>
                     <TouchableOpacity
                       activeOpacity={0.8}
                       style={styles.dashedUploadBox}
@@ -434,12 +436,12 @@ function Register({ navigation }: Props): React.JSX.Element {
                     >
                       <Image source={require('../../../../assets/icons/upload.png')} style={styles.uploadIcon} />
                       <Text style={[styles.uploadText, cvFile ? styles.uploadTextSelected : styles.uploadTextPlaceholder]}>
-                        {cvFile ? cvFile.name : 'Upload CV'}
+                        {cvFile ? cvFile.name : t('register', 'professional.cvPlaceholder')}
                       </Text>
                     </TouchableOpacity>
 
                     {/* Medical License */}
-                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>Medical License Document *</Text>
+                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>{t('register', 'professional.licenseLabel')}</Text>
                     <TouchableOpacity
                       activeOpacity={0.8}
                       style={styles.dashedUploadBox}
@@ -447,12 +449,12 @@ function Register({ navigation }: Props): React.JSX.Element {
                     >
                       <Image source={require('../../../../assets/icons/upload.png')} style={styles.uploadIcon} />
                       <Text style={[styles.uploadText, licenseFile ? styles.uploadTextSelected : styles.uploadTextPlaceholder]}>
-                        {licenseFile ? licenseFile.name : 'Upload'}
+                        {licenseFile ? licenseFile.name : t('register', 'professional.licensePlaceholder')}
                       </Text>
                     </TouchableOpacity>
 
                     {/* Select Profile */}
-                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>Select Profile</Text>
+                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>{t('register', 'professional.profileLabel')}</Text>
                     <TouchableOpacity
                       activeOpacity={0.8}
                       style={[
@@ -469,13 +471,13 @@ function Register({ navigation }: Props): React.JSX.Element {
                         styles.dropdownValueText,
                         !selectedProfile && styles.dropdownPlaceholderText
                       ]}>
-                        {selectedProfile ? selectedProfile : 'Select'}
+                        {selectedProfile ? selectedProfile : t('register', 'professional.profilePlaceholder')}
                       </Text>
                       <Image source={require('../../../../assets/icons/dropdown.png')} style={styles.dropdownRightIcon} />
                     </TouchableOpacity>
 
                     {/* Specialization */}
-                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>Specialization</Text>
+                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>{t('register', 'professional.specializationLabel')}</Text>
                     <TouchableOpacity
                       activeOpacity={0.8}
                       style={[
@@ -492,13 +494,13 @@ function Register({ navigation }: Props): React.JSX.Element {
                         styles.dropdownValueText,
                         !specialization && styles.dropdownPlaceholderText
                       ]}>
-                        {specialization ? specialization : 'Enter Specialization'}
+                        {specialization ? specialization : t('register', 'professional.specializationPlaceholder')}
                       </Text>
                       <Image source={require('../../../../assets/icons/dropdown.png')} style={styles.dropdownRightIcon} />
                     </TouchableOpacity>
 
                     {/* Select Sector */}
-                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>Select Sector</Text>
+                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>{t('register', 'professional.sectorLabel')}</Text>
                     <View style={styles.sectorRow}>
                       {(['Private', 'Public', 'Both'] as const).map((option) => {
                         const isSelected = sector === option;
@@ -523,7 +525,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                               styles.sectorText,
                               isSelected && styles.sectorTextSelected
                             ]}>
-                              {option}
+                              {t('register', 'sectors.' + option.toLowerCase())}
                             </Text>
                           </TouchableOpacity>
                         );
@@ -531,7 +533,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                     </View>
 
                     {/* Select Country */}
-                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>Select Country</Text>
+                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>{t('register', 'professional.countryLabel')}</Text>
                     <TouchableOpacity
                       activeOpacity={0.8}
                       style={[
@@ -548,19 +550,19 @@ function Register({ navigation }: Props): React.JSX.Element {
                         styles.dropdownValueText,
                         !selectedCountry && styles.dropdownPlaceholderText
                       ]}>
-                        {selectedCountry ? selectedCountry : 'Select'}
+                        {selectedCountry ? selectedCountry : t('register', 'professional.countryPlaceholder')}
                       </Text>
                       <Image source={require('../../../../assets/icons/dropdown.png')} style={styles.dropdownRightIcon} />
                     </TouchableOpacity>
 
                     {/* Address */}
-                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>Address</Text>
+                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>{t('register', 'professional.addressLabel')}</Text>
                     <View style={[styles.addressInputWrapper]}>
                       <TextInput
                         style={styles.addressInput}
                         multiline
                         numberOfLines={3}
-                        placeholder="Enter Address"
+                        placeholder={t('register', 'professional.addressPlaceholder')}
                         placeholderTextColor="#7a7676"
                         value={address}
                         onChangeText={setAddress}
@@ -583,7 +585,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                         style={styles.checkboxIcon}
                       />
                       <Text style={styles.termsText}>
-                        I accept{' '}
+                        {t('register', 'professional.terms')}
                         <Text
                           style={styles.termsLink}
                           onPress={(e) => {
@@ -591,9 +593,9 @@ function Register({ navigation }: Props): React.JSX.Element {
                             setShowTermsAndConditions(true);
                           }}
                         >
-                          terms & conditions
+                          {t('register', 'professional.termsLink')}
                         </Text>
-                        {' and '}
+                        {t('register', 'professional.and')}
                         <Text
                           style={styles.termsLink}
                           onPress={(e) => {
@@ -601,7 +603,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                             setShowPrivacyPolicy(true);
                           }}
                         >
-                          privacy policy
+                          {t('register', 'professional.privacyLink')}
                         </Text>
                       </Text>
                     </TouchableOpacity>
@@ -613,77 +615,77 @@ function Register({ navigation }: Props): React.JSX.Element {
                       onPress={() => {
                         // Validate Step 1 fields again (in case user went back)
                         if (!firstName.trim()) {
-                          Alert.alert('Required Field', 'Please enter your First Name.');
+                          Alert.alert(t('register', 'errors.requiredField'), t('register', 'errors.enterFirstName'));
                           return;
                         }
                         if (!lastName.trim()) {
-                          Alert.alert('Required Field', 'Please enter your Last Name.');
+                          Alert.alert(t('register', 'errors.requiredField'), t('register', 'errors.enterLastName'));
                           return;
                         }
                         if (!email.trim()) {
-                          Alert.alert('Required Field', 'Please enter your Email.');
+                          Alert.alert(t('register', 'errors.requiredField'), t('register', 'errors.enterEmail'));
                           return;
                         }
                         if (!validateEmail(email)) {
-                          Alert.alert('Invalid Email', 'Please enter a valid email address.');
+                          Alert.alert(t('register', 'errors.invalidEmail'), t('register', 'errors.validEmail'));
                           return;
                         }
                         if (!mobile.trim()) {
-                          Alert.alert('Required Field', 'Please enter your Mobile Number.');
+                          Alert.alert(t('register', 'errors.requiredField'), t('register', 'errors.enterMobile'));
                           return;
                         }
                         if (!validatePhone(mobile)) {
-                          Alert.alert('Invalid Phone', 'Please enter a valid 10-digit mobile number.');
+                          Alert.alert(t('register', 'errors.invalidPhone'), t('register', 'errors.validPhone'));
                           return;
                         }
                         if (!password.trim()) {
-                          Alert.alert('Required Field', 'Please enter your Password.');
+                          Alert.alert(t('register', 'errors.requiredField'), t('register', 'errors.enterPassword'));
                           return;
                         }
                         if (!validatePassword(password)) {
-                          Alert.alert('Weak Password', 'Password must be at least 6 characters long.');
+                          Alert.alert(t('register', 'errors.weakPassword'), t('register', 'errors.passwordLength'));
                           return;
                         }
                         if (!gender) {
-                          Alert.alert('Required Field', 'Please select your Gender.');
+                          Alert.alert(t('register', 'errors.requiredField'), t('register', 'errors.selectGender'));
                           return;
                         }
-                        
+
                         // Validate Step 2 fields
                         if (!cvFile) {
-                          Alert.alert('Required Field', 'Please upload your CV.');
+                          Alert.alert(t('register', 'errors.requiredField'), t('register', 'errors.uploadCV'));
                           return;
                         }
                         if (!licenseFile) {
-                          Alert.alert('Required Field', 'Please upload your Medical License Document.');
+                          Alert.alert(t('register', 'errors.requiredField'), t('register', 'errors.uploadLicense'));
                           return;
                         }
                         if (!selectedProfile) {
-                          Alert.alert('Required Field', 'Please select a Profile.');
+                          Alert.alert(t('register', 'errors.requiredField'), t('register', 'errors.selectProfile'));
                           return;
                         }
                         if (!specialization) {
-                          Alert.alert('Required Field', 'Please select your Specialization.');
+                          Alert.alert(t('register', 'errors.requiredField'), t('register', 'errors.selectSpecialization'));
                           return;
                         }
                         if (!selectedCountry) {
-                          Alert.alert('Required Field', 'Please select a Country.');
+                          Alert.alert(t('register', 'errors.requiredField'), t('register', 'errors.selectCountry'));
                           return;
                         }
                         if (!address.trim()) {
-                          Alert.alert('Required Field', 'Please enter your Address.');
+                          Alert.alert(t('register', 'errors.requiredField'), t('register', 'errors.enterAddress'));
                           return;
                         }
                         if (!acceptedTerms) {
-                          Alert.alert('Required Field', 'Please accept the terms & conditions and privacy policy.');
+                          Alert.alert(t('register', 'errors.requiredField'), t('register', 'errors.acceptTerms'));
                           return;
                         }
-                        
+
                         // All validations passed
-                        Alert.alert('Registration Successful', 'Welcome to Medier!');
+                        Alert.alert(t('register', 'errors.registrationSuccessful'), t('register', 'errors.welcome'));
                       }}
                     >
-                      <Text style={styles.signUpButtonText}>Sign Up</Text>
+                      <Text style={styles.signUpButtonText}>{t('register', 'professional.signUpButton')}</Text>
                     </TouchableOpacity>
                   </View>
 
@@ -694,7 +696,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                     profiles,
                     selectedProfile,
                     setSelectedProfile,
-                    'Select Profile'
+                    t('register', 'modal.selectProfile')
                   )}
                   {renderDropdownModal(
                     showSpecializationDropdown,
@@ -702,7 +704,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                     specializations,
                     specialization,
                     setSpecialization,
-                    'Select Specialization'
+                    t('register', 'modal.selectSpecialization')
                   )}
                   {renderDropdownModal(
                     showCountrySelectDropdown,
@@ -710,7 +712,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                     countries,
                     selectedCountry,
                     setSelectedCountry,
-                    'Select Country'
+                    t('register', 'modal.selectCountry')
                   )}
                 </ScrollView>
               </Animated.View>

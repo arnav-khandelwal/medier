@@ -22,24 +22,26 @@ import {
 import { RootStackParamList } from '../../../navigation/types';
 import LinearGradient from 'react-native-linear-gradient';
 import StyledTextInput from '../../../components/StyledTextInput';
+import { useTranslation } from '../../../utils/translations/LanguageContext';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
 function Login({ navigation }: Props): React.JSX.Element {
+  const { t } = useTranslation();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
     if (!username.trim()) {
-      Alert.alert('Error', 'Please enter your username.');
+      Alert.alert(t('login', 'errors.error'), t('login', 'errors.enterUsername'));
       return;
     }
     if (!password.trim()) {
-      Alert.alert('Error', 'Please enter your password.');
+      Alert.alert(t('login', 'errors.error'), t('login', 'errors.enterPassword'));
       return;
     }
     if (password.length < 6) {
-      Alert.alert('Error', 'Password must be at least 6 characters long.');
+      Alert.alert(t('login', 'errors.error'), t('login', 'errors.passwordLength'));
       return;
     }
     // If validation passes, navigate to MainTabs
@@ -77,37 +79,37 @@ function Login({ navigation }: Props): React.JSX.Element {
         <View style={styles.content}>
           {/* Header Texts */}
           <Text style={styles.titleContainer}>
-            <Text style={styles.titleBlue}>Login</Text>
-            <Text style={styles.titleBlack}> to Your Account</Text>
+            <Text style={styles.titleBlue}>{t('login', 'title.blue')}</Text>
+            <Text style={styles.titleBlack}>{t('login', 'title.black')}</Text>
           </Text>
 
           <View style={styles.subtitleRow}>
-            <Text style={styles.subtitleBlack}>New to Medicine App ?  </Text>
-            <TouchableOpacity 
+            <Text style={styles.subtitleBlack}>{t('login', 'subtitle.black')}</Text>
+            <TouchableOpacity
               activeOpacity={0.8}
               onPress={() => navigation.replace('Register')}
             >
-              <Text style={styles.subtitleBlue}>Register</Text>
+              <Text style={styles.subtitleBlue}>{t('login', 'subtitle.blue')}</Text>
             </TouchableOpacity>
           </View>
 
           {/* Form Fields */}
           <View style={styles.formContainer}>
-            <Text style={styles.inputLabel}>User Name *</Text>
+            <Text style={styles.inputLabel}>{t('login', 'form.usernameLabel')}</Text>
             <StyledTextInput
               value={username}
               onChangeText={setUsername}
-              placeholder="Enter Username"
+              placeholder={t('login', 'form.usernamePlaceholder')}
               iconUnselected={require('../../../../assets/icons/usernameUnselected.png')}
               iconSelected={require('../../../../assets/icons/usernameSelected.png')}
               autoCapitalize="none"
             />
 
-            <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>Password *</Text>
+            <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>{t('login', 'form.passwordLabel')}</Text>
             <StyledTextInput
               value={password}
               onChangeText={setPassword}
-              placeholder="Enter Password"
+              placeholder={t('login', 'form.passwordPlaceholder')}
               iconUnselected={require('../../../../assets/icons/passwordUnselected.png')}
               iconSelected={require('../../../../assets/icons/passwordSelected.png')}
               secureTextEntry
@@ -115,17 +117,17 @@ function Login({ navigation }: Props): React.JSX.Element {
             />
 
             <TouchableOpacity activeOpacity={0.8} style={styles.forgotPasswordButton}  onPress={() => navigation.replace('ForgotPassword')}>
-              <Text style={styles.forgotPasswordText}>Forget Password ?</Text>
+              <Text style={styles.forgotPasswordText}>{t('login', 'form.forgotPassword')}</Text>
             </TouchableOpacity>
           </View>
 
           {/* Login Button */}
-          <TouchableOpacity 
-            style={styles.loginButton} 
+          <TouchableOpacity
+            style={styles.loginButton}
             activeOpacity={0.8}
             onPress={handleLogin}
           >
-            <Text style={styles.loginButtonText}>Login</Text>
+            <Text style={styles.loginButtonText}>{t('login', 'button.login')}</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>
