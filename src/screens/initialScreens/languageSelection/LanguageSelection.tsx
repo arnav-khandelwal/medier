@@ -28,7 +28,7 @@ interface LanguageOption {
 }
 
 function LanguageSelection({ navigation }: Props): React.JSX.Element {
-  const { language, setLanguage } = useTranslation();
+  const { language, setLanguage, t } = useTranslation();
   const [selectedLanguage, setSelectedLanguage] = useState<string>('English');
 
   useEffect(() => {
@@ -45,22 +45,22 @@ function LanguageSelection({ navigation }: Props): React.JSX.Element {
   const languages: LanguageOption[] = [
     {
       id: 'English',
-      name: 'English',
+      name: t('languageSelection', 'languages.english'),
       flag: require('../../../../assets/icons/English.png'),
     },
     {
       id: 'French',
-      name: 'Langue',
+      name: t('languageSelection', 'languages.french'),
       flag: require('../../../../assets/icons/French.png'),
     },
     {
       id: 'Urdu',
-      name: 'لغة',
+      name: t('languageSelection', 'languages.urdu'),
       flag: require('../../../../assets/icons/Urdu.png'),
     },
     {
       id: 'Hindi',
-      name: 'हिंदी',
+      name: t('languageSelection', 'languages.hindi'),
       flag: require('../../../../assets/icons/Hindi.png'),
     },
   ];
@@ -109,7 +109,7 @@ function LanguageSelection({ navigation }: Props): React.JSX.Element {
 
         {/* Screen Title */}
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>Choose Your Preferred{'\n'}Language</Text>
+          <Text style={styles.title}>{t('languageSelection', 'title')}</Text>
         </View>
 
         {/* Language Cards */}

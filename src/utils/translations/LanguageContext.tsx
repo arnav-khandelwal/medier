@@ -47,6 +47,18 @@ const translations: Record<string, Record<LanguageCode, any>> = {
     hi: require('./forgotPassword/hi.json'),
     ur: require('./forgotPassword/ur.json'),
   },
+  languageSelection: {
+    en: require('./languageSelection/en.json'),
+    fr: require('./languageSelection/fr.json'),
+    hi: require('./languageSelection/hi.json'),
+    ur: require('./languageSelection/ur.json'),
+  },
+  onBoarding: {
+    en: require('./onBoarding/en.json'),
+    fr: require('./onBoarding/fr.json'),
+    hi: require('./onBoarding/hi.json'),
+    ur: require('./onBoarding/ur.json'),
+  },
 };
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {

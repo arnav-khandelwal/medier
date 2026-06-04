@@ -19,10 +19,13 @@ import {
   topOffset,
 } from '../../../theme/scaling';
 import { RootStackParamList } from '../../../navigation/types';
+import { useTranslation } from '../../../utils/translations/LanguageContext';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'OnBoarding'>;
 
 function OnBoarding({ navigation }: Props): React.JSX.Element {
+  const { t } = useTranslation();
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" translucent backgroundColor="transparent" />
@@ -50,25 +53,25 @@ function OnBoarding({ navigation }: Props): React.JSX.Element {
           </View>
 
           <View style={styles.contentWrapper}>
-            <Text style={styles.title}>MEDIER</Text>
+            <Text style={styles.title}>{t('onBoarding', 'title')}</Text>
             <Text style={styles.subtitle}>
-              Become a Doctor, For a Healthier Future
+              {t('onBoarding', 'subtitle')}
             </Text>
           </View>
 
           <View style={styles.buttonContainer}>
-            <TouchableOpacity 
-              style={styles.loginButton} 
+            <TouchableOpacity
+              style={styles.loginButton}
               onPress={() => navigation.navigate('Login')}
               activeOpacity={0.8}>
-              <Text style={styles.loginButtonText}>Login To Your Account</Text>
+              <Text style={styles.loginButtonText}>{t('onBoarding', 'buttons.login')}</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity 
+            <TouchableOpacity
               style={styles.registerButton}
               onPress={() => navigation.navigate('Register')}
               activeOpacity={0.8}>
-              <Text style={styles.registerButtonText}>Register</Text>
+              <Text style={styles.registerButtonText}>{t('onBoarding', 'buttons.register')}</Text>
             </TouchableOpacity>
           </View>
 

@@ -1,0 +1,9 @@
+{
+  "title": "Choisissez votre langue préférée",
+  "languages": {
+    "english": "Anglais",
+    "french": "Français",
+    "urdu": "Ourdou",
+    "hindi": "Hindi"
+  }
+}
