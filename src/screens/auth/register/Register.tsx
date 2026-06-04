@@ -26,6 +26,8 @@ import { RootStackParamList } from '../../../navigation/types';
 import LinearGradient from 'react-native-linear-gradient';
 import { handlePickCV, handlePickLicense } from './handleDocPicker';
 import StyledTextInput from '../../../components/StyledTextInput';
+import PrivacyPolicyModal from '../PrivacyPolicy/PrivacyPolicyModal';
+import TermsAndConditionsModal from '../TermsAndConditions/TermsAndConditionsModal';
 type Props = NativeStackScreenProps<RootStackParamList, 'Register'>;
 
 const { width } = Dimensions.get('window');
@@ -59,6 +61,8 @@ function Register({ navigation }: Props): React.JSX.Element {
   const [showCountrySelectDropdown, setShowCountrySelectDropdown] = useState(false);
   const [address, setAddress] = useState('');
   const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
+  const [showTermsAndConditions, setShowTermsAndConditions] = useState(false);
 
   const [step, setStep] = useState(1);
   const slideAnim = useRef(new Animated.Value(0)).current;
@@ -584,10 +588,20 @@ function Register({ navigation }: Props): React.JSX.Element {
                           style={styles.termsLink}
                           onPress={(e) => {
                             e.stopPropagation();
-                            Alert.alert('Terms & Conditions', 'By registering, you agree to our Terms & Conditions, Privacy Policy, and Cookie Guidelines.');
+                            setShowTermsAndConditions(true);
                           }}
                         >
-                          terms & conditions and privacy policy
+                          terms & conditions
+                        </Text>
+                        {' and '}
+                        <Text
+                          style={styles.termsLink}
+                          onPress={(e) => {
+                            e.stopPropagation();
+                            setShowPrivacyPolicy(true);
+                          }}
+                        >
+                          privacy policy
                         </Text>
                       </Text>
                     </TouchableOpacity>
@@ -705,6 +719,16 @@ function Register({ navigation }: Props): React.JSX.Element {
           </SafeAreaView>
         </View>
       </TouchableWithoutFeedback>
+
+      {/* Modals */}
+      <PrivacyPolicyModal
+        visible={showPrivacyPolicy}
+        onClose={() => setShowPrivacyPolicy(false)}
+      />
+      <TermsAndConditionsModal
+        visible={showTermsAndConditions}
+        onClose={() => setShowTermsAndConditions(false)}
+      />
     </KeyboardAvoidingView>
   );
 }
