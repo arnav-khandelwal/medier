@@ -8,8 +8,8 @@ import {
   ScrollView,
   Image,
 } from 'react-native';
-import { scale, verticalScale, moderateScale } from '../../../theme/scaling';
-import { quicksandFonts } from '../../../theme/typography';
+import { scale, verticalScale, moderateScale } from '../theme/scaling';
+import { quicksandFonts } from '../theme/typography';
 
 interface CommonModalProps {
   visible: boolean;

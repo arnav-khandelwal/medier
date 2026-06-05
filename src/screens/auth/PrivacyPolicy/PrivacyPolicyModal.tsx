@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, StyleSheet, View } from 'react-native';
 import { scale, verticalScale, moderateScale } from '../../../theme/scaling';
 import { quicksandFonts } from '../../../theme/typography';
-import CommonModal from '../CommonModal/CommonModal';
+import CommonModal from '../../../components/CommonModal';
 import { useTranslation } from '../../../utils/translations/LanguageContext';
 
 interface PrivacyPolicyModalProps {
