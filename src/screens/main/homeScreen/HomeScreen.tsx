@@ -10,6 +10,7 @@ import {
   Image,
   ImageBackground,
   Platform,
+  I18nManager,
 } from 'react-native';
 import BottomNavBar, { TabName } from '../../../components/BottomNavBar';
 import { colors } from '../../../theme/colors';
@@ -296,6 +297,7 @@ const styles = StyleSheet.create({
     fontFamily: quicksandFonts.semiBold,
     marginBottom: verticalScale(44),
     zIndex: 10,
+    textAlign: I18nManager.isRTL ? 'right' : 'left',
   },
   doctorTextContainer: {
     zIndex: 10,
@@ -305,6 +307,7 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(26),
     fontFamily: quicksandFonts.bold,
     marginBottom: verticalScale(10),
+    textAlign: I18nManager.isRTL ? 'right' : 'left',
   },
   specialtyPill: {
     backgroundColor: 'rgba(255, 255, 255, 0.25)',
@@ -317,6 +320,7 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontSize: moderateScale(14),
     fontFamily: quicksandFonts.regular,
+    textAlign: I18nManager.isRTL ? 'right' : 'left',
   },
   doctorImage: {
     position: 'absolute',
@@ -350,6 +354,7 @@ const styles = StyleSheet.create({
     color: '#000',
     marginBottom: verticalScale(12),
     marginLeft: scale(4),
+    textAlign: I18nManager.isRTL ? 'right' : 'left',
   },
   cardsRow: {
     flexDirection: 'row',

@@ -5,4 +5,5 @@ export type RootStackParamList = {
   Register: undefined;
   ForgotPassword: undefined;
   MainTabs: undefined;
+  AppointmentDetail: { appointment: any } | undefined;
 };

@@ -7,6 +7,7 @@ import Login from '../screens/auth/login/Login';
 import Register from '../screens/auth/register/Register';
 import MainTabNavigator from './MainTabNavigator';
 import ForgotPassword from '../screens/auth/forgotPassword/ForgotPassword';
+import AppointmentDetail from '../screens/main/appointmentsScreen/AppointmentDetail';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -21,6 +22,7 @@ function AppNavigator(): React.JSX.Element {
       <Stack.Screen name="Register" component={Register} />
       <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
       <Stack.Screen name="MainTabs" component={MainTabNavigator} />
+      <Stack.Screen name="AppointmentDetail" component={AppointmentDetail} />
 
     </Stack.Navigator>
   );

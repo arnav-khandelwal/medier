@@ -25,6 +25,7 @@ interface AppointmentCardProps {
   onStatusChange?: (status: string) => void;
   onCancel?: () => void;
   onAction?: () => void;
+  onPress?: () => void;
 }
 
 const AppointmentCard: React.FC<AppointmentCardProps> = ({
@@ -40,19 +41,20 @@ const AppointmentCard: React.FC<AppointmentCardProps> = ({
   onStatusChange,
   onCancel,
   onAction,
+  onPress,
 }) => {
   const { t } = useTranslation();
   const renderStatusButton = (
     title: string,
     isSelected: boolean,
-    onPress: () => void
+    onPressBtn: () => void
   ) => (
     <TouchableOpacity
       style={[
         styles.statusButton,
         { backgroundColor: isSelected ? colors.primary : '#F1F1F1' },
       ]}
-      onPress={onPress}
+      onPress={onPressBtn}
     >
       <Text
         style={[
@@ -67,30 +69,32 @@ const AppointmentCard: React.FC<AppointmentCardProps> = ({
 
   return (
     <View style={styles.appointmentCard}>
-      <View style={styles.cardHeader}>
-        <Image source={photo} style={styles.doctorPhoto} />
-        <View style={styles.doctorInfo}>
-          <Text style={styles.doctorName}>{name}</Text>
-          <Text style={styles.doctorId}>{doctorId}</Text>
-          {isOnline && (
-            <View style={styles.videoTag}>
-              <Text style={styles.videoTagText}>{t('appointmentsScreen', 'card.video')}</Text>
-            </View>
-          )}
-          <Text style={styles.dateTime}>
-            {day} | {time}
-          </Text>
-          {!isOnline && location && (
-            <View style={styles.locationContainer}>
-              <Image
-                source={require('../../../../assets/icons/location.png')}
-                style={styles.locationIcon}
-              />
-              <Text style={styles.locationText}>{location}</Text>
-            </View>
-          )}
+      <TouchableOpacity activeOpacity={0.8} onPress={onPress}>
+        <View style={styles.cardHeader}>
+          <Image source={photo} style={styles.doctorPhoto} />
+          <View style={styles.doctorInfo}>
+            <Text style={styles.doctorName}>{name}</Text>
+            <Text style={styles.doctorId}>{doctorId}</Text>
+            {isOnline && (
+              <View style={styles.videoTag}>
+                <Text style={styles.videoTagText}>{t('appointmentsScreen', 'card.video')}</Text>
+              </View>
+            )}
+            <Text style={styles.dateTime}>
+              {day} | {time}
+            </Text>
+            {!isOnline && location && (
+              <View style={styles.locationContainer}>
+                <Image
+                  source={require('../../../../assets/icons/location.png')}
+                  style={styles.locationIcon}
+                />
+                <Text style={styles.locationText}>{location}</Text>
+              </View>
+            )}
+          </View>
         </View>
-      </View>
+      </TouchableOpacity>
       <View style={styles.divider} />
 
       {status && (

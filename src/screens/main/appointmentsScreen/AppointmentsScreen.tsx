@@ -9,6 +9,7 @@ import {
   Image,
   StatusBar,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { colors } from '../../../theme/colors';
 import { scale, verticalScale, moderateScale } from '../../../theme/scaling';
 import { quicksandFonts } from '../../../theme/typography';
@@ -35,6 +36,7 @@ interface AppointmentsScreenProps {
 
 const AppointmentsScreen: React.FC<AppointmentsScreenProps> = ({ onTabPress }) => {
   const { t } = useTranslation();
+  const navigation = useNavigation<any>();
   const [selectedFilter, setSelectedFilter] = useState('upcoming');
   const [selectedStatus, setSelectedStatus] = useState<string>('arrived');
 
@@ -155,6 +157,7 @@ const AppointmentsScreen: React.FC<AppointmentsScreenProps> = ({ onTabPress }) =
                 onStatusChange={setSelectedStatus}
                 onCancel={() => console.log('Cancel appointment', appointment.id)}
                 onAction={() => console.log('Action for appointment', appointment.id)}
+                onPress={() => navigation.navigate('AppointmentDetail', { appointment })}
               />
             ))}
           </View>

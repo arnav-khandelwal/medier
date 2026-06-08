@@ -20,5 +20,16 @@
       "join": "Rejoindre",
       "startConsultation": "Commencer la consultation"
     }
+  },
+  "detail": {
+    "title": "Détails du rendez-vous",
+    "questions": "Questions",
+    "prescription": "Prescription",
+    "q1": "Quel est le nom de mon problème de santé?",
+    "q2": "Combien de pas marchez-vous quotidiennement?",
+    "q3": "Quand avez-vous fait votre dernier bilan?",
+    "a1": "Maux de tête",
+    "a2": "10000 +",
+    "a3": "6 mois +"
   }
 }
