@@ -37,7 +37,7 @@ const CommonModal: React.FC<CommonModalProps> = ({ visible, onClose, title, cont
         {/* Close Button - Above the container */}
         <TouchableOpacity style={styles.closeButton} onPress={onClose}>
           <Image 
-            source={require('../../../../assets/icons/closeButton.png')} 
+            source={require('../../assets/icons/closeButton.png')} 
             style={styles.closeIcon} 
             resizeMode="contain"
           />

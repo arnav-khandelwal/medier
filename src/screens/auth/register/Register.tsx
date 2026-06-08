@@ -29,6 +29,7 @@ import StyledTextInput from '../../../components/StyledTextInput';
 import PrivacyPolicyModal from '../PrivacyPolicy/PrivacyPolicyModal';
 import TermsAndConditionsModal from '../TermsAndConditions/TermsAndConditionsModal';
 import { useTranslation } from '../../../utils/translations/LanguageContext';
+import DropdownModal from '../../../components/DropdownModal';
 type Props = NativeStackScreenProps<RootStackParamList, 'Register'>;
 
 const { width } = Dimensions.get('window');
@@ -185,57 +186,17 @@ function Register({ navigation }: Props): React.JSX.Element {
     handleTabPress(2);
   };
 
-  const renderDropdownModal = (
-    visible: boolean,
-    onClose: () => void,
-    options: string[],
-    selectedValue: string | null,
-    onSelect: (value: string) => void,
-    title: string
-  ) => {
-    return (
-      <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
-        <TouchableWithoutFeedback onPress={onClose}>
-          <View style={styles.modalOverlay}>
-            <TouchableWithoutFeedback>
-              <View style={styles.modalContent}>
-                <View style={styles.modalHeader}>
-                  <Text style={styles.modalTitle}>{title}</Text>
-                  <TouchableOpacity onPress={onClose} style={styles.modalCloseButton}>
-                    <Text style={styles.modalCloseText}>✕</Text>
-                  </TouchableOpacity>
-                </View>
-                <ScrollView style={styles.modalScrollView} showsVerticalScrollIndicator={false}>
-                  {options.map((option, idx) => {
-                    const isSelected = selectedValue === option;
-                    return (
-                      <TouchableOpacity
-                        key={idx}
-                        style={[styles.modalItem, isSelected && styles.modalItemSelected]}
-                        onPress={() => {
-                          onSelect(option);
-                          onClose();
-                        }}
-                      >
-                        <Text style={[styles.modalItemText, isSelected && styles.modalItemTextSelected]}>
-                          {option}
-                        </Text>
-                        {isSelected && (
-                          <View style={styles.activeCheckContainer}>
-                            <Text style={styles.activeCheckText}>✓</Text>
-                          </View>
-                        )}
-                      </TouchableOpacity>
-                    );
-                  })}
-                </ScrollView>
-              </View>
-            </TouchableWithoutFeedback>
-          </View>
-        </TouchableWithoutFeedback>
-      </Modal>
-    );
-  };
+
+
+// Helper to map string arrays to option objects
+const mapToOptions = (arr: string[]) => arr.map(item => ({ label: item, value: item }));
+
+// State for selected location in HomeScreen
+// Add this near other state declarations in HomeScreen component
+// const [selectedLocation, setSelectedLocation] = useState('');
+
+// Remove renderDropdownModal function and replace its calls with DropdownModal component
+
 
   return (
     <KeyboardAvoidingView
@@ -410,14 +371,15 @@ function Register({ navigation }: Props): React.JSX.Element {
                   </View>
 
                   {/* Render Country Code Modal */}
-                  {renderDropdownModal(
-                    showCountryDropdown,
-                    () => setShowCountryDropdown(false),
-                    countryCodes,
-                    countryCodes.find(c => c.startsWith(countryCode)) || '+966 (Saudi Arabia)',
-                    (val) => setCountryCode(val.split(' ')[0]),
-                    t('register', 'modal.selectCountryCode')
-                  )}
+      <DropdownModal
+        visible={showCountryDropdown}
+        onClose={() => setShowCountryDropdown(false)}
+        title={t('register', 'modal.selectCountryCode')}
+        options={mapToOptions(countryCodes)}
+        onSelect={(opt) => {
+          setCountryCode(opt.value.split(' ')[0]);
+        }}
+      />
                 </ScrollView>
 
                 {/* Step 2: Professional Fields */}
@@ -690,30 +652,27 @@ function Register({ navigation }: Props): React.JSX.Element {
                   </View>
 
                   {/* Render Modals */}
-                  {renderDropdownModal(
-                    showProfileDropdown,
-                    () => setShowProfileDropdown(false),
-                    profiles,
-                    selectedProfile,
-                    setSelectedProfile,
-                    t('register', 'modal.selectProfile')
-                  )}
-                  {renderDropdownModal(
-                    showSpecializationDropdown,
-                    () => setShowSpecializationDropdown(false),
-                    specializations,
-                    specialization,
-                    setSpecialization,
-                    t('register', 'modal.selectSpecialization')
-                  )}
-                  {renderDropdownModal(
-                    showCountrySelectDropdown,
-                    () => setShowCountrySelectDropdown(false),
-                    countries,
-                    selectedCountry,
-                    setSelectedCountry,
-                    t('register', 'modal.selectCountry')
-                  )}
+      <DropdownModal
+        visible={showProfileDropdown}
+        onClose={() => setShowProfileDropdown(false)}
+        title={t('register', 'modal.selectProfile')}
+        options={mapToOptions(profiles)}
+        onSelect={(opt) => setSelectedProfile(opt.value)}
+      />
+      <DropdownModal
+        visible={showSpecializationDropdown}
+        onClose={() => setShowSpecializationDropdown(false)}
+        title={t('register', 'modal.selectSpecialization')}
+        options={mapToOptions(specializations)}
+        onSelect={(opt) => setSpecialization(opt.value)}
+      />
+      <DropdownModal
+        visible={showCountrySelectDropdown}
+        onClose={() => setShowCountrySelectDropdown(false)}
+        title={t('register', 'modal.selectCountry')}
+        options={mapToOptions(countries)}
+        onSelect={(opt) => setSelectedCountry(opt.value)}
+      />
                 </ScrollView>
               </Animated.View>
 

@@ -36,8 +36,7 @@ function LanguageSelection({ navigation }: Props): React.JSX.Element {
     const languageMap: Record<string, string> = {
       'en': 'English',
       'fr': 'French',
-      'hi': 'Hindi',
-      'ur': 'Urdu',
+      'ar': 'Arabic',
     };
     setSelectedLanguage(languageMap[language] || 'English');
   }, [language]);
@@ -54,14 +53,9 @@ function LanguageSelection({ navigation }: Props): React.JSX.Element {
       flag: require('../../../../assets/icons/French.png'),
     },
     {
-      id: 'Urdu',
-      name: t('languageSelection', 'languages.urdu'),
-      flag: require('../../../../assets/icons/Urdu.png'),
-    },
-    {
-      id: 'Hindi',
-      name: t('languageSelection', 'languages.hindi'),
-      flag: require('../../../../assets/icons/Hindi.png'),
+      id: 'Arabic',
+      name: t('languageSelection', 'languages.arabic'),
+      flag: require('../../../../assets/icons/Arabic.png'),
     },
   ];
 

@@ -1,7 +1,8 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { I18nManager, Alert } from 'react-native';
 
-type LanguageCode = 'en' | 'fr' | 'hi' | 'ur';
+type LanguageCode = 'en' | 'fr' | 'ar';
 
 interface LanguageContextType {
   language: LanguageCode;
@@ -16,15 +17,13 @@ const LANGUAGE_STORAGE_KEY = '@medier_language';
 const languageCodeMap: Record<string, LanguageCode> = {
   'English': 'en',
   'French': 'fr',
-  'Hindi': 'hi',
-  'Urdu': 'ur',
+  'Arabic': 'ar',
 };
 
 const reverseLanguageCodeMap: Record<LanguageCode, string> = {
   'en': 'English',
   'fr': 'French',
-  'hi': 'Hindi',
-  'ur': 'Urdu',
+  'ar': 'Arabic',
 };
 
 // Pre-load all translation files
@@ -32,74 +31,62 @@ const translations: Record<string, Record<LanguageCode, any>> = {
   login: {
     en: require('./login/en.json'),
     fr: require('./login/fr.json'),
-    hi: require('./login/hi.json'),
-    ur: require('./login/ur.json'),
+    ar: require('./login/ar.json'),
   },
   register: {
     en: require('./register/en.json'),
     fr: require('./register/fr.json'),
-    hi: require('./register/hi.json'),
-    ur: require('./register/ur.json'),
+    ar: require('./register/ar.json'),
   },
   forgotPassword: {
     en: require('./forgotPassword/en.json'),
     fr: require('./forgotPassword/fr.json'),
-    hi: require('./forgotPassword/hi.json'),
-    ur: require('./forgotPassword/ur.json'),
+    ar: require('./forgotPassword/ar.json'),
   },
   languageSelection: {
     en: require('./languageSelection/en.json'),
     fr: require('./languageSelection/fr.json'),
-    hi: require('./languageSelection/hi.json'),
-    ur: require('./languageSelection/ur.json'),
+    ar: require('./languageSelection/ar.json'),
   },
   onBoarding: {
     en: require('./onBoarding/en.json'),
     fr: require('./onBoarding/fr.json'),
-    hi: require('./onBoarding/hi.json'),
-    ur: require('./onBoarding/ur.json'),
+    ar: require('./onBoarding/ar.json'),
   },
   privacyPolicy: {
     en: require('./privacyPolicy/en.json'),
     fr: require('./privacyPolicy/fr.json'),
-    hi: require('./privacyPolicy/hi.json'),
-    ur: require('./privacyPolicy/ur.json'),
+    ar: require('./privacyPolicy/ar.json'),
   },
   termsAndConditions: {
     en: require('./termsAndConditions/en.json'),
     fr: require('./termsAndConditions/fr.json'),
-    hi: require('./termsAndConditions/hi.json'),
-    ur: require('./termsAndConditions/ur.json'),
+    ar: require('./termsAndConditions/ar.json'),
   },
   agendaScreen: {
     en: require('./agendaScreen/en.json'),
     fr: require('./agendaScreen/fr.json'),
-    hi: require('./agendaScreen/hi.json'),
-    ur: require('./agendaScreen/ur.json'),
+    ar: require('./agendaScreen/ar.json'),
   },
   appointmentsScreen: {
     en: require('./appointmentsScreen/en.json'),
     fr: require('./appointmentsScreen/fr.json'),
-    hi: require('./appointmentsScreen/hi.json'),
-    ur: require('./appointmentsScreen/ur.json'),
+    ar: require('./appointmentsScreen/ar.json'),
   },
   homeScreen: {
     en: require('./homeScreen/en.json'),
     fr: require('./homeScreen/fr.json'),
-    hi: require('./homeScreen/hi.json'),
-    ur: require('./homeScreen/ur.json'),
+    ar: require('./homeScreen/ar.json'),
   },
   matchScreen: {
     en: require('./matchScreen/en.json'),
     fr: require('./matchScreen/fr.json'),
-    hi: require('./matchScreen/hi.json'),
-    ur: require('./matchScreen/ur.json'),
+    ar: require('./matchScreen/ar.json'),
   },
   profileScreen: {
     en: require('./profileScreen/en.json'),
     fr: require('./profileScreen/fr.json'),
-    hi: require('./profileScreen/hi.json'),
-    ur: require('./profileScreen/ur.json'),
+    ar: require('./profileScreen/ar.json'),
   },
 };
 
@@ -113,7 +100,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
   const loadLanguage = async () => {
     try {
       const savedLanguage = await AsyncStorage.getItem(LANGUAGE_STORAGE_KEY);
-      if (savedLanguage && (savedLanguage === 'en' || savedLanguage === 'fr' || savedLanguage === 'hi' || savedLanguage === 'ur')) {
+      if (savedLanguage && (savedLanguage === 'en' || savedLanguage === 'fr' || savedLanguage === 'ar')) {
         setLanguageState(savedLanguage as LanguageCode);
       }
     } catch (error) {
@@ -125,6 +112,17 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     try {
       await AsyncStorage.setItem(LANGUAGE_STORAGE_KEY, lang);
       setLanguageState(lang);
+      
+      const isRTL = lang === 'ar';
+      if (I18nManager.isRTL !== isRTL) {
+        I18nManager.forceRTL(isRTL);
+        I18nManager.allowRTL(isRTL);
+        Alert.alert(
+          'Restart Required',
+          'Please restart the app for the language direction changes to take effect.',
+          [{ text: 'OK' }]
+        );
+      }
     } catch (error) {
       console.error('Failed to save language:', error);
     }
