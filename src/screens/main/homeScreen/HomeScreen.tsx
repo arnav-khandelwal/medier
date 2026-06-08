@@ -22,9 +22,14 @@ interface HomeScreenProps {
   onTabPress: (tab: TabName) => void;
 }
 
+type DashboardState = 'verified' | 'unverified' | 'setup_unfinished';
+
 const HomeScreen: React.FC<HomeScreenProps> = ({ activeTab, onTabPress }) => {
   const { t } = useTranslation();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  // Set this to 'verified', 'unverified', or 'setup_unfinished' to test the UI
+  const [dashboardState, setDashboardState] = useState<DashboardState>('verified');
 
   return (
     <ImageBackground
@@ -33,14 +38,14 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ activeTab, onTabPress }) => {
       resizeMode="cover"
     >
       <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
-      
+
       <SafeAreaView style={styles.heroSafeArea}>
         <View style={styles.heroContent}>
           {/* Top Bar */}
           <View style={styles.topBar}>
             {/* Dropdown Box */}
             <View style={{ zIndex: 50 }}>
-              <TouchableOpacity 
+              <TouchableOpacity
                 activeOpacity={0.8}
                 onPress={() => setDropdownOpen(!dropdownOpen)}
                 style={styles.dropdownBox}
@@ -62,93 +67,116 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ activeTab, onTabPress }) => {
             </View>
 
             {/* Right Icons */}
-              <View style={styles.topRightIcons}>
-                <TouchableOpacity style={[styles.iconCircle, { backgroundColor: '#19A3FF' }]}>
-                  <Image source={require('../../../../assets/icons/chatTop.png')} style={styles.chatTopIcon} />
-                </TouchableOpacity>
-                <TouchableOpacity style={[styles.iconCircle, { backgroundColor: '#FFFFFF' }]}>
-                  <Image source={require('../../../../assets/icons/notification.png')} style={styles.notificationIcon} />
-                  {/* Notification dot */}
-                  <View style={styles.notificationDot} />
-                </TouchableOpacity>
-              </View>
+            <View style={styles.topRightIcons}>
+              <TouchableOpacity style={[styles.iconCircle, { backgroundColor: '#19A3FF' }]}>
+                <Image source={require('../../../../assets/icons/chatTop.png')} style={styles.chatTopIcon} />
+              </TouchableOpacity>
+              <TouchableOpacity style={[styles.iconCircle, { backgroundColor: '#FFFFFF' }]}>
+                <Image source={require('../../../../assets/icons/notification.png')} style={styles.notificationIcon} />
+                {/* Notification dot */}
+                <View style={styles.notificationDot} />
+              </TouchableOpacity>
             </View>
+          </View>
 
-            {/* Greeting */}
-            <Text style={styles.greetingHeader}>{t('homeScreen', 'greeting')}</Text>
+          {/* Greeting */}
+          <Text style={styles.greetingHeader}>{t('homeScreen', 'greeting')}</Text>
 
-            {/* Doctor Text Info */}
+          {/* Doctor Text Info */}
+          {dashboardState !== 'unverified' && (
             <View style={styles.doctorTextContainer}>
               <Text style={styles.doctorName}>{t('homeScreen', 'doctor.name')}</Text>
               <View style={styles.specialtyPill}>
                 <Text style={styles.specialtyText}>{t('homeScreen', 'doctor.specialty')}</Text>
               </View>
             </View>
-            
-            <Image 
-              source={require('../../../../assets/objects/femaleDoctorStock.png')} 
-              style={styles.doctorImage}
-              resizeMode="contain"
-            />
-          </View>
-        </SafeAreaView>
+          )}
 
-        {/* Dashboard Section */}
-        <View style={styles.dashboardContainer}>
-          <ScrollView contentContainerStyle={styles.dashboardScroll} showsVerticalScrollIndicator={false}>
-          <Text style={styles.dashboardTitle}>{t('homeScreen', 'dashboard.title')}</Text>
+          <Image
+            source={require('../../../../assets/objects/femaleDoctorStock.png')}
+            style={styles.doctorImage}
+            resizeMode="contain"
+          />
+        </View>
+      </SafeAreaView>
 
-          <View style={styles.cardsRow}>
-            {/* Consultations Card */}
-            <View style={[styles.card, { flex: 1.05 }]}>
-              <View style={styles.cardHeader}>
-                <View style={[styles.cardIconBox, { backgroundColor: '#E1F3FF' }]}>
-                  <Image source={require('../../../../assets/icons/consultations.png')} style={styles.cardIcon} />
+      {/* Dashboard Section */}
+      <View style={styles.dashboardContainer}>
+        <ScrollView contentContainerStyle={styles.dashboardScroll} showsVerticalScrollIndicator={false}>
+          {dashboardState === 'verified' && (
+            <>
+              <Text style={styles.dashboardTitle}>{t('homeScreen', 'dashboard.title')}</Text>
+
+              <View style={styles.cardsRow}>
+                {/* Consultations Card */}
+                <View style={[styles.card, { flex: 1.05 }]}>
+                  <View style={styles.cardHeader}>
+                    <View style={[styles.cardIconBox, { backgroundColor: '#E1F3FF' }]}>
+                      <Image source={require('../../../../assets/icons/consultations.png')} style={styles.cardIcon} />
+                    </View>
+                    <Text style={styles.cardTitle}>{t('homeScreen', 'dashboard.consultations.title')}</Text>
+                  </View>
+                  <View style={styles.statsBox}>
+                    <View style={[styles.statColumn, { flex: 0.7 }]}>
+                      <Text style={styles.statLabel}>{t('homeScreen', 'dashboard.consultations.total')}</Text>
+                      <Text style={styles.statValue}>55</Text>
+                    </View>
+                    <View style={styles.statDivider} />
+                    <View style={[styles.statColumn, { flex: 1.3 }]}>
+                      <Text style={styles.statLabel}>{t('homeScreen', 'dashboard.consultations.upcoming')}</Text>
+                      <Text style={styles.statValue}>32</Text>
+                    </View>
+                  </View>
+                  <TouchableOpacity style={styles.viewMoreBtn}>
+                    <Text style={styles.viewMoreText}>{t('homeScreen', 'dashboard.consultations.viewMore')}</Text>
+                    <Image source={require('../../../../assets/icons/viewMore.png')} style={styles.viewMoreIcon} />
+                  </TouchableOpacity>
                 </View>
-                <Text style={styles.cardTitle}>{t('homeScreen', 'dashboard.consultations.title')}</Text>
+
+                {/* Chat Card */}
+                <View style={[styles.card, { flex: 0.95 }]}>
+                  <View style={styles.cardHeader}>
+                    <View style={[styles.cardIconBox, { backgroundColor: '#E1F3FF' }]}>
+                      <Image source={require('../../../../assets/icons/chat.png')} style={styles.cardIcon} />
+                    </View>
+                    <Text style={styles.cardTitle}>{t('homeScreen', 'dashboard.chat.title')}</Text>
+                  </View>
+                  <View style={styles.statsBox}>
+                    <View style={[styles.statColumn, { flex: 0.7 }]}>
+                      <Text style={styles.statLabel}>{t('homeScreen', 'dashboard.chat.total')}</Text>
+                      <Text style={styles.statValue}>445</Text>
+                    </View>
+                    <View style={styles.statDivider} />
+                    <View style={[styles.statColumn, { flex: 1.3 }]}>
+                      <Text style={styles.statLabel}>{t('homeScreen', 'dashboard.chat.new')}</Text>
+                      <Text style={styles.statValue}>12</Text>
+                    </View>
+                  </View>
+                  <TouchableOpacity style={styles.viewMoreBtn}>
+                    <Text style={styles.viewMoreText}>{t('homeScreen', 'dashboard.chat.viewMore')}</Text>
+                    <Image source={require('../../../../assets/icons/viewMore.png')} style={styles.viewMoreIcon} />
+                  </TouchableOpacity>
+                </View>
               </View>
-              <View style={styles.statsBox}>
-                <View style={[styles.statColumn, { flex: 0.7 }]}>
-                  <Text style={styles.statLabel}>{t('homeScreen', 'dashboard.consultations.total')}</Text>
-                  <Text style={styles.statValue}>55</Text>
-                </View>
-                <View style={styles.statDivider} />
-                <View style={[styles.statColumn, { flex: 1.3 }]}>
-                  <Text style={styles.statLabel}>{t('homeScreen', 'dashboard.consultations.upcoming')}</Text>
-                  <Text style={styles.statValue}>32</Text>
-                </View>
-              </View>
-              <TouchableOpacity style={styles.viewMoreBtn}>
-                <Text style={styles.viewMoreText}>{t('homeScreen', 'dashboard.consultations.viewMore')}</Text>
-                <Image source={require('../../../../assets/icons/viewMore.png')} style={styles.viewMoreIcon} />
+            </>
+          )}
+
+          {dashboardState === 'unverified' && (
+            <View style={styles.stateContainer}>
+              <Image source={require('../../../../assets/objects/unverified.png')} style={styles.stateImage} />
+              <Text style={styles.stateText}>Your Account Has Yet To Be Verified</Text>
+            </View>
+          )}
+
+          {dashboardState === 'setup_unfinished' && (
+            <View style={styles.stateContainer}>
+              <Image source={require('../../../../assets/objects/addBankDetails.png')} style={styles.stateImage} />
+              <Text style={styles.stateText}>Please Add Your Bank Information{'\n'}And Contract</Text>
+              <TouchableOpacity style={styles.finishSetupBtn}>
+                <Text style={styles.finishSetupText}>Finish Setup</Text>
               </TouchableOpacity>
             </View>
-
-            {/* Chat Card */}
-            <View style={[styles.card, { flex: 0.95 }]}>
-              <View style={styles.cardHeader}>
-                <View style={[styles.cardIconBox, { backgroundColor: '#E1F3FF' }]}>
-                  <Image source={require('../../../../assets/icons/chat.png')} style={styles.cardIcon} />
-                </View>
-                <Text style={styles.cardTitle}>{t('homeScreen', 'dashboard.chat.title')}</Text>
-              </View>
-              <View style={styles.statsBox}>
-                <View style={[styles.statColumn, { flex: 0.7 }]}>
-                  <Text style={styles.statLabel}>{t('homeScreen', 'dashboard.chat.total')}</Text>
-                  <Text style={styles.statValue}>445</Text>
-                </View>
-                <View style={styles.statDivider} />
-                <View style={[styles.statColumn, { flex: 1.3 }]}>
-                  <Text style={styles.statLabel}>{t('homeScreen', 'dashboard.chat.new')}</Text>
-                  <Text style={styles.statValue}>12</Text>
-                </View>
-              </View>
-              <TouchableOpacity style={styles.viewMoreBtn}>
-                <Text style={styles.viewMoreText}>{t('homeScreen', 'dashboard.chat.viewMore')}</Text>
-                <Image source={require('../../../../assets/icons/viewMore.png')} style={styles.viewMoreIcon} />
-              </TouchableOpacity>
-            </View>
-          </View>
+          )}
 
           {/* Extra spacer at the bottom for BottomNavBar */}
           <View style={{ height: 120 }} />
@@ -414,6 +442,36 @@ const styles = StyleSheet.create({
     width: scale(11),
     height: scale(11),
     resizeMode: 'contain',
+  },
+  stateContainer: {
+    alignItems: 'center',
+    paddingTop: verticalScale(20),
+    paddingHorizontal: scale(20),
+  },
+  stateImage: {
+    width: scale(140),
+    height: scale(140),
+    resizeMode: 'contain',
+    marginBottom: verticalScale(20),
+  },
+  stateText: {
+    fontFamily: quicksandFonts.semiBold,
+    fontSize: moderateScale(20),
+    color: '#333',
+    textAlign: 'center',
+    marginBottom: verticalScale(20),
+    lineHeight: moderateScale(24),
+  },
+  finishSetupBtn: {
+    backgroundColor: '#C8E9FF',
+    paddingVertical: verticalScale(12),
+    paddingHorizontal: scale(32),
+    borderRadius: scale(20),
+  },
+  finishSetupText: {
+    fontFamily: quicksandFonts.bold,
+    fontSize: moderateScale(15),
+    color: '#19A3FF',
   },
 });
 
