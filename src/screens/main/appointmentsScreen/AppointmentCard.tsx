@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
+  I18nManager,
 } from 'react-native';
 import { colors } from '../../../theme/colors';
 import { scale, verticalScale, moderateScale } from '../../../theme/scaling';
@@ -170,11 +171,13 @@ const styles = StyleSheet.create({
     color: colors.textDark,
     marginBottom: verticalScale(4),
     fontFamily: quicksandFonts.bold,
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   doctorId: {
     fontSize: moderateScale(12),
     color: colors.textMuted,
     fontFamily: quicksandFonts.regular,
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   videoTag: {
     backgroundColor: colors.backgroundLight,
@@ -198,6 +201,7 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(4),
     marginBottom: verticalScale(4),
     fontFamily: quicksandFonts.regular,
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   locationContainer: {
     flexDirection: 'row',
@@ -212,6 +216,7 @@ const styles = StyleSheet.create({
   locationText: {
     fontSize: moderateScale(12),
     fontFamily: quicksandFonts.regular,
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   divider: {
     height: 1,
@@ -232,6 +237,7 @@ const styles = StyleSheet.create({
   statusButtonText: {
     fontSize: moderateScale(11),
     fontFamily: quicksandFonts.regular,
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   actionButtons: {
     flexDirection: 'row',
@@ -249,6 +255,7 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(12),
     color: '#FF4444',
     fontFamily: quicksandFonts.regular,
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   actionButton: {
     flex: 0.55,
@@ -261,6 +268,7 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(12),
     color: colors.textLight,
     fontFamily: quicksandFonts.semiBold,
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
 });
 

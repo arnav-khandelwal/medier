@@ -8,6 +8,8 @@ import {
   TouchableOpacity,
   Image,
   StatusBar,
+  Platform,
+  I18nManager,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { colors } from '../../../theme/colors';
@@ -191,6 +193,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: scale(34),
     marginTop: verticalScale(0),
     paddingTop: verticalScale(24),
+    paddingLeft: Platform.OS === 'ios' ? I18nManager.isRTL ? scale(12) : 0 : 0,
   },
   scrollView: {
     flex: 1,

@@ -255,21 +255,21 @@ const styles = StyleSheet.create({
     fontFamily: quicksandFonts.bold,
     color: colors.textDark,
     marginBottom: verticalScale(4),
-    textAlign: I18nManager.isRTL ? 'right' : 'left',
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   doctorId: {
     fontSize: moderateScale(12),
     color: colors.textMuted,
     fontFamily: quicksandFonts.regular,
     marginBottom: verticalScale(4),
-    textAlign: I18nManager.isRTL ? 'right' : 'left',
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   dateTime: {
     fontSize: moderateScale(12),
     color: colors.textDark,
     fontFamily: quicksandFonts.regular,
     marginBottom: verticalScale(6),
-    textAlign: I18nManager.isRTL ? 'right' : 'left',
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   locationContainer: {
     flexDirection: 'row',
@@ -286,7 +286,7 @@ const styles = StyleSheet.create({
     color: colors.textMuted,
     fontFamily: quicksandFonts.regular,
     flex: 1,
-    textAlign: I18nManager.isRTL ? 'right' : 'left',
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   accordionHeader: {
     flexDirection: 'row',
@@ -299,7 +299,7 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(18),
     fontFamily: quicksandFonts.bold,
     color: colors.textDark,
-    textAlign: I18nManager.isRTL ? 'right' : 'left',
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   arrowIcon: {
     width: scale(14),
@@ -335,20 +335,21 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(14),
     fontFamily: quicksandFonts.bold,
     color: '#0099FF',
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   questionText: {
     flex: 1,
     fontSize: moderateScale(14),
     fontFamily: quicksandFonts.semiBold,
     color: colors.textDark,
-    textAlign: I18nManager.isRTL ? 'right' : 'left',
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   answerText: {
     fontSize: moderateScale(14),
     fontFamily: quicksandFonts.bold,
     color: '#0099FF',
     marginStart: scale(44),
-    textAlign: I18nManager.isRTL ? 'right' : 'left',
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   prescriptionContainer: {
     backgroundColor: '#EBF7FF',
@@ -373,13 +374,14 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: moderateScale(11),
     fontFamily: quicksandFonts.bold,
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   prescriptionName: {
     flex: 1,
     fontSize: moderateScale(14),
     fontFamily: quicksandFonts.medium,
     color: colors.textDark,
-    textAlign: I18nManager.isRTL ? 'right' : 'left',
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   downloadButton: {
     width: scale(28),
@@ -411,6 +413,7 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(14),
     fontFamily: quicksandFonts.semiBold,
     color: '#FF4C4C',
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   consultButton: {
     flex: 1.2,
@@ -423,6 +426,7 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(14),
     fontFamily: quicksandFonts.bold,
     color: '#FFFFFF',
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
 });
 
