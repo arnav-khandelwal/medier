@@ -239,6 +239,7 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(15),
     color: '#333',
     fontFamily: quicksandFonts.regular,
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   dropdownHomeIcon: {
     width: scale(20),
@@ -251,6 +252,7 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(16),
     fontFamily: quicksandFonts.regular,
     marginRight: scale(10),
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   dropdownArrowIcon: {
     width: scale(12),
@@ -297,7 +299,7 @@ const styles = StyleSheet.create({
     fontFamily: quicksandFonts.semiBold,
     marginBottom: verticalScale(44),
     zIndex: 10,
-    textAlign: I18nManager.isRTL ? 'right' : 'left',
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   doctorTextContainer: {
     zIndex: 10,
@@ -307,7 +309,7 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(26),
     fontFamily: quicksandFonts.bold,
     marginBottom: verticalScale(10),
-    textAlign: I18nManager.isRTL ? 'right' : 'left',
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   specialtyPill: {
     backgroundColor: 'rgba(255, 255, 255, 0.25)',
@@ -318,9 +320,9 @@ const styles = StyleSheet.create({
   },
   specialtyText: {
     color: '#FFF',
-    fontSize: moderateScale(14),
+    fontSize: moderateScale(12),
     fontFamily: quicksandFonts.regular,
-    textAlign: I18nManager.isRTL ? 'right' : 'left',
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   doctorImage: {
     position: 'absolute',
@@ -354,7 +356,7 @@ const styles = StyleSheet.create({
     color: '#000',
     marginBottom: verticalScale(12),
     marginLeft: scale(4),
-    textAlign: I18nManager.isRTL ? 'right' : 'left',
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   cardsRow: {
     flexDirection: 'row',
@@ -397,6 +399,7 @@ const styles = StyleSheet.create({
     fontFamily: quicksandFonts.semiBold,
     color: '#333',
     flexShrink: 1,
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   statsBox: {
     backgroundColor: '#E1F3FF',
@@ -423,11 +426,13 @@ const styles = StyleSheet.create({
     color: '#666',
     marginBottom: verticalScale(4),
     fontFamily: quicksandFonts.semiBold,
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   statValue: {
     fontSize: moderateScale(14),
     fontFamily: quicksandFonts.semiBold,
     color: '#222',
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   viewMoreBtn: {
     backgroundColor: colors.primary,
@@ -442,6 +447,7 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(13),
     fontFamily: quicksandFonts.regular,
     marginRight: scale(8),
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   viewMoreIcon: {
     width: scale(11),
@@ -466,6 +472,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: verticalScale(20),
     lineHeight: moderateScale(24),
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   finishSetupBtn: {
     backgroundColor: '#C8E9FF',
@@ -477,6 +484,7 @@ const styles = StyleSheet.create({
     fontFamily: quicksandFonts.bold,
     fontSize: moderateScale(15),
     color: '#19A3FF',
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
 });
 

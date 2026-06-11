@@ -10,6 +10,7 @@ import {
   Dimensions,
   Animated,
   Easing,
+  I18nManager,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { colors } from '../../theme/colors';
@@ -32,13 +33,14 @@ const Drawer: React.FC<DrawerProps> = ({ visible, onClose }) => {
   const { t } = useTranslation();
   const navigation = useNavigation<NavigationProp>();
   const screenWidth = Dimensions.get('window').width;
-  const slideAnim = useRef(new Animated.Value(-screenWidth * 0.75)).current;
+  const isRTL = I18nManager.isRTL;
+  const slideAnim = useRef(new Animated.Value(isRTL ? screenWidth * 0.75 : -screenWidth * 0.75)).current;
   const [modalVisible, setModalVisible] = useState(visible);
 
   useEffect(() => {
     if (visible) {
       setModalVisible(true);
-      slideAnim.setValue(-screenWidth * 0.75);
+      slideAnim.setValue(isRTL ? screenWidth * 0.75 : -screenWidth * 0.75);
       Animated.timing(slideAnim, {
         toValue: 0,
         duration: 300,
@@ -47,7 +49,7 @@ const Drawer: React.FC<DrawerProps> = ({ visible, onClose }) => {
       }).start();
     } else {
       Animated.timing(slideAnim, {
-        toValue: -screenWidth * 0.75,
+        toValue: isRTL ? screenWidth * 0.75 : -screenWidth * 0.75,
         duration: 300,
         easing: Easing.ease,
         useNativeDriver: true,
@@ -55,7 +57,7 @@ const Drawer: React.FC<DrawerProps> = ({ visible, onClose }) => {
         setModalVisible(false);
       });
     }
-  }, [visible, slideAnim, screenWidth]);
+  }, [visible, slideAnim, screenWidth, isRTL]);
 
   const drawerItems = [
     { icon: require('../../../assets/icons/drawer/myAccount.png'), label: t('profileScreen', 'drawerItems.myAccount'), onPress: onClose },
@@ -152,7 +154,7 @@ const styles = StyleSheet.create({
   overlay: {
     flex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    justifyContent: 'flex-start',
+    justifyContent: I18nManager.isRTL ? 'flex-end' : 'flex-start',
   },
   drawerContainer: {
     height: '100%',
