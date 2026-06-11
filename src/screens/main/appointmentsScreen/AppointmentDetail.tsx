@@ -9,6 +9,7 @@ import {
   Image,
   StatusBar,
   I18nManager,
+  Platform,
 } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../../navigation/types';
@@ -225,6 +226,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: scale(34),
     borderTopRightRadius: scale(34),
     paddingTop: verticalScale(24),
+    paddingLeft: Platform.OS === 'ios' ? I18nManager.isRTL ? scale(16) : 0 : 0,
   },
   scrollView: {
     flex: 1,
