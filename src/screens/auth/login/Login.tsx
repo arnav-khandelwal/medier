@@ -10,6 +10,7 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
   Alert,
+  I18nManager,
 } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { colors } from '../../../theme/colors';
@@ -78,21 +79,28 @@ function Login({ navigation }: Props): React.JSX.Element {
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.content}>
           {/* Header Texts */}
-          <Text style={styles.titleContainer}>
-            <Text style={styles.titleBlue}>{t('login', 'title.blue')}</Text>
-            <Text style={styles.titleBlack}>{t('login', 'title.black')}</Text>
+          <Text style={styles.RTLWrapper}>
+            <Text style={styles.titleContainer}>
+              <Text style={styles.titleBlue}>{t('login', 'title.blue')}</Text>
+              <Text style={styles.titleBlack}>{t('login', 'title.black')}</Text>
+            </Text>
           </Text>
 
           <View style={styles.subtitleRow}>
-            <Text style={styles.subtitleBlack}>{t('login', 'subtitle.black')}</Text>
+            <Text style={styles.subtitleBlack}>
+              {t('login', 'subtitle.black')}
+            </Text>
+
             <TouchableOpacity
               activeOpacity={0.8}
               onPress={() => navigation.replace('Register')}
             >
-              <Text style={styles.subtitleBlue}>{t('login', 'subtitle.blue')}</Text>
+              <Text style={styles.subtitleBlue}>
+                {t('login', 'subtitle.blue')}
+              </Text>
             </TouchableOpacity>
           </View>
-
+          
           {/* Form Fields */}
           <View style={styles.formContainer}>
             <Text style={styles.inputLabel}>{t('login', 'form.usernameLabel')}</Text>
@@ -179,7 +187,8 @@ const styles = StyleSheet.create({
   blurLeft: {
     position: 'absolute',
     bottom: -verticalScale(40),
-    left: -scale(70),
+    left: I18nManager.isRTL ? undefined : -scale(70),
+    right: I18nManager.isRTL ? -scale(70) : undefined,
     width: scale(300),
     height: scale(300),
     resizeMode: 'contain',
@@ -188,7 +197,11 @@ const styles = StyleSheet.create({
   },
   
   // Typography
+  RTLWrapper: {
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
+  },
   titleContainer: {
+    width: '100%',
     marginTop: verticalScale(20),
     marginBottom: verticalScale(20),
   },
@@ -207,19 +220,23 @@ const styles = StyleSheet.create({
   subtitleRow: {
     flexDirection: 'row',
     alignItems: 'center',
+    flexWrap: 'wrap',
+    width: '100%',
+    marginTop: verticalScale(10),
     marginBottom: verticalScale(30),
   },
   subtitleBlack: {
     fontFamily: quicksandFonts.semiBold,
-    fontSize: moderateScale(14),
+    fontSize: moderateScale(15),
+    lineHeight: moderateScale(22),
     color: '#0E1726',
-    lineHeight: moderateScale(14),
   },
+
   subtitleBlue: {
     fontFamily: quicksandFonts.bold,
-    fontSize: moderateScale(15),
+    fontSize: moderateScale(16),
+    lineHeight: moderateScale(22),
     color: colors.primary,
-    lineHeight: moderateScale(15),
   },
 
   // Forms
@@ -232,15 +249,16 @@ const styles = StyleSheet.create({
     color: '#000000',
     marginBottom: verticalScale(8),
     lineHeight: moderateScale(14),
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   forgotPasswordButton: {
-    alignSelf: 'flex-end',
+    alignItems: I18nManager.isRTL ? 'flex-end' : 'flex-start',
     marginTop: verticalScale(16),
     marginBottom: verticalScale(16),
   },
   forgotPasswordText: {
     fontFamily: quicksandFonts.semiBold,
-    fontSize: moderateScale(14),
+    fontSize: moderateScale(15),
     color: colors.primary,
   },
 

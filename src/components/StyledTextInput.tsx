@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInputProps,
+  I18nManager,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { scale, verticalScale, moderateScale } from '../theme/scaling';
@@ -54,7 +55,7 @@ const StyledTextInput: React.FC<StyledTextInputProps> = ({
       <View style={[styles.inputBoxInner, isFocused && styles.inputBoxInnerFocused]}>
         <Image
           source={isFocused ? iconSelected : iconUnselected}
-          style={styles.inputIcon}
+          style={[styles.inputIcon, I18nManager.isRTL && styles.inputIconRTL]}
         />
         <TextInput
           style={[
@@ -62,6 +63,8 @@ const StyledTextInput: React.FC<StyledTextInputProps> = ({
             {
               fontFamily: value.length > 0 ? quicksandFonts.semiBold : quicksandFonts.light,
               fontSize: value.length > 0 ? moderateScale(15) : moderateScale(12),
+              textAlign: I18nManager.isRTL ? 'right' : 'left',
+              writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
             },
           ]}
           placeholder={placeholder}
@@ -132,7 +135,11 @@ const styles = StyleSheet.create({
     width: scale(16),
     height: scale(16),
     resizeMode: 'contain',
-    marginRight: scale(12),
+    marginEnd: scale(12),
+  },
+  inputIconRTL: {
+    marginEnd: scale(6),
+    marginStart: scale(6),
   },
   eyeIcon: {
     width: scale(18),
