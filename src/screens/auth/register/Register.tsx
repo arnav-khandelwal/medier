@@ -16,7 +16,8 @@ import {
   Dimensions,
   Modal,
   Alert,
-  Platform
+  Platform,
+  I18nManager
 } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { colors } from '../../../theme/colors';
@@ -137,7 +138,7 @@ function Register({ navigation }: Props): React.JSX.Element {
 
     setStep(targetStep);
     Animated.timing(slideAnim, {
-      toValue: targetStep === 1 ? 0 : -width,
+      toValue: targetStep === 1 ? 0 : (I18nManager.isRTL ? width : -width),
       duration: 300,
       useNativeDriver: true,
     }).start();
@@ -201,6 +202,7 @@ const mapToOptions = (arr: string[]) => arr.map(item => ({ label: item, value: i
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
       style={{ flex: 1 }}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -257,6 +259,7 @@ const mapToOptions = (arr: string[]) => arr.map(item => ({ label: item, value: i
                   showsVerticalScrollIndicator={false}
                   contentContainerStyle={styles.scrollContent}
                   style={styles.pageScreen}
+                  nestedScrollEnabled={true}
                 >
                   <View style={styles.formContainer}>
                     {/* First Name */}
@@ -314,7 +317,15 @@ const mapToOptions = (arr: string[]) => arr.map(item => ({ label: item, value: i
                         <View style={styles.divider} />
                         <Image source={require('../../../../assets/icons/mobileUnselected.png')} style={styles.inputIcon} />
                         <TextInput
-                          style={[styles.textInput, { fontFamily: mobile.length > 0 ? quicksandFonts.semiBold : quicksandFonts.light, fontSize: mobile.length > 0 ? moderateScale(15) : moderateScale(12) }]}
+                          style={[
+                            styles.textInput,
+                            {
+                              fontFamily: mobile.length > 0 ? quicksandFonts.semiBold : quicksandFonts.light,
+                              fontSize: mobile.length > 0 ? moderateScale(15) : moderateScale(12),
+                              textAlign: I18nManager.isRTL ? 'right' : 'left',
+                              writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
+                            }
+                          ]}
                           placeholder={t('register', 'personnel.mobilePlaceholder')}
                           placeholderTextColor="#7a7676"
                           value={mobile}
@@ -327,6 +338,7 @@ const mapToOptions = (arr: string[]) => arr.map(item => ({ label: item, value: i
                           }}
                           keyboardType="phone-pad"
                           maxLength={10}
+                          textContentType="telephoneNumber"
                         />
                       </View>
                     </View>
@@ -387,6 +399,7 @@ const mapToOptions = (arr: string[]) => arr.map(item => ({ label: item, value: i
                   showsVerticalScrollIndicator={false}
                   contentContainerStyle={styles.scrollContent}
                   style={styles.pageScreen}
+                  nestedScrollEnabled={true}
                 >
                   <View style={styles.formContainer}>
                     {/* CV Upload */}
@@ -521,7 +534,13 @@ const mapToOptions = (arr: string[]) => arr.map(item => ({ label: item, value: i
                     <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>{t('register', 'professional.addressLabel')}</Text>
                     <View style={[styles.addressInputWrapper]}>
                       <TextInput
-                        style={styles.addressInput}
+                        style={[
+                          styles.addressInput,
+                          {
+                            textAlign: I18nManager.isRTL ? 'right' : 'left',
+                            writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
+                          }
+                        ]}
                         multiline
                         numberOfLines={3}
                         placeholder={t('register', 'professional.addressPlaceholder')}
@@ -696,7 +715,7 @@ const mapToOptions = (arr: string[]) => arr.map(item => ({ label: item, value: i
 // STYLES TO BE CONTINUED
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#FFFFFF' },
+  container: { flex: 1, backgroundColor: '#FFFFFF', paddingHorizontal: Platform.OS === 'ios' ? scale(10) : 0 },
   safeArea: { flex: 1 },
   content: { flex: 1, paddingTop: verticalScale(60) },
   // Background images
@@ -706,7 +725,7 @@ const styles = StyleSheet.create({
   blurLeft: { position: 'absolute', bottom: -verticalScale(40), left: -scale(70), width: scale(300), height: scale(300), resizeMode: 'contain', zIndex: 0, opacity: 0.85 },
 
   headerArea: { paddingHorizontal: scale(16) },
-  titleContainer: { marginTop: verticalScale(20), marginBottom: verticalScale(20) },
+  titleContainer: { marginTop: verticalScale(20), marginBottom: verticalScale(20), writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr' },
   titleBlue: { fontFamily: quicksandFonts.bold, fontSize: moderateScale(29), color: colors.primary, lineHeight: moderateScale(36) },
   titleBlack: { fontFamily: quicksandFonts.semiBold, fontSize: moderateScale(29), color: '#0E1726', lineHeight: moderateScale(36) },
   subtitleRow: { flexDirection: 'row', alignItems: 'center', marginBottom: verticalScale(20) },
@@ -721,13 +740,13 @@ const styles = StyleSheet.create({
   tabDividerLine: { height: 2, backgroundColor: colors.primary, marginTop: verticalScale(8), width: '0%' },
 
   sliderContainer: { flex: 1, flexDirection: 'row', width: width * 2 },
-  pageScreen: { width: width, paddingHorizontal: scale(16), paddingTop: verticalScale(20) },
+  pageScreen: { width: width, paddingHorizontal: scale(16), paddingTop: verticalScale(20), flex: 1 },
   step2Screen: { justifyContent: 'center', alignItems: 'center' },
   professionalHeading: { fontFamily: quicksandFonts.bold, fontSize: moderateScale(24), color: colors.primary },
   scrollContent: { paddingBottom: verticalScale(40) },
 
   formContainer: {},
-  inputLabel: { fontFamily: quicksandFonts.medium, fontSize: moderateScale(14), color: '#000000', marginBottom: verticalScale(8), lineHeight: moderateScale(14) },
+  inputLabel: { fontFamily: quicksandFonts.medium, fontSize: moderateScale(14), color: '#000000', marginBottom: verticalScale(8), lineHeight: moderateScale(14), writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr', marginRight: I18nManager.isRTL ? scale(44) : 0 },
   gradientWrapper: { height: verticalScale(56), borderRadius: scale(16), backgroundColor: '#FFFFFF' },
   shadowUnfocused: { shadowColor: '#C6D3E7', shadowOffset: { width: 0, height: 6 }, shadowOpacity: 0.6, shadowRadius: 8, elevation: 3 },
   shadowFocused: { shadowColor: colors.primary, shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.2, shadowRadius: 6, elevation: 3 },
