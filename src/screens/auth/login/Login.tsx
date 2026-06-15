@@ -9,9 +9,9 @@ import {
   View,
   Keyboard,
   TouchableWithoutFeedback,
-  Alert,
   I18nManager,
 } from 'react-native';
+import Toast from 'react-native-toast-message';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { colors } from '../../../theme/colors';
 import { quicksandFonts } from '../../../theme/typography';
@@ -29,20 +29,45 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
 function Login({ navigation }: Props): React.JSX.Element {
   const { t } = useTranslation();
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const validateEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const handleLogin = () => {
-    if (!username.trim()) {
-      Alert.alert(t('login', 'errors.error'), t('login', 'errors.enterUsername'));
+    if (!email.trim()) {
+      Toast.show({
+        type: 'error',
+        text1: t('login', 'errors.error'),
+        text2: t('login', 'errors.enterEmail'),
+      });
+      return;
+    }
+    if (!validateEmail(email)) {
+      Toast.show({
+        type: 'error',
+        text1: t('login', 'errors.error'),
+        text2: t('login', 'errors.invalidEmail'),
+      });
       return;
     }
     if (!password.trim()) {
-      Alert.alert(t('login', 'errors.error'), t('login', 'errors.enterPassword'));
+      Toast.show({
+        type: 'error',
+        text1: t('login', 'errors.error'),
+        text2: t('login', 'errors.enterPassword'),
+      });
       return;
     }
     if (password.length < 6) {
-      Alert.alert(t('login', 'errors.error'), t('login', 'errors.passwordLength'));
+      Toast.show({
+        type: 'error',
+        text1: t('login', 'errors.error'),
+        text2: t('login', 'errors.passwordLength'),
+      });
       return;
     }
     // If validation passes, navigate to MainTabs
@@ -103,14 +128,15 @@ function Login({ navigation }: Props): React.JSX.Element {
           
           {/* Form Fields */}
           <View style={styles.formContainer}>
-            <Text style={styles.inputLabel}>{t('login', 'form.usernameLabel')}</Text>
+            <Text style={styles.inputLabel}>{t('login', 'form.emailLabel')}</Text>
             <StyledTextInput
-              value={username}
-              onChangeText={setUsername}
-              placeholder={t('login', 'form.usernamePlaceholder')}
-              iconUnselected={require('../../../../assets/icons/usernameUnselected.png')}
-              iconSelected={require('../../../../assets/icons/usernameSelected.png')}
+              value={email}
+              onChangeText={setEmail}
+              placeholder={t('login', 'form.emailPlaceholder')}
+              iconUnselected={require('../../../../assets/icons/emailUnselected.png')}
+              iconSelected={require('../../../../assets/icons/emailSelected.png')}
               autoCapitalize="none"
+              keyboardType="email-address"
             />
 
             <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>{t('login', 'form.passwordLabel')}</Text>

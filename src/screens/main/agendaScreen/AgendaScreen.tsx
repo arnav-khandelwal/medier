@@ -183,7 +183,7 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
                 onPress={() => setSelectedTab('myAvailability')}
               >
                 <Text style={[styles.tabText, selectedTab === 'myAvailability' && styles.tabTextSelected]}>
-                  My Availability
+                  {t('agendaScreen', 'myAvailability')}
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -191,7 +191,7 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
                 onPress={() => setSelectedTab('teamAvailability')}
               >
                 <Text style={[styles.tabText, selectedTab === 'teamAvailability' && styles.tabTextSelected]}>
-                  Team Availability
+                  {t('agendaScreen', 'teamAvailability')}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -233,7 +233,7 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
                     <View style={styles.dateHeader}>
                       <Text style={styles.selectedDateText}>{formatDate(selectedDate)}</Text>
                       <View style={styles.statusBadge}>
-                        <Text style={styles.statusText}>Online</Text>
+                        <Text style={styles.statusText}>{t('agendaScreen', 'online')}</Text>
                       </View>
                     </View>
 
@@ -255,7 +255,7 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
                         />
                       </TouchableOpacity>
                       <TouchableOpacity style={styles.editDayButton}>
-                        <Text style={styles.editDayButtonText}>Edit</Text>
+                        <Text style={styles.editDayButtonText}>{t('agendaScreen', 'edit')}</Text>
                       </TouchableOpacity>
                     </View>
                   </View>
@@ -263,10 +263,10 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
                   {/* Block/Add Availability */}
                   <View style={styles.blockAddButtons}>
                     <TouchableOpacity style={styles.blockButton}>
-                      <Text style={styles.blockButtonText}>Block Availability</Text>
+                      <Text style={styles.blockButtonText}>{t('agendaScreen', 'blockAvailability')}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.addButton}>
-                      <Text style={styles.addButtonText}>Add Availability</Text>
+                      <Text style={styles.addButtonText}>{t('agendaScreen', 'addAvailability')}</Text>
                     </TouchableOpacity>
                   </View>
                 </>
@@ -277,9 +277,9 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
                     source={require('../../../../assets/icons/noAvailability.png')}
                     style={styles.noAvailabilityIcon}
                   />
-                  <Text style={styles.noAvailabilityText}>You haven't added availability yet</Text>
+                  <Text style={styles.noAvailabilityText}>{t('agendaScreen', 'noAvailabilityMessage')}</Text>
                   <TouchableOpacity style={styles.addNewAvailabilityButton}>
-                    <Text style={styles.addNewAvailabilityButtonText}>Add New Availability</Text>
+                    <Text style={styles.addNewAvailabilityButtonText}>{t('agendaScreen', 'addNewAvailability')}</Text>
                   </TouchableOpacity>
                 </View>
               )}
@@ -347,6 +347,7 @@ const styles = StyleSheet.create({
   tabTextSelected: {
     fontFamily: quicksandFonts.semiBold,
     color: '#FFFFFF',
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   calendarContainer: {
     backgroundColor: '#FFFFFF',
@@ -434,12 +435,15 @@ const styles = StyleSheet.create({
   calendarDayTextSelected: {
     color: '#FFFFFF',
     fontFamily: quicksandFonts.bold,
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   calendarDayTextBlocked: {
     color: '#F36A6A',
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   calendarDayTextOtherMonth: {
     color: colors.textMuted,
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
   selectedDateSection: {
     marginBottom: verticalScale(20),

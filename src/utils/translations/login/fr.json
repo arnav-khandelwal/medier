@@ -8,8 +8,8 @@
     "blue": "S'inscrire"
   },
   "form": {
-    "usernameLabel": "Nom d'utilisateur *",
-    "usernamePlaceholder": "Entrez votre nom d'utilisateur",
+    "emailLabel": "Email *",
+    "emailPlaceholder": "Entrez votre email",
     "passwordLabel": "Mot de passe *",
     "passwordPlaceholder": "Entrez votre mot de passe",
     "forgotPassword": "Mot de passe oublié ?"
@@ -19,7 +19,8 @@
   },
   "errors": {
     "error": "Erreur",
-    "enterUsername": "Veuillez entrer votre nom d'utilisateur.",
+    "enterEmail": "Veuillez entrer votre email.",
+    "invalidEmail": "Veuillez entrer une adresse email valide.",
     "enterPassword": "Veuillez entrer votre mot de passe.",
     "passwordLength": "Le mot de passe doit comporter au moins 6 caractères."
   }

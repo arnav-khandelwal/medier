@@ -8,8 +8,8 @@
     "blue": "رجسٹر کریں"
   },
   "form": {
-    "usernameLabel": "صارف نام *",
-    "usernamePlaceholder": "صارف نام درج کریں",
+    "emailLabel": "ای میل *",
+    "emailPlaceholder": "ای میل درج کریں",
     "passwordLabel": "پاس ورڈ *",
     "passwordPlaceholder": "پاس ورڈ درج کریں",
     "forgotPassword": "پاس ورڈ بھول گئے؟"
@@ -19,7 +19,8 @@
   },
   "errors": {
     "error": "خرابی",
-    "enterUsername": "براہ کرم اپنا صارف نام درج کریں۔",
+    "enterEmail": "براہ کرم اپنا ای میل درج کریں۔",
+    "invalidEmail": "براہ کرم ایک درست ای میل پتہ درج کریں۔",
     "enterPassword": "براہ کرم اپنا پاس ورڈ درج کریں۔",
     "passwordLength": "پاس ورڈ کم از کم 6 حروف کا ہونا چاہیے۔"
   }

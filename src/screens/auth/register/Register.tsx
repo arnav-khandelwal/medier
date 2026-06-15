@@ -15,10 +15,10 @@ import {
   Animated,
   Dimensions,
   Modal,
-  Alert,
   Platform,
   I18nManager
 } from 'react-native';
+import Toast from 'react-native-toast-message';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { colors } from '../../../theme/colors';
 import { quicksandFonts } from '../../../theme/typography';
@@ -132,7 +132,11 @@ function Register({ navigation }: Props): React.JSX.Element {
 
   const handleTabPress = (targetStep: number) => {
     if (targetStep === 2 && !validatePersonnelFields()) {
-      Alert.alert(t('register', 'errors.incompleteFields'), t('register', 'errors.completePersonnel'));
+      Toast.show({
+        type: 'error',
+        text1: t('register', 'errors.incompleteFields'),
+        text2: t('register', 'errors.completePersonnel'),
+      });
       return;
     }
 
@@ -147,39 +151,75 @@ function Register({ navigation }: Props): React.JSX.Element {
   const handleNext = () => {
     // Validate Step 1 fields
     if (!firstName.trim()) {
-      Alert.alert(t('register', 'errors.requiredField'), t('register', 'errors.enterFirstName'));
+      Toast.show({
+        type: 'error',
+        text1: t('register', 'errors.requiredField'),
+        text2: t('register', 'errors.enterFirstName'),
+      });
       return;
     }
     if (!lastName.trim()) {
-      Alert.alert(t('register', 'errors.requiredField'), t('register', 'errors.enterLastName'));
+      Toast.show({
+        type: 'error',
+        text1: t('register', 'errors.requiredField'),
+        text2: t('register', 'errors.enterLastName'),
+      });
       return;
     }
     if (!email.trim()) {
-      Alert.alert(t('register', 'errors.requiredField'), t('register', 'errors.enterEmail'));
+      Toast.show({
+        type: 'error',
+        text1: t('register', 'errors.requiredField'),
+        text2: t('register', 'errors.enterEmail'),
+      });
       return;
     }
     if (!validateEmail(email)) {
-      Alert.alert(t('register', 'errors.invalidEmail'), t('register', 'errors.validEmail'));
+      Toast.show({
+        type: 'error',
+        text1: t('register', 'errors.invalidEmail'),
+        text2: t('register', 'errors.validEmail'),
+      });
       return;
     }
     if (!mobile.trim()) {
-      Alert.alert(t('register', 'errors.requiredField'), t('register', 'errors.enterMobile'));
+      Toast.show({
+        type: 'error',
+        text1: t('register', 'errors.requiredField'),
+        text2: t('register', 'errors.enterMobile'),
+      });
       return;
     }
     if (!validatePhone(mobile)) {
-      Alert.alert(t('register', 'errors.invalidPhone'), t('register', 'errors.validPhone'));
+      Toast.show({
+        type: 'error',
+        text1: t('register', 'errors.invalidPhone'),
+        text2: t('register', 'errors.validPhone'),
+      });
       return;
     }
     if (!password.trim()) {
-      Alert.alert(t('register', 'errors.requiredField'), t('register', 'errors.enterPassword'));
+      Toast.show({
+        type: 'error',
+        text1: t('register', 'errors.requiredField'),
+        text2: t('register', 'errors.enterPassword'),
+      });
       return;
     }
     if (!validatePassword(password)) {
-      Alert.alert(t('register', 'errors.weakPassword'), t('register', 'errors.passwordLength'));
+      Toast.show({
+        type: 'error',
+        text1: t('register', 'errors.weakPassword'),
+        text2: t('register', 'errors.passwordLength'),
+      });
       return;
     }
     if (!gender) {
-      Alert.alert(t('register', 'errors.requiredField'), t('register', 'errors.selectGender'));
+      Toast.show({
+        type: 'error',
+        text1: t('register', 'errors.requiredField'),
+        text2: t('register', 'errors.selectGender'),
+      });
       return;
     }
 
@@ -596,74 +636,142 @@ const mapToOptions = (arr: string[]) => arr.map(item => ({ label: item, value: i
                       onPress={() => {
                         // Validate Step 1 fields again (in case user went back)
                         if (!firstName.trim()) {
-                          Alert.alert(t('register', 'errors.requiredField'), t('register', 'errors.enterFirstName'));
+                          Toast.show({
+                            type: 'error',
+                            text1: t('register', 'errors.requiredField'),
+                            text2: t('register', 'errors.enterFirstName'),
+                          });
                           return;
                         }
                         if (!lastName.trim()) {
-                          Alert.alert(t('register', 'errors.requiredField'), t('register', 'errors.enterLastName'));
+                          Toast.show({
+                            type: 'error',
+                            text1: t('register', 'errors.requiredField'),
+                            text2: t('register', 'errors.enterLastName'),
+                          });
                           return;
                         }
                         if (!email.trim()) {
-                          Alert.alert(t('register', 'errors.requiredField'), t('register', 'errors.enterEmail'));
+                          Toast.show({
+                            type: 'error',
+                            text1: t('register', 'errors.requiredField'),
+                            text2: t('register', 'errors.enterEmail'),
+                          });
                           return;
                         }
                         if (!validateEmail(email)) {
-                          Alert.alert(t('register', 'errors.invalidEmail'), t('register', 'errors.validEmail'));
+                          Toast.show({
+                            type: 'error',
+                            text1: t('register', 'errors.invalidEmail'),
+                            text2: t('register', 'errors.validEmail'),
+                          });
                           return;
                         }
                         if (!mobile.trim()) {
-                          Alert.alert(t('register', 'errors.requiredField'), t('register', 'errors.enterMobile'));
+                          Toast.show({
+                            type: 'error',
+                            text1: t('register', 'errors.requiredField'),
+                            text2: t('register', 'errors.enterMobile'),
+                          });
                           return;
                         }
                         if (!validatePhone(mobile)) {
-                          Alert.alert(t('register', 'errors.invalidPhone'), t('register', 'errors.validPhone'));
+                          Toast.show({
+                            type: 'error',
+                            text1: t('register', 'errors.invalidPhone'),
+                            text2: t('register', 'errors.validPhone'),
+                          });
                           return;
                         }
                         if (!password.trim()) {
-                          Alert.alert(t('register', 'errors.requiredField'), t('register', 'errors.enterPassword'));
+                          Toast.show({
+                            type: 'error',
+                            text1: t('register', 'errors.requiredField'),
+                            text2: t('register', 'errors.enterPassword'),
+                          });
                           return;
                         }
                         if (!validatePassword(password)) {
-                          Alert.alert(t('register', 'errors.weakPassword'), t('register', 'errors.passwordLength'));
+                          Toast.show({
+                            type: 'error',
+                            text1: t('register', 'errors.weakPassword'),
+                            text2: t('register', 'errors.passwordLength'),
+                          });
                           return;
                         }
                         if (!gender) {
-                          Alert.alert(t('register', 'errors.requiredField'), t('register', 'errors.selectGender'));
+                          Toast.show({
+                            type: 'error',
+                            text1: t('register', 'errors.requiredField'),
+                            text2: t('register', 'errors.selectGender'),
+                          });
                           return;
                         }
 
                         // Validate Step 2 fields
                         if (!cvFile) {
-                          Alert.alert(t('register', 'errors.requiredField'), t('register', 'errors.uploadCV'));
+                          Toast.show({
+                            type: 'error',
+                            text1: t('register', 'errors.requiredField'),
+                            text2: t('register', 'errors.uploadCV'),
+                          });
                           return;
                         }
                         if (!licenseFile) {
-                          Alert.alert(t('register', 'errors.requiredField'), t('register', 'errors.uploadLicense'));
+                          Toast.show({
+                            type: 'error',
+                            text1: t('register', 'errors.requiredField'),
+                            text2: t('register', 'errors.uploadLicense'),
+                          });
                           return;
                         }
                         if (!selectedProfile) {
-                          Alert.alert(t('register', 'errors.requiredField'), t('register', 'errors.selectProfile'));
+                          Toast.show({
+                            type: 'error',
+                            text1: t('register', 'errors.requiredField'),
+                            text2: t('register', 'errors.selectProfile'),
+                          });
                           return;
                         }
                         if (!specialization) {
-                          Alert.alert(t('register', 'errors.requiredField'), t('register', 'errors.selectSpecialization'));
+                          Toast.show({
+                            type: 'error',
+                            text1: t('register', 'errors.requiredField'),
+                            text2: t('register', 'errors.selectSpecialization'),
+                          });
                           return;
                         }
                         if (!selectedCountry) {
-                          Alert.alert(t('register', 'errors.requiredField'), t('register', 'errors.selectCountry'));
+                          Toast.show({
+                            type: 'error',
+                            text1: t('register', 'errors.requiredField'),
+                            text2: t('register', 'errors.selectCountry'),
+                          });
                           return;
                         }
                         if (!address.trim()) {
-                          Alert.alert(t('register', 'errors.requiredField'), t('register', 'errors.enterAddress'));
+                          Toast.show({
+                            type: 'error',
+                            text1: t('register', 'errors.requiredField'),
+                            text2: t('register', 'errors.enterAddress'),
+                          });
                           return;
                         }
                         if (!acceptedTerms) {
-                          Alert.alert(t('register', 'errors.requiredField'), t('register', 'errors.acceptTerms'));
+                          Toast.show({
+                            type: 'error',
+                            text1: t('register', 'errors.requiredField'),
+                            text2: t('register', 'errors.acceptTerms'),
+                          });
                           return;
                         }
 
                         // All validations passed
-                        Alert.alert(t('register', 'errors.registrationSuccessful'), t('register', 'errors.welcome'));
+                        Toast.show({
+                          type: 'success',
+                          text1: t('register', 'errors.registrationSuccessful'),
+                          text2: t('register', 'errors.welcome'),
+                        });
                       }}
                     >
                       <Text style={styles.signUpButtonText}>{t('register', 'professional.signUpButton')}</Text>

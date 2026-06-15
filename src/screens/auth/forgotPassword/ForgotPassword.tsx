@@ -9,8 +9,8 @@ import {
   View,
   Keyboard,
   TouchableWithoutFeedback,
-  Alert,
 } from 'react-native';
+import Toast from 'react-native-toast-message';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { colors } from '../../../theme/colors';
 import { quicksandFonts } from '../../../theme/typography';
@@ -37,15 +37,27 @@ function ForgotPassword({ navigation }: Props): React.JSX.Element {
 
   const handleSubmit = () => {
     if (!email.trim()) {
-      Alert.alert(t('forgotPassword', 'errors.error'), t('forgotPassword', 'errors.enterEmail'));
+      Toast.show({
+        type: 'error',
+        text1: t('forgotPassword', 'errors.error'),
+        text2: t('forgotPassword', 'errors.enterEmail'),
+      });
       return;
     }
     if (!validateEmail(email)) {
-      Alert.alert(t('forgotPassword', 'errors.error'), t('forgotPassword', 'errors.validEmail'));
+      Toast.show({
+        type: 'error',
+        text1: t('forgotPassword', 'errors.error'),
+        text2: t('forgotPassword', 'errors.validEmail'),
+      });
       return;
     }
     // If validation passes, navigate back or show success message
-    Alert.alert(t('forgotPassword', 'errors.success'), t('forgotPassword', 'errors.resetLinkSent'));
+    Toast.show({
+      type: 'success',
+      text1: t('forgotPassword', 'errors.success'),
+      text2: t('forgotPassword', 'errors.resetLinkSent'),
+    });
     navigation.goBack();
   };
 

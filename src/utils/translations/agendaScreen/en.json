@@ -1,4 +1,13 @@
 {
   "title": "Agenda",
-  "subtitle": "Your agenda will appear here"
+  "subtitle": "Your agenda will appear here",
+  "myAvailability": "My Availability",
+  "teamAvailability": "Team Availability",
+  "online": "Online",
+  "noAvailability": "No Availability",
+  "noAvailabilityMessage": "You haven't added availability yet",
+  "addNewAvailability": "Add New Availability",
+  "edit": "Edit",
+  "blockAvailability": "Block Availability",
+  "addAvailability": "Add Availability"
 }

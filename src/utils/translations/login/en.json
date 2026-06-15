@@ -8,8 +8,8 @@
     "blue": "Register"
   },
   "form": {
-    "usernameLabel": "User Name *",
-    "usernamePlaceholder": "Enter Username",
+    "emailLabel": "Email *",
+    "emailPlaceholder": "Enter Email",
     "passwordLabel": "Password *",
     "passwordPlaceholder": "Enter Password",
     "forgotPassword": "Forget Password ?"
@@ -19,7 +19,8 @@
   },
   "errors": {
     "error": "Error",
-    "enterUsername": "Please enter your username.",
+    "enterEmail": "Please enter your email.",
+    "invalidEmail": "Please enter a valid email address.",
     "enterPassword": "Please enter your password.",
     "passwordLength": "Password must be at least 6 characters long."
   }
