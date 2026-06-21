@@ -18,6 +18,7 @@ import { quicksandFonts } from '../../../theme/typography';
 import AppointmentCard from './AppointmentCard';
 import ScreenTitle from '../../../components/ScreenTitle';
 import { useTranslation } from '../../../utils/translations/LanguageContext';
+import { IMAGES } from '../../../theme/images';
 
 interface Appointment {
   id: string;
@@ -47,7 +48,7 @@ const AppointmentsScreen: React.FC<AppointmentsScreenProps> = ({ onTabPress }) =
       id: '1',
       name: 'Dr. Sara Williams',
       doctorId: 'ID001212',
-      photo: require('../../../../assets/objects/personInAppointments.png'),
+      photo: IMAGES.personInAppointments,
       day: 'Today',
       time: '16:00 PM',
       location: '1233 Central Ave, Lake Stati...',
@@ -58,7 +59,7 @@ const AppointmentsScreen: React.FC<AppointmentsScreenProps> = ({ onTabPress }) =
       id: '2',
       name: 'Dr. Claire Rousseau',
       doctorId: 'ID001212',
-      photo: require('../../../../assets/objects/personInAppointments.png'),
+      photo: IMAGES.personInAppointments,
       day: 'Today',
       time: '16:00 PM',
       location: '',
@@ -68,7 +69,7 @@ const AppointmentsScreen: React.FC<AppointmentsScreenProps> = ({ onTabPress }) =
       id: '3',
       name: 'Dr. Arnav Rousseau',
       doctorId: 'ID0011232',
-      photo: require('../../../../assets/objects/personInAppointments.png'),
+      photo: IMAGES.personInAppointments,
       day: 'Tomorrow',
       time: '16:00 PM',
       location: '',
@@ -104,7 +105,7 @@ const AppointmentsScreen: React.FC<AppointmentsScreenProps> = ({ onTabPress }) =
     <SafeAreaView style={styles.root}>
       <StatusBar barStyle="light-content" backgroundColor={colors.primary} />
       <Image
-        source={require('../../../../assets/background/firstscreenbg.png')}
+        source={IMAGES.firstscreenbg}
         style={styles.backgroundImage}
       />
       

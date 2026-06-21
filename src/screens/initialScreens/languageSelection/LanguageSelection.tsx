@@ -7,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  I18nManager,
 } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { colors } from '../../../theme/colors';
@@ -18,6 +19,7 @@ import {
 } from '../../../theme/scaling';
 import { RootStackParamList } from '../../../navigation/types';
 import { useTranslation, languageNameToCode } from '../../../utils/translations/LanguageContext';
+import { IMAGES } from '../../../theme/images';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'LanguageSelection'>;
 
@@ -45,17 +47,17 @@ function LanguageSelection({ navigation }: Props): React.JSX.Element {
     {
       id: 'English',
       name: t('english'),
-      flag: require('../../../../assets/icons/English.png'),
+      flag: IMAGES.English,
     },
     {
       id: 'French',
       name: t('french'),
-      flag: require('../../../../assets/icons/French.png'),
+      flag: IMAGES.French,
     },
     {
       id: 'Arabic',
       name: t('arabic'),
-      flag: require('../../../../assets/icons/Arabic.png'),
+      flag: IMAGES.Arabic,
     },
   ];
 
@@ -65,19 +67,22 @@ function LanguageSelection({ navigation }: Props): React.JSX.Element {
 
       {/* Swirl top-right, partially cut off */}
       <Image
-        source={require('../../../../assets/objects/swirlTop.png')}
+        source={IMAGES.swirlTop}
         style={styles.swirlTop}
       />
 
       {/* Blur glow bottom-right */}
       <Image
-        source={require('../../../../assets/objects/bottomRightBlur.png')}
-        style={styles.bottomBlur}
+        source={IMAGES.bottomRightBlur}
+        style={[
+          styles.bottomBlur,
+          I18nManager.isRTL ? { right: undefined, left: -scale(60) } : {}
+        ]}
       />
 
       {/* Swirl bottom-right, partially cut off */}
       <Image
-        source={require('../../../../assets/objects/swirlBottom.png')}
+        source={IMAGES.swirlBottom}
         style={styles.swirlBottom}
       />
 
@@ -86,7 +91,7 @@ function LanguageSelection({ navigation }: Props): React.JSX.Element {
         {/* Medicine pill — right aligned, pushed to the edge */}
         <View style={styles.pillRow}>
           <Image
-            source={require('../../../../assets/objects/medicine.png')}
+            source={IMAGES.medicine}
             style={styles.medicinePill}
           />
         </View>
@@ -95,7 +100,7 @@ function LanguageSelection({ navigation }: Props): React.JSX.Element {
         <View style={styles.iconRow}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Image
-              source={require('../../../../assets/icons/languageBlack.png')}
+              source={IMAGES.languageBlack}
               style={styles.languageIcon}
             />
           </TouchableOpacity>
@@ -129,10 +134,13 @@ function LanguageSelection({ navigation }: Props): React.JSX.Element {
                 <Image
                   source={
                     isSelected
-                      ? require('../../../../assets/icons/rightArrowSelected.png')
-                      : require('../../../../assets/icons/rightArrowUnselected.png')
+                      ? IMAGES.rightArrowSelected
+                      : IMAGES.rightArrowUnselected
                   }
-                  style={styles.arrowIcon}
+                  style={[
+                    styles.arrowIcon,
+                    I18nManager.isRTL && { transform: [{ rotate: '180deg' }] }
+                  ]}
                 />
               </TouchableOpacity>
             );

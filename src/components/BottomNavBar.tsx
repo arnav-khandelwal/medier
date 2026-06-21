@@ -7,6 +7,7 @@ import {
   Platform,
 } from 'react-native';
 import { colors } from '../theme/colors';
+import { IMAGES } from '../theme/images';
 
 export type TabName = 'Home' | 'Appointments' | 'Agenda' | 'Match' | 'Profile';
 
@@ -19,28 +20,28 @@ interface TabItem {
 const TABS: TabItem[] = [
   {
     name: 'Home',
-    selectedIcon: require('../../assets/icons/homeSelected.png'),
-    unselectedIcon: require('../../assets/icons/homeUnselected.png'),
+    selectedIcon: IMAGES.homeSelected,
+    unselectedIcon: IMAGES.homeUnselected,
   },
   {
     name: 'Appointments',
-    selectedIcon: require('../../assets/icons/appointmentsSelected.png'),
-    unselectedIcon: require('../../assets/icons/appointmentsUnselected.png'),
+    selectedIcon: IMAGES.appointmentsSelected,
+    unselectedIcon: IMAGES.appointmentsUnselected,
   },
   {
     name: 'Agenda',
-    selectedIcon: require('../../assets/icons/agendaSelected.png'),
-    unselectedIcon: require('../../assets/icons/agendaUnselected.png'),
+    selectedIcon: IMAGES.agendaSelected,
+    unselectedIcon: IMAGES.agendaUnselected,
   },
   {
     name: 'Match',
-    selectedIcon: require('../../assets/icons/matchSelected.png'),
-    unselectedIcon: require('../../assets/icons/matchUnselected.png'),
+    selectedIcon: IMAGES.matchSelected,
+    unselectedIcon: IMAGES.matchUnselected,
   },
   {
     name: 'Profile',
-    selectedIcon: require('../../assets/icons/profileSelected.png'),
-    unselectedIcon: require('../../assets/icons/profileUnselected.png'),
+    selectedIcon: IMAGES.profileSelected,
+    unselectedIcon: IMAGES.profileUnselected,
   },
 ];
 

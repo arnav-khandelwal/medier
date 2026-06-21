@@ -11,6 +11,7 @@ import { colors } from '../../../theme/colors';
 import { scale, verticalScale, moderateScale } from '../../../theme/scaling';
 import { quicksandFonts } from '../../../theme/typography';
 import { useTranslation } from '../../../utils/translations/LanguageContext';
+import { IMAGES } from '../../../theme/images';
 
 interface AppointmentCardProps {
   id: string;
@@ -87,7 +88,7 @@ const AppointmentCard: React.FC<AppointmentCardProps> = ({
             {!isOnline && location && (
               <View style={styles.locationContainer}>
                 <Image
-                  source={require('../../../../assets/icons/location.png')}
+                  source={IMAGES.location}
                   style={styles.locationIcon}
                 />
                 <Text style={styles.locationText}>{location}</Text>

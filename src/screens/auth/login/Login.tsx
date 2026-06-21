@@ -24,6 +24,7 @@ import { RootStackParamList } from '../../../navigation/types';
 import LinearGradient from 'react-native-linear-gradient';
 import StyledTextInput from '../../../components/StyledTextInput';
 import { useTranslation } from '../../../utils/translations/LanguageContext';
+import { IMAGES } from '../../../theme/images';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
@@ -80,91 +81,91 @@ function Login({ navigation }: Props): React.JSX.Element {
         <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
 
         {/* Swirl Top Right */}
-      <Image
-        source={require('../../../../assets/objects/swirlTop.png')}
-        style={styles.swirlTopRight}
-      />
-      {/* Swirl Top Left */}
-      <Image
-        source={require('../../../../assets/objects/swirlTopBlack.png')}
-        style={styles.swirlLeft}
-      />
-      {/* Swirl Mid */}
-      <Image
-        source={require('../../../../assets/objects/swirlMid.png')}
-        style={styles.swirlMid}
-      />
-      
-      {/* Bottom Left Blur */}
-      <Image
-        source={require('../../../../assets/objects/bottomLeftBlur.png')}
-        style={styles.blurLeft}
-      />
+        <Image
+          source={IMAGES.swirlTop}
+          style={styles.swirlTopRight}
+        />
+        {/* Swirl Top Left */}
+        <Image
+          source={IMAGES.swirlTopBlack}
+          style={styles.swirlLeft}
+        />
+        {/* Swirl Mid */}
+        <Image
+          source={IMAGES.swirlMid}
+          style={styles.swirlMid}
+        />
 
-      <SafeAreaView style={styles.safeArea}>
-        <View style={styles.content}>
-          {/* Header Texts */}
-          <Text style={styles.RTLWrapper}>
-            <Text style={styles.titleContainer}>
-              <Text style={styles.titleBlue}>{t('login')}</Text>
-              <Text style={styles.titleBlack}>{t('toYourAccount')}</Text>
-            </Text>
-          </Text>
+        {/* Bottom Left Blur */}
+        <Image
+          source={IMAGES.bottomLeftBlur}
+          style={styles.blurLeft}
+        />
 
-          <View style={styles.subtitleRow}>
-            <Text style={styles.subtitleBlack}>
-              {t('newToMedicineApp')}
-            </Text>
-
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() => navigation.replace('Register')}
-            >
-              <Text style={styles.subtitleBlue}>
-                {t('register')}
+        <SafeAreaView style={styles.safeArea}>
+          <View style={styles.content}>
+            {/* Header Texts */}
+            <Text style={styles.RTLWrapper}>
+              <Text style={styles.titleContainer}>
+                <Text style={styles.titleBlue}>{t('login')}</Text>
+                <Text style={styles.titleBlack}>{t('toYourAccount')}</Text>
               </Text>
+            </Text>
+
+            <View style={styles.subtitleRow}>
+              <Text style={styles.subtitleBlack}>
+                {t('newToMedicineApp')}
+              </Text>
+
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => navigation.replace('MainTabs')}
+              >
+                <Text style={styles.subtitleBlue}>
+                  {t('register')}
+                </Text>
+              </TouchableOpacity>
+            </View>
+
+            {/* Form Fields */}
+            <View style={styles.formContainer}>
+              <Text style={styles.inputLabel}>{t('email')}</Text>
+              <StyledTextInput
+                value={email}
+                onChangeText={setEmail}
+                placeholder={t('enterEmail')}
+                iconUnselected={IMAGES.emailUnselected}
+                iconSelected={IMAGES.emailSelected}
+                autoCapitalize="none"
+                keyboardType="email-address"
+              />
+
+              <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>{t('password1')}</Text>
+              <StyledTextInput
+                value={password}
+                onChangeText={setPassword}
+                placeholder={t('enterPassword')}
+                iconUnselected={IMAGES.passwordUnselected}
+                iconSelected={IMAGES.passwordSelected}
+                secureTextEntry
+                showPasswordToggle
+              />
+
+              <TouchableOpacity activeOpacity={0.8} style={styles.forgotPasswordButton} onPress={() => navigation.replace('ForgotPassword')}>
+                <Text style={styles.forgotPasswordText}>{t('forgetPassword')}</Text>
+              </TouchableOpacity>
+            </View>
+
+            {/* Login Button */}
+            <TouchableOpacity
+              style={styles.loginButton}
+              activeOpacity={0.8}
+              onPress={handleLogin}
+            >
+              <Text style={styles.loginButtonText}>{t('login')}</Text>
             </TouchableOpacity>
           </View>
-          
-          {/* Form Fields */}
-          <View style={styles.formContainer}>
-            <Text style={styles.inputLabel}>{t('email')}</Text>
-            <StyledTextInput
-              value={email}
-              onChangeText={setEmail}
-              placeholder={t('enterEmail')}
-              iconUnselected={require('../../../../assets/icons/emailUnselected.png')}
-              iconSelected={require('../../../../assets/icons/emailSelected.png')}
-              autoCapitalize="none"
-              keyboardType="email-address"
-            />
-
-            <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>{t('password1')}</Text>
-            <StyledTextInput
-              value={password}
-              onChangeText={setPassword}
-              placeholder={t('enterPassword')}
-              iconUnselected={require('../../../../assets/icons/passwordUnselected.png')}
-              iconSelected={require('../../../../assets/icons/passwordSelected.png')}
-              secureTextEntry
-              showPasswordToggle
-            />
-
-            <TouchableOpacity activeOpacity={0.8} style={styles.forgotPasswordButton}  onPress={() => navigation.replace('ForgotPassword')}>
-              <Text style={styles.forgotPasswordText}>{t('forgetPassword')}</Text>
-            </TouchableOpacity>
-          </View>
-
-          {/* Login Button */}
-          <TouchableOpacity
-            style={styles.loginButton}
-            activeOpacity={0.8}
-            onPress={handleLogin}
-          >
-            <Text style={styles.loginButtonText}>{t('login')}</Text>
-          </TouchableOpacity>
-        </View>
-      </SafeAreaView>
+        </SafeAreaView>
       </View>
     </TouchableWithoutFeedback>
   );
@@ -183,7 +184,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: scale(16),
     paddingTop: verticalScale(60), // Add top padding to act as distance from top
   },
-  
+
   // Background images
   swirlTopRight: {
     position: 'absolute',
@@ -221,7 +222,7 @@ const styles = StyleSheet.create({
     zIndex: 0,
     opacity: 0.85,
   },
-  
+
   // Typography
   RTLWrapper: {
     writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',

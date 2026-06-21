@@ -31,6 +31,7 @@ import PrivacyPolicyModal from '../PrivacyPolicy/PrivacyPolicyModal';
 import TermsAndConditionsModal from '../TermsAndConditions/TermsAndConditionsModal';
 import { useTranslation } from '../../../utils/translations/LanguageContext';
 import DropdownModal from '../../../components/DropdownModal';
+import { IMAGES } from '../../../theme/images';
 type Props = NativeStackScreenProps<RootStackParamList, 'Register'>;
 
 const { width } = Dimensions.get('window');
@@ -250,9 +251,9 @@ function Register({ navigation }: Props): React.JSX.Element {
           <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
 
           {/* Background Elements (copied from Login) */}
-          <Image source={require('../../../../assets/objects/swirlTop.png')} style={styles.swirlTopRight} />
-          <Image source={require('../../../../assets/objects/swirlTopBlack.png')} style={styles.swirlLeft} />
-          <Image source={require('../../../../assets/objects/swirlMid.png')} style={styles.swirlMid} />
+          <Image source={IMAGES.swirlTop} style={styles.swirlTopRight} />
+          <Image source={IMAGES.swirlTopBlack} style={styles.swirlLeft} />
+          <Image source={IMAGES.swirlMid} style={styles.swirlMid} />
           <SafeAreaView style={styles.safeArea}>
             <View style={styles.content}>
 
@@ -310,8 +311,8 @@ function Register({ navigation }: Props): React.JSX.Element {
                       value={firstName}
                       onChangeText={setFirstName}
                       placeholder={t('enterFirstName')}
-                      iconUnselected={require('../../../../assets/icons/usernameUnselected.png')}
-                      iconSelected={require('../../../../assets/icons/usernameSelected.png')}
+                      iconUnselected={IMAGES.usernameUnselected}
+                      iconSelected={IMAGES.usernameSelected}
                     />
 
                     {/* Last Name */}
@@ -320,8 +321,8 @@ function Register({ navigation }: Props): React.JSX.Element {
                       value={lastName}
                       onChangeText={setLastName}
                       placeholder={t('enterLastName')}
-                      iconUnselected={require('../../../../assets/icons/usernameUnselected.png')}
-                      iconSelected={require('../../../../assets/icons/usernameSelected.png')}
+                      iconUnselected={IMAGES.usernameUnselected}
+                      iconSelected={IMAGES.usernameSelected}
                     />
 
                     {/* Email */}
@@ -330,8 +331,8 @@ function Register({ navigation }: Props): React.JSX.Element {
                       value={email}
                       onChangeText={setEmail}
                       placeholder={t('enterEmail')}
-                      iconUnselected={require('../../../../assets/icons/emailUnselected.png')}
-                      iconSelected={require('../../../../assets/icons/emailSelected.png')}
+                      iconUnselected={IMAGES.emailUnselected}
+                      iconSelected={IMAGES.emailSelected}
                       keyboardType="email-address"
                       autoCapitalize="none"
                     />
@@ -353,11 +354,11 @@ function Register({ navigation }: Props): React.JSX.Element {
                             </Text>
                           </View>
                           <Text style={styles.prefixText}>{countryCode}</Text>
-                          <Image source={require('../../../../assets/icons/dropdown.png')} style={styles.dropdownIcon} />
+                          <Image source={IMAGES.dropdown} style={styles.dropdownIcon} />
                         </TouchableOpacity>
 
                         <View style={styles.divider} />
-                        <Image source={require('../../../../assets/icons/mobileUnselected.png')} style={styles.inputIcon} />
+                        <Image source={IMAGES.mobileUnselected} style={styles.inputIcon} />
                         <TextInput
                           style={[
                             styles.textInput,
@@ -391,8 +392,8 @@ function Register({ navigation }: Props): React.JSX.Element {
                       value={password}
                       onChangeText={setPassword}
                       placeholder={t('enterPassword')}
-                      iconUnselected={require('../../../../assets/icons/passwordUnselected.png')}
-                      iconSelected={require('../../../../assets/icons/passwordSelected.png')}
+                      iconUnselected={IMAGES.passwordUnselected}
+                      iconSelected={IMAGES.passwordSelected}
                       secureTextEntry
                       showPasswordToggle
                     />
@@ -405,7 +406,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                         style={[styles.genderButton, gender === 'female' ? styles.genderButtonSelected : styles.genderButtonUnselected]}
                         onPress={() => setGender('female')}
                       >
-                        <Image source={require('../../../../assets/icons/female.png')} style={styles.genderIcon} resizeMode="contain" />
+                        <Image source={IMAGES.female} style={styles.genderIcon} resizeMode="contain" />
                         <Text style={[styles.genderText, gender === 'female' && styles.genderTextSelected]}>{t('female')}</Text>
                       </TouchableOpacity>
 
@@ -414,7 +415,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                         style={[styles.genderButton, gender === 'male' ? styles.genderButtonSelected : styles.genderButtonUnselected, { marginLeft: scale(15) }]}
                         onPress={() => setGender('male')}
                       >
-                        <Image source={require('../../../../assets/icons/male.png')} style={styles.genderIcon} resizeMode="contain" />
+                        <Image source={IMAGES.male} style={styles.genderIcon} resizeMode="contain" />
                         <Text style={[styles.genderText, gender === 'male' && styles.genderTextSelected]}>{t('male')}</Text>
                       </TouchableOpacity>
 
@@ -430,6 +431,8 @@ function Register({ navigation }: Props): React.JSX.Element {
                     onClose={() => setShowCountryDropdown(false)}
                     title={t('selectCountryCode')}
                     options={mapToOptions(countryCodes)}
+                    others={true}
+                    validationType="countryCode"
                     onSelect={(opt) => {
                       setCountryCode(opt.value.split(' ')[0]);
                     }}
@@ -451,7 +454,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                       style={styles.dashedUploadBox}
                       onPress={() => handlePickCV(setCvFile)}
                     >
-                      <Image source={require('../../../../assets/icons/upload.png')} style={styles.uploadIcon} />
+                      <Image source={IMAGES.upload} style={styles.uploadIcon} />
                       <Text style={[styles.uploadText, cvFile ? styles.uploadTextSelected : styles.uploadTextPlaceholder]}>
                         {cvFile ? cvFile.name : t('uploadCv')}
                       </Text>
@@ -464,7 +467,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                       style={styles.dashedUploadBox}
                       onPress={() => handlePickLicense(setLicenseFile)}
                     >
-                      <Image source={require('../../../../assets/icons/upload.png')} style={styles.uploadIcon} />
+                      <Image source={IMAGES.upload} style={styles.uploadIcon} />
                       <Text style={[styles.uploadText, licenseFile ? styles.uploadTextSelected : styles.uploadTextPlaceholder]}>
                         {licenseFile ? licenseFile.name : t('upload')}
                       </Text>
@@ -481,7 +484,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                       onPress={() => setShowProfileDropdown(true)}
                     >
                       <Image
-                        source={selectedProfile ? require('../../../../assets/icons/usernameSelected.png') : require('../../../../assets/icons/usernameUnselected.png')}
+                        source={selectedProfile ? IMAGES.usernameSelected : IMAGES.usernameUnselected}
                         style={styles.dropdownLeftIcon}
                       />
                       <Text style={[
@@ -490,7 +493,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                       ]}>
                         {selectedProfile ? selectedProfile : t('select')}
                       </Text>
-                      <Image source={require('../../../../assets/icons/dropdown.png')} style={styles.dropdownRightIcon} />
+                      <Image source={IMAGES.dropdown} style={styles.dropdownRightIcon} />
                     </TouchableOpacity>
 
                     {/* Specialization */}
@@ -504,7 +507,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                       onPress={() => setShowSpecializationDropdown(true)}
                     >
                       <Image
-                        source={specialization ? require('../../../../assets/icons/doctorSpecialisationSelected.png') : require('../../../../assets/icons/doctorSpecialisationUnselected.png')}
+                        source={specialization ? IMAGES.doctorSpecialisationSelected : IMAGES.doctorSpecialisationUnselected}
                         style={styles.dropdownLeftIcon}
                       />
                       <Text style={[
@@ -513,7 +516,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                       ]}>
                         {specialization ? specialization : t('enterSpecialization')}
                       </Text>
-                      <Image source={require('../../../../assets/icons/dropdown.png')} style={styles.dropdownRightIcon} />
+                      <Image source={IMAGES.dropdown} style={styles.dropdownRightIcon} />
                     </TouchableOpacity>
 
                     {/* Select Sector */}
@@ -532,7 +535,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                             onPress={() => setSector(option)}
                           >
                             <Image
-                              source={require('../../../../assets/icons/doctorSector.png')}
+                              source={IMAGES.doctorSector}
                               style={[
                                 styles.sectorIcon,
                                 isSelected ? styles.sectorIconSelected : styles.sectorIconUnselected
@@ -560,7 +563,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                       onPress={() => setShowCountrySelectDropdown(true)}
                     >
                       <Image
-                        source={selectedCountry ? require('../../../../assets/icons/countrySelectSelected.png') : require('../../../../assets/icons/countrySelectUnselected.png')}
+                        source={selectedCountry ? IMAGES.countrySelectSelected : IMAGES.countrySelectUnselected}
                         style={styles.dropdownLeftIcon}
                       />
                       <Text style={[
@@ -569,7 +572,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                       ]}>
                         {selectedCountry ? selectedCountry : t('select')}
                       </Text>
-                      <Image source={require('../../../../assets/icons/dropdown.png')} style={styles.dropdownRightIcon} />
+                      <Image source={IMAGES.dropdown} style={styles.dropdownRightIcon} />
                     </TouchableOpacity>
 
                     {/* Address */}
@@ -602,8 +605,8 @@ function Register({ navigation }: Props): React.JSX.Element {
                       <Image
                         source={
                           acceptedTerms
-                            ? require('../../../../assets/icons/checkboxTermsCondSelected.png')
-                            : require('../../../../assets/icons/checkboxTermsCondUnselected.png')
+                            ? IMAGES.checkboxTermsCondSelected
+                            : IMAGES.checkboxTermsCondUnselected
                         }
                         style={styles.checkboxIcon}
                       />
@@ -790,6 +793,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                     onClose={() => setShowProfileDropdown(false)}
                     title={t('selectProfile')}
                     options={mapToOptions(profiles)}
+                    others={true}
                     onSelect={(opt) => setSelectedProfile(opt.value)}
                   />
                   <DropdownModal
@@ -797,6 +801,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                     onClose={() => setShowSpecializationDropdown(false)}
                     title={t('selectSpecialization')}
                     options={mapToOptions(specializations)}
+                    others={true}
                     onSelect={(opt) => setSpecialization(opt.value)}
                   />
                   <DropdownModal
@@ -804,6 +809,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                     onClose={() => setShowCountrySelectDropdown(false)}
                     title={t('selectCountry')}
                     options={mapToOptions(countries)}
+                    others={true}
                     onSelect={(opt) => setSelectedCountry(opt.value)}
                   />
                 </ScrollView>

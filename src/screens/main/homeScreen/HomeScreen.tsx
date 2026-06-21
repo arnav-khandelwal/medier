@@ -17,6 +17,7 @@ import { colors } from '../../../theme/colors';
 import { scale, verticalScale, moderateScale } from '../../../theme/scaling';
 import { quicksandFonts } from '../../../theme/typography';
 import { useTranslation } from '../../../utils/translations/LanguageContext';
+import { IMAGES } from '../../../theme/images';
 
 interface HomeScreenProps {
   activeTab: TabName;
@@ -34,7 +35,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ activeTab, onTabPress }) => {
 
   return (
     <ImageBackground
-      source={require('../../../../assets/background/firstscreenbg.png')}
+      source={IMAGES.firstscreenbg}
       style={styles.root}
       resizeMode="cover"
     >
@@ -51,10 +52,10 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ activeTab, onTabPress }) => {
                 onPress={() => setDropdownOpen(!dropdownOpen)}
                 style={styles.dropdownBox}
               >
-                <Image source={require('../../../../assets/icons/dropdownHome.png')} style={styles.dropdownHomeIcon} />
+                <Image source={IMAGES.dropdownHome} style={styles.dropdownHomeIcon} />
                 <Text style={styles.dropdownText}>{t('novacare')}</Text>
                 <Image
-                  source={dropdownOpen ? require('../../../../assets/icons/dropdownUpArrow.png') : require('../../../../assets/icons/dropdownDownArrow.png')}
+                  source={dropdownOpen ? IMAGES.dropdownUpArrow : IMAGES.dropdownDownArrow}
                   style={styles.dropdownArrowIcon}
                 />
               </TouchableOpacity>
@@ -70,10 +71,10 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ activeTab, onTabPress }) => {
             {/* Right Icons */}
             <View style={styles.topRightIcons}>
               <TouchableOpacity style={[styles.iconCircle, { backgroundColor: '#19A3FF' }]}>
-                <Image source={require('../../../../assets/icons/chatTop.png')} style={styles.chatTopIcon} />
+                <Image source={IMAGES.chatTop} style={styles.chatTopIcon} />
               </TouchableOpacity>
               <TouchableOpacity style={[styles.iconCircle, { backgroundColor: '#FFFFFF' }]}>
-                <Image source={require('../../../../assets/icons/notification.png')} style={styles.notificationIcon} />
+                <Image source={IMAGES.notification} style={styles.notificationIcon} />
                 {/* Notification dot */}
                 <View style={styles.notificationDot} />
               </TouchableOpacity>
@@ -94,7 +95,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ activeTab, onTabPress }) => {
           )}
 
           <Image
-            source={require('../../../../assets/objects/femaleDoctorStock.png')}
+            source={IMAGES.femaleDoctorStock}
             style={styles.doctorImage}
             resizeMode="contain"
           />
@@ -113,7 +114,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ activeTab, onTabPress }) => {
                 <View style={[styles.card, { flex: 1.05 }]}>
                   <View style={styles.cardHeader}>
                     <View style={[styles.cardIconBox, { backgroundColor: '#E1F3FF' }]}>
-                      <Image source={require('../../../../assets/icons/consultations.png')} style={styles.cardIcon} />
+                      <Image source={IMAGES.consultations} style={styles.cardIcon} />
                     </View>
                     <Text style={styles.cardTitle}>{t('consultations')}</Text>
                   </View>
@@ -130,7 +131,10 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ activeTab, onTabPress }) => {
                   </View>
                   <TouchableOpacity style={styles.viewMoreBtn}>
                     <Text style={styles.viewMoreText}>{t('viewMore')}</Text>
-                    <Image source={require('../../../../assets/icons/viewMore.png')} style={styles.viewMoreIcon} />
+                    <Image source={IMAGES.viewMore} style={[
+                      styles.viewMoreIcon,
+                      I18nManager.isRTL && { transform: [{ rotate: '180deg' }] }
+                    ]} />
                   </TouchableOpacity>
                 </View>
 
@@ -138,7 +142,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ activeTab, onTabPress }) => {
                 <View style={[styles.card, { flex: 0.95 }]}>
                   <View style={styles.cardHeader}>
                     <View style={[styles.cardIconBox, { backgroundColor: '#E1F3FF' }]}>
-                      <Image source={require('../../../../assets/icons/chat.png')} style={styles.cardIcon} />
+                      <Image source={IMAGES.chat} style={styles.cardIcon} />
                     </View>
                     <Text style={styles.cardTitle}>{t('chat')}</Text>
                   </View>
@@ -155,7 +159,10 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ activeTab, onTabPress }) => {
                   </View>
                   <TouchableOpacity style={styles.viewMoreBtn}>
                     <Text style={styles.viewMoreText}>{t('viewMore')}</Text>
-                    <Image source={require('../../../../assets/icons/viewMore.png')} style={styles.viewMoreIcon} />
+                    <Image source={IMAGES.viewMore} style={[
+                      styles.viewMoreIcon,
+                      I18nManager.isRTL && { transform: [{ rotate: '180deg' }] }
+                    ]} />
                   </TouchableOpacity>
                 </View>
               </View>
@@ -164,14 +171,14 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ activeTab, onTabPress }) => {
 
           {dashboardState === 'unverified' && (
             <View style={styles.stateContainer}>
-              <Image source={require('../../../../assets/objects/unverified.png')} style={styles.stateImage} />
+              <Image source={IMAGES.unverified} style={styles.stateImage} />
               <Text style={styles.stateText}>Your Account Has Yet To Be Verified</Text>
             </View>
           )}
 
           {dashboardState === 'setup_unfinished' && (
             <View style={styles.stateContainer}>
-              <Image source={require('../../../../assets/objects/addBankDetails.png')} style={styles.stateImage} />
+              <Image source={IMAGES.addBankDetails} style={styles.stateImage} />
               <Text style={styles.stateText}>Please Add Your Bank Information{'\n'}And Contract</Text>
               <TouchableOpacity style={styles.finishSetupBtn}>
                 <Text style={styles.finishSetupText}>Finish Setup</Text>

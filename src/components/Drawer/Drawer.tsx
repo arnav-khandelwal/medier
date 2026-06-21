@@ -21,6 +21,7 @@ import { useTranslation } from '../../utils/translations/LanguageContext';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../navigation/types';
+import { IMAGES } from '../../theme/images';
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -60,19 +61,19 @@ const Drawer: React.FC<DrawerProps> = ({ visible, onClose }) => {
   }, [visible, slideAnim, screenWidth, isRTL]);
 
   const drawerItems = [
-    { icon: require('../../../assets/icons/drawer/myAccount.png'), label: t('myAccount'), onPress: onClose },
-    { icon: require('../../../assets/icons/drawer/myLocation.png'), label: t('myLocation'), onPress: onClose },
-    { icon: require('../../../assets/icons/drawer/myRating.png'), label: t('myRating'), onPress: onClose },
-    { icon: require('../../../assets/icons/drawer/myContract.png'), label: t('myContract'), onPress: onClose },
-    { icon: require('../../../assets/icons/drawer/payments.png'), label: t('payments'), onPress: onClose },
-    { icon: require('../../../assets/icons/drawer/Notifications.png'), label: t('notification'), onPress: onClose },
-    { icon: require('../../../assets/icons/drawer/language.png'), label: t('language'), onPress: () => { navigation.navigate('LanguageSelection'); onClose(); } },
-    { icon: require('../../../assets/icons/drawer/myQuestions.png'), label: t('myQuestions'), onPress: onClose },
-    { icon: require('../../../assets/icons/drawer/setAccess.png'), label: t('setAccess'), onPress: onClose },
-    { icon: require('../../../assets/icons/drawer/Security.png'), label: t('security'), onPress: onClose },
-    { icon: require('../../../assets/icons/drawer/about.png'), label: t('about'), onPress: onClose },
-    { icon: require('../../../assets/icons/drawer/mySubscription.png'), label: t('mySubscription'), onPress: onClose },
-    { icon: require('../../../assets/icons/drawer/myExpertise.png'), label: t('myExpertise'), onPress: onClose },
+    { icon: IMAGES.myAccount, label: t('myAccount'), onPress: onClose },
+    { icon: IMAGES.myLocation, label: t('myLocation'), onPress: onClose },
+    { icon: IMAGES.myRating, label: t('myRating'), onPress: onClose },
+    { icon: IMAGES.myContract, label: t('myContract'), onPress: onClose },
+    { icon: IMAGES.payments, label: t('payments'), onPress: onClose },
+    { icon: IMAGES.Notifications, label: t('notification'), onPress: onClose },
+    { icon: IMAGES.language, label: t('language'), onPress: () => { navigation.navigate('LanguageSelection'); onClose(); } },
+    { icon: IMAGES.myQuestions, label: t('myQuestions'), onPress: onClose },
+    { icon: IMAGES.setAccess, label: t('setAccess'), onPress: onClose },
+    { icon: IMAGES.Security, label: t('security'), onPress: onClose },
+    { icon: IMAGES.about, label: t('about'), onPress: onClose },
+    { icon: IMAGES.mySubscription, label: t('mySubscription'), onPress: onClose },
+    { icon: IMAGES.myExpertise, label: t('myExpertise'), onPress: onClose },
   ];
 
   return (
@@ -106,13 +107,13 @@ const Drawer: React.FC<DrawerProps> = ({ visible, onClose }) => {
                 <View style={styles.profileSection}>
                   <View style={styles.profileImageContainer}>
                     <Image
-                      source={require('../../../assets/objects/profilePlaceHolder.png')}
+                      source={IMAGES.profilePlaceHolder}
                       style={styles.profileImage}
                     />
                     {/* Edit Button */}
                     <TouchableOpacity style={styles.editButton}>
                       <Image
-                        source={require('../../../assets/icons/drawer/edit.png')}
+                        source={IMAGES.edit}
                         style={styles.editIcon}
                       />
                     </TouchableOpacity>
@@ -137,7 +138,7 @@ const Drawer: React.FC<DrawerProps> = ({ visible, onClose }) => {
               {/* Logout Button */}
               <TouchableOpacity style={styles.logoutButton} onPress={() => { navigation.navigate('OnBoarding'); onClose(); }}>
                 <Image
-                  source={require('../../../assets/icons/drawer/logout.png')}
+                  source={IMAGES.logout}
                   style={styles.logoutIcon}
                 />
                 <Text style={styles.logoutText}>{t('logout')}</Text>

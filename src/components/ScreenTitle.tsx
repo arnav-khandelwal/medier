@@ -5,10 +5,12 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
+  I18nManager,
 } from 'react-native';
 import { colors } from '../theme/colors';
 import { scale, verticalScale, moderateScale } from '../theme/scaling';
 import { quicksandFonts } from '../theme/typography';
+import { IMAGES } from '../theme/images';
 
 interface ScreenTitleProps {
   title: string;
@@ -20,8 +22,11 @@ const ScreenTitle: React.FC<ScreenTitleProps> = ({ title, onBackPress }) => {
     <View style={styles.header}>
       <TouchableOpacity style={styles.backButton} onPress={onBackPress}>
         <Image
-          source={require('../../assets/icons/backArrow.png')}
-          style={styles.backIcon}
+          source={IMAGES.backArrow}
+          style={[
+            styles.backIcon,
+            I18nManager.isRTL && { transform: [{ rotate: '180deg' }] }
+          ]}
         />
       </TouchableOpacity>
       <Text style={styles.headerTitle}>{title}</Text>

@@ -18,6 +18,7 @@ import { quicksandFonts } from '../../../theme/typography';
 import ScreenTitle from '../../../components/ScreenTitle';
 import { useTranslation } from '../../../utils/translations/LanguageContext';
 import { agendaData, getAgendaDay, isDayBlocked, TimeSlot } from './data/mockData';
+import { IMAGES } from '../../../theme/images';
 
 interface AgendaScreenProps {
   activeTab?: string;
@@ -166,7 +167,7 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
     <SafeAreaView style={styles.root}>
       <StatusBar barStyle="light-content" backgroundColor={colors.primary} />
       <Image
-        source={require('../../../../assets/background/firstscreenbg.png')}
+        source={IMAGES.firstscreenbg}
         style={styles.backgroundImage}
       />
       
@@ -203,13 +204,13 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
                 <View style={styles.calendarNavigation}>
                   <TouchableOpacity style={styles.navArrowButton} onPress={() => navigateMonth('prev')}>
                     <Image
-                      source={require('../../../../assets/icons/arrowLeft.png')}
+                      source={IMAGES.arrowLeft}
                       style={styles.navArrow}
                     />
                   </TouchableOpacity>
                   <TouchableOpacity style={styles.navArrowButton} onPress={() => navigateMonth('next')}>
                     <Image
-                      source={require('../../../../assets/icons/arrowRight.png')}
+                      source={IMAGES.arrowRight}
                       style={styles.navArrow}
                     />
                   </TouchableOpacity>
@@ -250,7 +251,7 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
                     <View style={styles.actionButtons}>
                       <TouchableOpacity style={styles.deleteDayButton}>
                         <Image
-                          source={require('../../../../assets/icons/delete.png')}
+                          source={IMAGES.delete}
                           style={styles.deleteDayIcon}
                         />
                       </TouchableOpacity>
@@ -274,7 +275,7 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
                 /* No Availability State */
                 <View style={styles.noAvailabilityContainer}>
                   <Image
-                    source={require('../../../../assets/icons/noAvailability.png')}
+                    source={IMAGES.noAvailability}
                     style={styles.noAvailabilityIcon}
                   />
                   <Text style={styles.noAvailabilityText}>{t('youHaventAddedAvailabilityYet')}</Text>

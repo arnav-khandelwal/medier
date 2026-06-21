@@ -18,6 +18,7 @@ import { scale, verticalScale, moderateScale } from '../../../theme/scaling';
 import { quicksandFonts } from '../../../theme/typography';
 import ScreenTitle from '../../../components/ScreenTitle';
 import { useTranslation } from '../../../utils/translations/LanguageContext';
+import { IMAGES } from '../../../theme/images';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'AppointmentDetail'>;
 
@@ -30,7 +31,7 @@ const AppointmentDetail: React.FC<Props> = ({ route, navigation }) => {
   const appointment = route.params?.appointment || {
     name: 'Sara Williams',
     doctorId: 'ID001212',
-    photo: require('../../../../assets/objects/personInAppointments.png'),
+    photo: IMAGES.personInAppointments,
     day: 'Today',
     time: '16:00 PM',
     location: '1233 Central Ave, Lake Stati...',
@@ -40,7 +41,7 @@ const AppointmentDetail: React.FC<Props> = ({ route, navigation }) => {
     <SafeAreaView style={styles.root}>
       <StatusBar barStyle="light-content" backgroundColor={colors.primary} />
       <Image
-        source={require('../../../../assets/background/firstscreenbg.png')}
+        source={IMAGES.firstscreenbg}
         style={styles.backgroundImage}
       />
 
@@ -67,7 +68,7 @@ const AppointmentDetail: React.FC<Props> = ({ route, navigation }) => {
                 {appointment.location ? (
                   <View style={styles.locationContainer}>
                     <Image
-                      source={require('../../../../assets/icons/location.png')}
+                      source={IMAGES.location}
                       style={styles.locationIcon}
                     />
                     <Text numberOfLines={1} style={styles.locationText}>
@@ -88,7 +89,7 @@ const AppointmentDetail: React.FC<Props> = ({ route, navigation }) => {
                 {t('questions')}
               </Text>
               <Image
-                source={require('../../../../assets/icons/expand.png')}
+                source={IMAGES.expand}
                 style={[styles.arrowIcon, { transform: [{ rotate: questionsExpanded ? '180deg' : '0deg' }] }]}
               />
             </TouchableOpacity>
@@ -152,7 +153,7 @@ const AppointmentDetail: React.FC<Props> = ({ route, navigation }) => {
                 {t('prescription')}
               </Text>
               <Image
-                source={require('../../../../assets/icons/expand.png')}
+                source={IMAGES.expand}
                 style={[styles.arrowIcon, { transform: [{ rotate: prescriptionExpanded ? '180deg' : '0deg' }] }]}
               />
             </TouchableOpacity>
@@ -167,7 +168,7 @@ const AppointmentDetail: React.FC<Props> = ({ route, navigation }) => {
                 </Text>
                 <TouchableOpacity style={styles.downloadButton} activeOpacity={0.7}>
                   <Image
-                    source={require('../../../../assets/icons/download.png')}
+                    source={IMAGES.download}
                     style={styles.downloadIconImage}
                   />
                 </TouchableOpacity>

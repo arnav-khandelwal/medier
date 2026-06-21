@@ -23,6 +23,7 @@ import { RootStackParamList } from '../../../navigation/types';
 import LinearGradient from 'react-native-linear-gradient';
 import StyledTextInput from '../../../components/StyledTextInput';
 import { useTranslation } from '../../../utils/translations/LanguageContext';
+import { IMAGES } from '../../../theme/images';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ForgotPassword'>;
 
@@ -68,23 +69,23 @@ function ForgotPassword({ navigation }: Props): React.JSX.Element {
 
         {/* Swirl Top Right */}
         <Image
-          source={require('../../../../assets/objects/swirlTop.png')}
+          source={IMAGES.swirlTop}
           style={styles.swirlTopRight}
         />
         {/* Swirl Top Left */}
         <Image
-          source={require('../../../../assets/objects/swirlTopBlack.png')}
+          source={IMAGES.swirlTopBlack}
           style={styles.swirlLeft}
         />
         {/* Swirl Mid */}
         <Image
-          source={require('../../../../assets/objects/swirlMid.png')}
+          source={IMAGES.swirlMid}
           style={styles.swirlMid}
         />
         
         {/* Bottom Left Blur */}
         <Image
-          source={require('../../../../assets/objects/bottomLeftBlur.png')}
+          source={IMAGES.bottomLeftBlur}
           style={styles.blurLeft}
         />
 
@@ -107,8 +108,8 @@ function ForgotPassword({ navigation }: Props): React.JSX.Element {
                 value={email}
                 onChangeText={setEmail}
                 placeholder={t('enterEmailAddress')}
-                iconUnselected={require('../../../../assets/icons/usernameUnselected.png')}
-                iconSelected={require('../../../../assets/icons/usernameSelected.png')}
+                iconUnselected={IMAGES.usernameUnselected}
+                iconSelected={IMAGES.usernameSelected}
                 autoCapitalize="none"
                 keyboardType="email-address"
               />

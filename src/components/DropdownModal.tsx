@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image, ScrollView, TextInput } from 'react-native';
+import Toast from 'react-native-toast-message';
 import CommonModal from './CommonModal';
 import { scale, verticalScale, moderateScale } from '../theme/scaling';
 import { quicksandFonts } from '../theme/typography';
 import { colors } from '../theme/colors';
+import { IMAGES } from '../theme/images';
 
 interface Option<T = string> {
   label: string;
@@ -21,18 +23,49 @@ interface DropdownModalProps<T = string> {
   initialValue?: T | null;
   /** Whether to show the search bar (default: true) */
   showSearch?: boolean;
+  /** Whether to allow 'Others' option */
+  others?: boolean;
+  /** Optional validation type for custom input */
+  validationType?: 'countryCode' | 'none';
 }
 
 const DropdownModal = <T extends unknown>(props: DropdownModalProps<T>) => {
-  const { visible, onClose, title, options, onSelect, initialValue, showSearch = true } = props;
+  const { visible, onClose, title, options, onSelect, initialValue, showSearch = true, others = false, validationType = 'none' } = props;
   const [selected, setSelected] = useState<T | null>(initialValue ?? null);
   const [search, setSearch] = useState('');
+  const [customOption, setCustomOption] = useState('');
 
-  const filteredOptions = options.filter(o =>
+  let filteredOptions = options.filter(o =>
     o.label.toLowerCase().includes(search.toLowerCase())
   );
 
+  if (others) {
+    filteredOptions = [...filteredOptions, { label: 'Others', value: '___OTHERS___' as unknown as T }];
+  }
+
   const handleProceed = () => {
+    if (selected === '___OTHERS___' as unknown as T) {
+      let customVal = customOption.trim();
+      if (customVal !== '') {
+        if (validationType === 'countryCode') {
+          if (!customVal.startsWith('+')) {
+            customVal = '+' + customVal;
+          }
+          const isValidCountryCode = /^\+[1-9]\d{0,3}$/.test(customVal);
+          if (!isValidCountryCode) {
+            Toast.show({
+              type: 'error',
+              text1: 'Invalid Input',
+              text2: 'Enter valid country code',
+            });
+            return;
+          }
+        }
+        onSelect({ label: customVal, value: customVal as unknown as T });
+        onClose();
+      }
+      return;
+    }
     if (selected !== null) {
       const selectedOption = options.find(o => o.value === selected);
       if (selectedOption) {
@@ -47,12 +80,14 @@ const DropdownModal = <T extends unknown>(props: DropdownModalProps<T>) => {
       visible={visible}
       onClose={onClose}
       title={title}
+      scrollEnabled={false}
+      modalHeight="75%"
       content={
         <View style={styles.container}>
           {/* Search Box */}
           {showSearch && (
             <View style={styles.searchBox}>
-              <Image source={require('../../assets/icons/search.png')} style={styles.searchIcon} />
+              <Image source={IMAGES.search} style={styles.searchIcon} />
               <TextInput
                 style={styles.searchInput}
                 placeholder="Search..."
@@ -71,11 +106,20 @@ const DropdownModal = <T extends unknown>(props: DropdownModalProps<T>) => {
               >
                 <Text style={[styles.itemText, selected === opt.value && styles.itemTextSelected]}>{opt.label}</Text>
                 {selected === opt.value && (
-                  <Image source={require('../../assets/icons/check.png')} style={styles.checkIcon} />
+                  <Image source={IMAGES.check} style={styles.checkIcon} />
                 )}
               </TouchableOpacity>
             ))}
           </ScrollView>
+          {selected === ('___OTHERS___' as unknown as T) && (
+            <TextInput
+              style={styles.customInput}
+              placeholder="Enter custom option..."
+              placeholderTextColor="#7a7676"
+              value={customOption}
+              onChangeText={setCustomOption}
+            />
+          )}
           {selected !== null && (
             <TouchableOpacity style={styles.proceedButton} onPress={handleProceed}>
               <Text style={styles.proceedText}>Proceed</Text>
@@ -114,7 +158,7 @@ const styles = StyleSheet.create({
     padding: 0,
   },
   listContainer: {
-    maxHeight: '60%',
+    flex: 1,
   },
   item: {
     flexDirection: 'row',
@@ -153,6 +197,17 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontFamily: quicksandFonts.semiBold,
     fontSize: moderateScale(14),
+  },
+  customInput: {
+    fontFamily: quicksandFonts.regular,
+    fontSize: moderateScale(14),
+    color: '#0E1726',
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
+    borderRadius: scale(8),
+    paddingHorizontal: scale(12),
+    paddingVertical: verticalScale(10),
+    marginTop: verticalScale(12),
   },
 });
 

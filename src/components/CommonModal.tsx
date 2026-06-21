@@ -10,15 +10,18 @@ import {
 } from 'react-native';
 import { scale, verticalScale, moderateScale } from '../theme/scaling';
 import { quicksandFonts } from '../theme/typography';
+import { IMAGES } from '../theme/images';
 
 interface CommonModalProps {
   visible: boolean;
   onClose: () => void;
   title: string;
   content: React.ReactNode;
+  scrollEnabled?: boolean;
+  modalHeight?: string | number;
 }
 
-const CommonModal: React.FC<CommonModalProps> = ({ visible, onClose, title, content }) => {
+const CommonModal: React.FC<CommonModalProps> = ({ visible, onClose, title, content, scrollEnabled = true, modalHeight }) => {
   return (
     <Modal
       visible={visible}
@@ -37,23 +40,30 @@ const CommonModal: React.FC<CommonModalProps> = ({ visible, onClose, title, cont
         {/* Close Button - Above the container */}
         <TouchableOpacity style={styles.closeButton} onPress={onClose}>
           <Image 
-            source={require('../../assets/icons/closeButton.png')} 
+            source={IMAGES.closeButton} 
             style={styles.closeIcon} 
             resizeMode="contain"
           />
         </TouchableOpacity>
 
-        <View style={styles.bottomSheetContainer}>
+        <View style={[styles.bottomSheetContainer, modalHeight ? { height: modalHeight as any } : {}]}>
           {/* Content */}
-          <ScrollView 
-            style={styles.scrollView} 
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={styles.scrollContent}
-            nestedScrollEnabled={true}
-          >
-            <Text style={styles.heading}>{title}</Text>
-            {content}
-          </ScrollView>
+          {scrollEnabled ? (
+            <ScrollView 
+              style={styles.scrollView} 
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={styles.scrollContent}
+              nestedScrollEnabled={true}
+            >
+              <Text style={styles.heading}>{title}</Text>
+              {content}
+            </ScrollView>
+          ) : (
+            <View style={[styles.scrollView, styles.scrollContent]}>
+              <Text style={styles.heading}>{title}</Text>
+              {content}
+            </View>
+          )}
         </View>
       </View>
     </Modal>

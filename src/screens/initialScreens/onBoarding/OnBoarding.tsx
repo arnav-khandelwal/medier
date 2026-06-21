@@ -20,6 +20,7 @@ import {
 } from '../../../theme/scaling';
 import { RootStackParamList } from '../../../navigation/types';
 import { useTranslation } from '../../../utils/translations/LanguageContext';
+import { IMAGES } from '../../../theme/images';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'OnBoarding'>;
 
@@ -30,18 +31,18 @@ function OnBoarding({ navigation }: Props): React.JSX.Element {
     <View style={styles.container}>
       <StatusBar barStyle="light-content" translucent backgroundColor="transparent" />
       <ImageBackground
-        source={require('../../../../assets/background/firstscreenbg.png')}
+        source={IMAGES.firstscreenbg}
         style={styles.background}>
 
         <TouchableOpacity onPress={() => navigation.navigate('LanguageSelection')} style={styles.iconButton}>
           <Image
-            source={require('../../../../assets/icons/language.png')}
+            source={IMAGES.language1}
             style={styles.icon}
           />
         </TouchableOpacity>
 
         <Image
-          source={require('../../../../assets/objects/manshakinghand.png')}
+          source={IMAGES.manshakinghand}
           style={styles.doctorImage}
         />
 

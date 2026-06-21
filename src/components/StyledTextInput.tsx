@@ -12,6 +12,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import { scale, verticalScale, moderateScale } from '../theme/scaling';
 import { colors } from '../theme/colors';
 import { quicksandFonts } from '../theme/typography';
+import { IMAGES } from '../theme/images';
 
 interface StyledTextInputProps extends TextInputProps {
   value: string;
@@ -82,7 +83,7 @@ const StyledTextInput: React.FC<StyledTextInputProps> = ({
         {showPasswordToggle && (
           <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
             <Image
-              source={showPassword ? require('../../assets/icons/hidePassword.png') : require('../../assets/icons/showPassword.png')}
+              source={showPassword ? IMAGES.hidePassword : IMAGES.showPassword}
               style={styles.eyeIcon}
             />
           </TouchableOpacity>
