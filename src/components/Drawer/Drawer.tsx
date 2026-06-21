@@ -22,6 +22,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../navigation/types';
 import { IMAGES } from '../../theme/images';
+import AlertModal from '../AlertModal';
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -37,6 +38,13 @@ const Drawer: React.FC<DrawerProps> = ({ visible, onClose }) => {
   const isRTL = I18nManager.isRTL;
   const slideAnim = useRef(new Animated.Value(isRTL ? screenWidth * 0.75 : -screenWidth * 0.75)).current;
   const [modalVisible, setModalVisible] = useState(visible);
+  const [logoutAlertVisible, setLogoutAlertVisible] = useState(false);
+
+  const handleConfirmLogout = () => {
+    setLogoutAlertVisible(false);
+    navigation.navigate('OnBoarding');
+    onClose();
+  };
 
   useEffect(() => {
     if (visible) {
@@ -136,7 +144,7 @@ const Drawer: React.FC<DrawerProps> = ({ visible, onClose }) => {
               </View>
 
               {/* Logout Button */}
-              <TouchableOpacity style={styles.logoutButton} onPress={() => { navigation.navigate('OnBoarding'); onClose(); }}>
+              <TouchableOpacity style={styles.logoutButton} onPress={() => setLogoutAlertVisible(true)}>
                 <Image
                   source={IMAGES.logout}
                   style={styles.logoutIcon}
@@ -147,6 +155,28 @@ const Drawer: React.FC<DrawerProps> = ({ visible, onClose }) => {
           </LinearGradient>
         </Animated.View>
       </TouchableOpacity>
+
+      <AlertModal
+        visible={logoutAlertVisible}
+        onClose={() => setLogoutAlertVisible(false)}
+        icon={IMAGES.logoutConfirmation}
+        title={t('doYouWantToLogout') || 'Do You Want to Logout ?'}
+        isNested={true}
+        buttons={[
+          {
+            text: t('cancel') || 'Cancel',
+            onPress: () => setLogoutAlertVisible(false),
+            backgroundColor: '#F1F9FF',
+            textColor: colors.primary,
+          },
+          {
+            text: t('logout') || 'Logout',
+            onPress: handleConfirmLogout,
+            backgroundColor: '#FFE2E2',
+            textColor: '#C51010',
+          }
+        ]}
+      />
     </Modal>
   );
 };

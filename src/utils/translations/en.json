@@ -154,5 +154,6 @@
   "pleaseEnterYourPassword1": "Please enter your password.",
   "medier": "MEDIER",
   "becomeADoctorForA": "Become a Doctor, For a Healthier Future",
-  "loginToYourAccount": "Login To Your Account"
+  "loginToYourAccount": "Login To Your Account",
+  "doYouWantToLogout": "Do You Want To Logout? "
 }

@@ -48,6 +48,7 @@ export const IMAGES = {
   languageBlack: require('../../assets/icons/languageBlack.png'),
   location: require('../../assets/icons/location.png'),
   logout: require('../../assets/icons/drawer/logout.png'),
+  logoutConfirmation: require('../../assets/icons/logoutConfirmation.png'),
   male: require('../../assets/icons/male.png'),
   manshakinghand: require('../../assets/objects/manshakinghand.png'),
   matchSelected: require('../../assets/icons/matchSelected.png'),
