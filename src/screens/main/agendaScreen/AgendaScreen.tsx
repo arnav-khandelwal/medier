@@ -183,7 +183,7 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
                 onPress={() => setSelectedTab('myAvailability')}
               >
                 <Text style={[styles.tabText, selectedTab === 'myAvailability' && styles.tabTextSelected]}>
-                  {t('agendaScreen', 'myAvailability')}
+                  {t('myAvailability')}
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -191,7 +191,7 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
                 onPress={() => setSelectedTab('teamAvailability')}
               >
                 <Text style={[styles.tabText, selectedTab === 'teamAvailability' && styles.tabTextSelected]}>
-                  {t('agendaScreen', 'teamAvailability')}
+                  {t('teamAvailability')}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -233,7 +233,7 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
                     <View style={styles.dateHeader}>
                       <Text style={styles.selectedDateText}>{formatDate(selectedDate)}</Text>
                       <View style={styles.statusBadge}>
-                        <Text style={styles.statusText}>{t('agendaScreen', 'online')}</Text>
+                        <Text style={styles.statusText}>{t('online')}</Text>
                       </View>
                     </View>
 
@@ -255,7 +255,7 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
                         />
                       </TouchableOpacity>
                       <TouchableOpacity style={styles.editDayButton}>
-                        <Text style={styles.editDayButtonText}>{t('agendaScreen', 'edit')}</Text>
+                        <Text style={styles.editDayButtonText}>{t('edit')}</Text>
                       </TouchableOpacity>
                     </View>
                   </View>
@@ -263,10 +263,10 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
                   {/* Block/Add Availability */}
                   <View style={styles.blockAddButtons}>
                     <TouchableOpacity style={styles.blockButton}>
-                      <Text style={styles.blockButtonText}>{t('agendaScreen', 'blockAvailability')}</Text>
+                      <Text style={styles.blockButtonText}>{t('blockAvailability')}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.addButton}>
-                      <Text style={styles.addButtonText}>{t('agendaScreen', 'addAvailability')}</Text>
+                      <Text style={styles.addButtonText}>{t('addAvailability')}</Text>
                     </TouchableOpacity>
                   </View>
                 </>
@@ -277,9 +277,9 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
                     source={require('../../../../assets/icons/noAvailability.png')}
                     style={styles.noAvailabilityIcon}
                   />
-                  <Text style={styles.noAvailabilityText}>{t('agendaScreen', 'noAvailabilityMessage')}</Text>
+                  <Text style={styles.noAvailabilityText}>{t('youHaventAddedAvailabilityYet')}</Text>
                   <TouchableOpacity style={styles.addNewAvailabilityButton}>
-                    <Text style={styles.addNewAvailabilityButtonText}>{t('agendaScreen', 'addNewAvailability')}</Text>
+                    <Text style={styles.addNewAvailabilityButtonText}>{t('addNewAvailability')}</Text>
                   </TouchableOpacity>
                 </View>
               )}

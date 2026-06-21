@@ -78,7 +78,7 @@ const AppointmentCard: React.FC<AppointmentCardProps> = ({
             <Text style={styles.doctorId}>{doctorId}</Text>
             {isOnline && (
               <View style={styles.videoTag}>
-                <Text style={styles.videoTagText}>{t('appointmentsScreen', 'card.video')}</Text>
+                <Text style={styles.videoTagText}>{t('video')}</Text>
               </View>
             )}
             <Text style={styles.dateTime}>
@@ -101,22 +101,22 @@ const AppointmentCard: React.FC<AppointmentCardProps> = ({
       {status && (
         <View style={styles.statusContainer}>
           {renderStatusButton(
-            t('appointmentsScreen', 'card.status.arrived'),
+            t('arrived'),
             selectedStatus === 'arrived',
             () => onStatusChange?.('arrived')
           )}
           {renderStatusButton(
-            t('appointmentsScreen', 'card.status.left'),
+            t('left'),
             selectedStatus === 'left',
             () => onStatusChange?.('left')
           )}
           {renderStatusButton(
-            t('appointmentsScreen', 'card.status.inConsultation'),
+            t('inConsultation'),
             selectedStatus === 'in_consultation',
             () => onStatusChange?.('in_consultation')
           )}
           {renderStatusButton(
-            t('appointmentsScreen', 'card.status.waiting'),
+            t('waiting'),
             selectedStatus === 'waiting',
             () => onStatusChange?.('waiting')
           )}
@@ -125,11 +125,11 @@ const AppointmentCard: React.FC<AppointmentCardProps> = ({
 
       <View style={styles.actionButtons}>
         <TouchableOpacity style={styles.cancelButton} onPress={onCancel}>
-          <Text style={styles.cancelButtonText}>{t('appointmentsScreen', 'card.actions.cancel')}</Text>
+          <Text style={styles.cancelButtonText}>{t('cancel')}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.actionButton} onPress={onAction}>
           <Text style={styles.actionButtonText}>
-            {isOnline ? t('appointmentsScreen', 'card.actions.join') : t('appointmentsScreen', 'card.actions.startConsultation')}
+            {isOnline ? t('join') : t('startConsultation')}
           </Text>
         </TouchableOpacity>
       </View>

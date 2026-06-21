@@ -47,7 +47,7 @@ const AppointmentDetail: React.FC<Props> = ({ route, navigation }) => {
       <View style={styles.container}>
         {/* Header using ScreenTitle */}
         <ScreenTitle
-          title={t('appointmentsScreen', 'detail.title')}
+          title={t('appointmentsDetail')}
           onBackPress={() => navigation.goBack()}
         />
 
@@ -85,7 +85,7 @@ const AppointmentDetail: React.FC<Props> = ({ route, navigation }) => {
               onPress={() => setQuestionsExpanded(!questionsExpanded)}
             >
               <Text style={styles.accordionTitle}>
-                {t('appointmentsScreen', 'detail.questions')}
+                {t('questions')}
               </Text>
               <Image
                 source={require('../../../../assets/icons/expand.png')}
@@ -102,11 +102,11 @@ const AppointmentDetail: React.FC<Props> = ({ route, navigation }) => {
                       <Text style={styles.numberText}>1</Text>
                     </View>
                     <Text style={styles.questionText}>
-                      {t('appointmentsScreen', 'detail.q1')}
+                      {t('whatsTheNameOfMy')}
                     </Text>
                   </View>
                   <Text style={styles.answerText}>
-                    {t('appointmentsScreen', 'detail.a1')}
+                    {t('headache')}
                   </Text>
                 </View>
 
@@ -117,11 +117,11 @@ const AppointmentDetail: React.FC<Props> = ({ route, navigation }) => {
                       <Text style={styles.numberText}>2</Text>
                     </View>
                     <Text style={styles.questionText}>
-                      {t('appointmentsScreen', 'detail.q2')}
+                      {t('howManyStepsYouWalk')}
                     </Text>
                   </View>
                   <Text style={styles.answerText}>
-                    {t('appointmentsScreen', 'detail.a2')}
+                    {t('10000')}
                   </Text>
                 </View>
 
@@ -132,11 +132,11 @@ const AppointmentDetail: React.FC<Props> = ({ route, navigation }) => {
                       <Text style={styles.numberText}>3</Text>
                     </View>
                     <Text style={styles.questionText}>
-                      {t('appointmentsScreen', 'detail.q3')}
+                      {t('whenDidYouDoneYour')}
                     </Text>
                   </View>
                   <Text style={styles.answerText}>
-                    {t('appointmentsScreen', 'detail.a3')}
+                    {t('6Months')}
                   </Text>
                 </View>
               </View>
@@ -149,7 +149,7 @@ const AppointmentDetail: React.FC<Props> = ({ route, navigation }) => {
               onPress={() => setPrescriptionExpanded(!prescriptionExpanded)}
             >
               <Text style={styles.accordionTitle}>
-                {t('appointmentsScreen', 'detail.prescription')}
+                {t('prescription')}
               </Text>
               <Image
                 source={require('../../../../assets/icons/expand.png')}
@@ -182,7 +182,7 @@ const AppointmentDetail: React.FC<Props> = ({ route, navigation }) => {
                 onPress={() => navigation.goBack()}
               >
                 <Text style={styles.cancelButtonText}>
-                  {t('appointmentsScreen', 'card.actions.cancel')}
+                  {t('cancel')}
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -191,7 +191,7 @@ const AppointmentDetail: React.FC<Props> = ({ route, navigation }) => {
                 onPress={() => console.log('Start Consultation')}
               >
                 <Text style={styles.consultButtonText}>
-                  {t('appointmentsScreen', 'card.actions.startConsultation')}
+                  {t('startConsultation')}
                 </Text>
               </TouchableOpacity>
             </View>

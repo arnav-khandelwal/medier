@@ -39,24 +39,24 @@ function ForgotPassword({ navigation }: Props): React.JSX.Element {
     if (!email.trim()) {
       Toast.show({
         type: 'error',
-        text1: t('forgotPassword', 'errors.error'),
-        text2: t('forgotPassword', 'errors.enterEmail'),
+        text1: t('error'),
+        text2: t('pleaseEnterYourEmailAddress'),
       });
       return;
     }
     if (!validateEmail(email)) {
       Toast.show({
         type: 'error',
-        text1: t('forgotPassword', 'errors.error'),
-        text2: t('forgotPassword', 'errors.validEmail'),
+        text1: t('error'),
+        text2: t('pleaseEnterAValidEmail'),
       });
       return;
     }
     // If validation passes, navigate back or show success message
     Toast.show({
       type: 'success',
-      text1: t('forgotPassword', 'errors.success'),
-      text2: t('forgotPassword', 'errors.resetLinkSent'),
+      text1: t('success'),
+      text2: t('passwordResetLinkHasBeen'),
     });
     navigation.goBack();
   };
@@ -92,21 +92,21 @@ function ForgotPassword({ navigation }: Props): React.JSX.Element {
           <View style={styles.content}>
             {/* Header Texts */}
             <Text style={styles.titleContainer}>
-              <Text style={styles.titleBlue}>{t('forgotPassword', 'title.blue')}</Text>
-              <Text style={styles.titleBlack}>{t('forgotPassword', 'title.black')}</Text>
+              <Text style={styles.titleBlue}>{t('forgot')}</Text>
+              <Text style={styles.titleBlack}>{t('password')}</Text>
             </Text>
 
             <Text style={styles.description}>
-              {t('forgotPassword', 'description')}
+              {t('enterYourEmailAddressAnd')}
             </Text>
 
             {/* Form Fields */}
             <View style={styles.formContainer}>
-              <Text style={styles.inputLabel}>{t('forgotPassword', 'form.emailLabel')}</Text>
+              <Text style={styles.inputLabel}>{t('emailAddress')}</Text>
               <StyledTextInput
                 value={email}
                 onChangeText={setEmail}
-                placeholder={t('forgotPassword', 'form.emailPlaceholder')}
+                placeholder={t('enterEmailAddress')}
                 iconUnselected={require('../../../../assets/icons/usernameUnselected.png')}
                 iconSelected={require('../../../../assets/icons/usernameSelected.png')}
                 autoCapitalize="none"
@@ -120,7 +120,7 @@ function ForgotPassword({ navigation }: Props): React.JSX.Element {
               onPress={() => navigation.replace('Login')}
               style={styles.backToLoginButton}
             >
-              <Text style={styles.backToLoginText}>{t('forgotPassword', 'button.backToLogin')}</Text>
+              <Text style={styles.backToLoginText}>{t('backToLogin')}</Text>
             </TouchableOpacity>
 
             {/* Submit Button */}
@@ -129,7 +129,7 @@ function ForgotPassword({ navigation }: Props): React.JSX.Element {
               activeOpacity={0.8}
               onPress={handleSubmit}
             >
-              <Text style={styles.submitButtonText}>{t('forgotPassword', 'button.sendResetLink')}</Text>
+              <Text style={styles.submitButtonText}>{t('sendResetLink')}</Text>
             </TouchableOpacity>
           </View>
         </SafeAreaView>

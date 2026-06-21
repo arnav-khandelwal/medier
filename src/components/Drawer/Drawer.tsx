@@ -60,19 +60,19 @@ const Drawer: React.FC<DrawerProps> = ({ visible, onClose }) => {
   }, [visible, slideAnim, screenWidth, isRTL]);
 
   const drawerItems = [
-    { icon: require('../../../assets/icons/drawer/myAccount.png'), label: t('profileScreen', 'drawerItems.myAccount'), onPress: onClose },
-    { icon: require('../../../assets/icons/drawer/myLocation.png'), label: t('profileScreen', 'drawerItems.myLocation'), onPress: onClose },
-    { icon: require('../../../assets/icons/drawer/myRating.png'), label: t('profileScreen', 'drawerItems.myRating'), onPress: onClose },
-    { icon: require('../../../assets/icons/drawer/myContract.png'), label: t('profileScreen', 'drawerItems.myContract'), onPress: onClose },
-    { icon: require('../../../assets/icons/drawer/payments.png'), label: t('profileScreen', 'drawerItems.payments'), onPress: onClose },
-    { icon: require('../../../assets/icons/drawer/Notifications.png'), label: t('profileScreen', 'drawerItems.notification'), onPress: onClose },
-    { icon: require('../../../assets/icons/drawer/language.png'), label: t('profileScreen', 'drawerItems.language'), onPress: () => { navigation.navigate('LanguageSelection'); onClose(); } },
-    { icon: require('../../../assets/icons/drawer/myQuestions.png'), label: t('profileScreen', 'drawerItems.myQuestions'), onPress: onClose },
-    { icon: require('../../../assets/icons/drawer/setAccess.png'), label: t('profileScreen', 'drawerItems.setAccess'), onPress: onClose },
-    { icon: require('../../../assets/icons/drawer/Security.png'), label: t('profileScreen', 'drawerItems.security'), onPress: onClose },
-    { icon: require('../../../assets/icons/drawer/about.png'), label: t('profileScreen', 'drawerItems.about'), onPress: onClose },
-    { icon: require('../../../assets/icons/drawer/mySubscription.png'), label: t('profileScreen', 'drawerItems.mySubscription'), onPress: onClose },
-    { icon: require('../../../assets/icons/drawer/myExpertise.png'), label: t('profileScreen', 'drawerItems.myExpertise'), onPress: onClose },
+    { icon: require('../../../assets/icons/drawer/myAccount.png'), label: t('myAccount'), onPress: onClose },
+    { icon: require('../../../assets/icons/drawer/myLocation.png'), label: t('myLocation'), onPress: onClose },
+    { icon: require('../../../assets/icons/drawer/myRating.png'), label: t('myRating'), onPress: onClose },
+    { icon: require('../../../assets/icons/drawer/myContract.png'), label: t('myContract'), onPress: onClose },
+    { icon: require('../../../assets/icons/drawer/payments.png'), label: t('payments'), onPress: onClose },
+    { icon: require('../../../assets/icons/drawer/Notifications.png'), label: t('notification'), onPress: onClose },
+    { icon: require('../../../assets/icons/drawer/language.png'), label: t('language'), onPress: () => { navigation.navigate('LanguageSelection'); onClose(); } },
+    { icon: require('../../../assets/icons/drawer/myQuestions.png'), label: t('myQuestions'), onPress: onClose },
+    { icon: require('../../../assets/icons/drawer/setAccess.png'), label: t('setAccess'), onPress: onClose },
+    { icon: require('../../../assets/icons/drawer/Security.png'), label: t('security'), onPress: onClose },
+    { icon: require('../../../assets/icons/drawer/about.png'), label: t('about'), onPress: onClose },
+    { icon: require('../../../assets/icons/drawer/mySubscription.png'), label: t('mySubscription'), onPress: onClose },
+    { icon: require('../../../assets/icons/drawer/myExpertise.png'), label: t('myExpertise'), onPress: onClose },
   ];
 
   return (
@@ -140,7 +140,7 @@ const Drawer: React.FC<DrawerProps> = ({ visible, onClose }) => {
                   source={require('../../../assets/icons/drawer/logout.png')}
                   style={styles.logoutIcon}
                 />
-                <Text style={styles.logoutText}>{t('profileScreen', 'logout')}</Text>
+                <Text style={styles.logoutText}>{t('logout')}</Text>
               </TouchableOpacity>
             </ScrollView>
           </LinearGradient>

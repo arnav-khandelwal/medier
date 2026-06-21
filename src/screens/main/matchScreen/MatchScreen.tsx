@@ -10,8 +10,8 @@ const MatchScreen: React.FC = () => {
     <SafeAreaView style={styles.root}>
       <View style={styles.center}>
         <Text style={styles.emoji}>🔍</Text>
-        <Text style={styles.title}>{t('matchScreen', 'title')}</Text>
-        <Text style={styles.subtitle}>{t('matchScreen', 'subtitle')}</Text>
+        <Text style={styles.title}>{t('match')}</Text>
+        <Text style={styles.subtitle}>{t('findYourPerfectDoctorMatch')}</Text>
       </View>
     </SafeAreaView>
   );

@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, Image, ScrollView, TextInput 
 import CommonModal from './CommonModal';
 import { scale, verticalScale, moderateScale } from '../theme/scaling';
 import { quicksandFonts } from '../theme/typography';
+import { colors } from '../theme/colors';
 
 interface Option<T = string> {
   label: string;
@@ -103,7 +104,7 @@ const styles = StyleSheet.create({
     width: scale(16),
     height: scale(16),
     marginRight: scale(8),
-    tintColor: '#7a7676',
+    tintColor: colors.primary,
   },
   searchInput: {
     flex: 1,
@@ -133,16 +134,16 @@ const styles = StyleSheet.create({
     color: '#333',
   },
   itemTextSelected: {
-    color: '#0E1726',
+    color: colors.primary,
     fontFamily: quicksandFonts.semiBold,
   },
   checkIcon: {
     width: scale(18),
     height: scale(18),
-    tintColor: '#0E1726',
+    tintColor: colors.primary,
   },
   proceedButton: {
-    backgroundColor: '#0E1726',
+    backgroundColor: colors.primary,
     borderRadius: scale(12),
     marginTop: verticalScale(12),
     paddingVertical: verticalScale(10),

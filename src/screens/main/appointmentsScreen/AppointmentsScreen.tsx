@@ -110,19 +110,19 @@ const AppointmentsScreen: React.FC<AppointmentsScreenProps> = ({ onTabPress }) =
       
       <View style={styles.container}>
         {/* Header */}
-        <ScreenTitle title={t('appointmentsScreen', 'title')} onBackPress={() => onTabPress?.('Home')} />
+        <ScreenTitle title={t('myAppointments')} onBackPress={() => onTabPress?.('Home')} />
 
         <View style={styles.whiteContainer}>
           <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
           {/* Primary Filters */}
           <View style={styles.filterContainer}>
-            {renderFilterButton(t('appointmentsScreen', 'filters.upcoming'), selectedFilter === 'upcoming', () =>
+            {renderFilterButton(t('upcoming'), selectedFilter === 'upcoming', () =>
               setSelectedFilter('upcoming')
             )}
-            {renderFilterButton(t('appointmentsScreen', 'filters.completed'), selectedFilter === 'completed', () =>
+            {renderFilterButton(t('completed'), selectedFilter === 'completed', () =>
               setSelectedFilter('completed')
             )}
-            {renderFilterButton(t('appointmentsScreen', 'filters.expired'), selectedFilter === 'expired', () =>
+            {renderFilterButton(t('expired'), selectedFilter === 'expired', () =>
               setSelectedFilter('expired')
             )}
           </View>
@@ -130,12 +130,12 @@ const AppointmentsScreen: React.FC<AppointmentsScreenProps> = ({ onTabPress }) =
           {/* Secondary Filters */}
           <View style={styles.secondaryFilterContainer}>
             {renderFilterButton(
-              t('appointmentsScreen', 'filters.cancelledByMe'),
+              t('cancelledByMe'),
               selectedFilter === 'cancelled_by_me',
               () => setSelectedFilter('cancelled_by_me')
             )}
             {renderFilterButton(
-              t('appointmentsScreen', 'filters.cancelledByPatient'),
+              t('cancelledByPatient'),
               selectedFilter === 'cancelled_by_patient',
               () => setSelectedFilter('cancelled_by_patient')
             )}

@@ -16,11 +16,11 @@ const TermsAndConditionsModal: React.FC<TermsAndConditionsModalProps> = ({ visib
   const content = (
     <View>
       <Text style={styles.firstParagraph}>
-        {t('termsAndConditions', 'firstParagraph')}
+        {t('termsAndConditionsAreThe')}
       </Text>
 
       <Text style={styles.bodyText}>
-        {t('termsAndConditions', 'bodyText')}
+        {t('loremIpsumDolorSitAmet')}
       </Text>
     </View>
   );
@@ -29,7 +29,7 @@ const TermsAndConditionsModal: React.FC<TermsAndConditionsModalProps> = ({ visib
     <CommonModal
       visible={visible}
       onClose={onClose}
-      title={t('termsAndConditions', 'title')}
+      title={t('termsConditions')}
       content={content}
     />
   );

@@ -53,9 +53,9 @@ function OnBoarding({ navigation }: Props): React.JSX.Element {
           </View>
 
           <View style={styles.contentWrapper}>
-            <Text style={styles.title}>{t('onBoarding', 'title')}</Text>
+            <Text style={styles.title}>{t('medier')}</Text>
             <Text style={styles.subtitle}>
-              {t('onBoarding', 'subtitle')}
+              {t('becomeADoctorForA')}
             </Text>
           </View>
 
@@ -64,14 +64,14 @@ function OnBoarding({ navigation }: Props): React.JSX.Element {
               style={styles.loginButton}
               onPress={() => navigation.navigate('Login')}
               activeOpacity={0.8}>
-              <Text style={styles.loginButtonText}>{t('onBoarding', 'buttons.login')}</Text>
+              <Text style={styles.loginButtonText}>{t('loginToYourAccount')}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.registerButton}
               onPress={() => navigation.navigate('Register')}
               activeOpacity={0.8}>
-              <Text style={styles.registerButtonText}>{t('onBoarding', 'buttons.register')}</Text>
+              <Text style={styles.registerButtonText}>{t('register')}</Text>
             </TouchableOpacity>
           </View>
 

@@ -44,17 +44,17 @@ function LanguageSelection({ navigation }: Props): React.JSX.Element {
   const languages: LanguageOption[] = [
     {
       id: 'English',
-      name: t('languageSelection', 'languages.english'),
+      name: t('english'),
       flag: require('../../../../assets/icons/English.png'),
     },
     {
       id: 'French',
-      name: t('languageSelection', 'languages.french'),
+      name: t('french'),
       flag: require('../../../../assets/icons/French.png'),
     },
     {
       id: 'Arabic',
-      name: t('languageSelection', 'languages.arabic'),
+      name: t('arabic'),
       flag: require('../../../../assets/icons/Arabic.png'),
     },
   ];
@@ -103,7 +103,7 @@ function LanguageSelection({ navigation }: Props): React.JSX.Element {
 
         {/* Screen Title */}
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>{t('languageSelection', 'title')}</Text>
+          <Text style={styles.title}>{t('chooseYourPreferredLanguage')}</Text>
         </View>
 
         {/* Language Cards */}

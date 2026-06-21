@@ -52,7 +52,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ activeTab, onTabPress }) => {
                 style={styles.dropdownBox}
               >
                 <Image source={require('../../../../assets/icons/dropdownHome.png')} style={styles.dropdownHomeIcon} />
-                <Text style={styles.dropdownText}>{t('homeScreen', 'dropdown.novaCare')}</Text>
+                <Text style={styles.dropdownText}>{t('novacare')}</Text>
                 <Image
                   source={dropdownOpen ? require('../../../../assets/icons/dropdownUpArrow.png') : require('../../../../assets/icons/dropdownDownArrow.png')}
                   style={styles.dropdownArrowIcon}
@@ -61,7 +61,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ activeTab, onTabPress }) => {
               {dropdownOpen && (
                 <View style={styles.dropdownList}>
                   <TouchableOpacity style={styles.dropdownItem} onPress={() => setDropdownOpen(false)}>
-                    <Text style={styles.dropdownItemText}>{t('homeScreen', 'dropdown.advantalClinic')}</Text>
+                    <Text style={styles.dropdownItemText}>{t('advantalClinic')}</Text>
                   </TouchableOpacity>
                 </View>
               )}
@@ -81,14 +81,14 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ activeTab, onTabPress }) => {
           </View>
 
           {/* Greeting */}
-          <Text style={styles.greetingHeader}>{t('homeScreen', 'greeting')}</Text>
+          <Text style={styles.greetingHeader}>{t('hopeYoureFeelingWellToday')}</Text>
 
           {/* Doctor Text Info */}
           {dashboardState !== 'unverified' && (
             <View style={styles.doctorTextContainer}>
-              <Text style={styles.doctorName}>{t('homeScreen', 'doctor.name')}</Text>
+              <Text style={styles.doctorName}>{t('drWilliamJhonon')}</Text>
               <View style={styles.specialtyPill}>
-                <Text style={styles.specialtyText}>{t('homeScreen', 'doctor.specialty')}</Text>
+                <Text style={styles.specialtyText}>{t('dentist')}</Text>
               </View>
             </View>
           )}
@@ -106,7 +106,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ activeTab, onTabPress }) => {
         <ScrollView contentContainerStyle={styles.dashboardScroll} showsVerticalScrollIndicator={false}>
           {dashboardState === 'verified' && (
             <>
-              <Text style={styles.dashboardTitle}>{t('homeScreen', 'dashboard.title')}</Text>
+              <Text style={styles.dashboardTitle}>{t('dashboard')}</Text>
 
               <View style={styles.cardsRow}>
                 {/* Consultations Card */}
@@ -115,21 +115,21 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ activeTab, onTabPress }) => {
                     <View style={[styles.cardIconBox, { backgroundColor: '#E1F3FF' }]}>
                       <Image source={require('../../../../assets/icons/consultations.png')} style={styles.cardIcon} />
                     </View>
-                    <Text style={styles.cardTitle}>{t('homeScreen', 'dashboard.consultations.title')}</Text>
+                    <Text style={styles.cardTitle}>{t('consultations')}</Text>
                   </View>
                   <View style={styles.statsBox}>
                     <View style={[styles.statColumn, { flex: 0.7 }]}>
-                      <Text style={styles.statLabel}>{t('homeScreen', 'dashboard.consultations.total')}</Text>
+                      <Text style={styles.statLabel}>{t('total')}</Text>
                       <Text style={styles.statValue}>55</Text>
                     </View>
                     <View style={styles.statDivider} />
                     <View style={[styles.statColumn, { flex: 1.3 }]}>
-                      <Text style={styles.statLabel}>{t('homeScreen', 'dashboard.consultations.upcoming')}</Text>
+                      <Text style={styles.statLabel}>{t('upcoming')}</Text>
                       <Text style={styles.statValue}>32</Text>
                     </View>
                   </View>
                   <TouchableOpacity style={styles.viewMoreBtn}>
-                    <Text style={styles.viewMoreText}>{t('homeScreen', 'dashboard.consultations.viewMore')}</Text>
+                    <Text style={styles.viewMoreText}>{t('viewMore')}</Text>
                     <Image source={require('../../../../assets/icons/viewMore.png')} style={styles.viewMoreIcon} />
                   </TouchableOpacity>
                 </View>
@@ -140,21 +140,21 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ activeTab, onTabPress }) => {
                     <View style={[styles.cardIconBox, { backgroundColor: '#E1F3FF' }]}>
                       <Image source={require('../../../../assets/icons/chat.png')} style={styles.cardIcon} />
                     </View>
-                    <Text style={styles.cardTitle}>{t('homeScreen', 'dashboard.chat.title')}</Text>
+                    <Text style={styles.cardTitle}>{t('chat')}</Text>
                   </View>
                   <View style={styles.statsBox}>
                     <View style={[styles.statColumn, { flex: 0.7 }]}>
-                      <Text style={styles.statLabel}>{t('homeScreen', 'dashboard.chat.total')}</Text>
+                      <Text style={styles.statLabel}>{t('total')}</Text>
                       <Text style={styles.statValue}>445</Text>
                     </View>
                     <View style={styles.statDivider} />
                     <View style={[styles.statColumn, { flex: 1.3 }]}>
-                      <Text style={styles.statLabel}>{t('homeScreen', 'dashboard.chat.new')}</Text>
+                      <Text style={styles.statLabel}>{t('new')}</Text>
                       <Text style={styles.statValue}>12</Text>
                     </View>
                   </View>
                   <TouchableOpacity style={styles.viewMoreBtn}>
-                    <Text style={styles.viewMoreText}>{t('homeScreen', 'dashboard.chat.viewMore')}</Text>
+                    <Text style={styles.viewMoreText}>{t('viewMore')}</Text>
                     <Image source={require('../../../../assets/icons/viewMore.png')} style={styles.viewMoreIcon} />
                   </TouchableOpacity>
                 </View>

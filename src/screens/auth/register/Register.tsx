@@ -128,14 +128,14 @@ function Register({ navigation }: Props): React.JSX.Element {
     return true;
   };
 
-  
+
 
   const handleTabPress = (targetStep: number) => {
     if (targetStep === 2 && !validatePersonnelFields()) {
       Toast.show({
         type: 'error',
-        text1: t('register', 'errors.incompleteFields'),
-        text2: t('register', 'errors.completePersonnel'),
+        text1: t('incompleteFields'),
+        text2: t('pleaseCompleteAllPersonnelFields'),
       });
       return;
     }
@@ -153,72 +153,72 @@ function Register({ navigation }: Props): React.JSX.Element {
     if (!firstName.trim()) {
       Toast.show({
         type: 'error',
-        text1: t('register', 'errors.requiredField'),
-        text2: t('register', 'errors.enterFirstName'),
+        text1: t('requiredField'),
+        text2: t('pleaseEnterYourFirstName'),
       });
       return;
     }
     if (!lastName.trim()) {
       Toast.show({
         type: 'error',
-        text1: t('register', 'errors.requiredField'),
-        text2: t('register', 'errors.enterLastName'),
+        text1: t('requiredField'),
+        text2: t('pleaseEnterYourLastName'),
       });
       return;
     }
     if (!email.trim()) {
       Toast.show({
         type: 'error',
-        text1: t('register', 'errors.requiredField'),
-        text2: t('register', 'errors.enterEmail'),
+        text1: t('requiredField'),
+        text2: t('pleaseEnterYourEmail'),
       });
       return;
     }
     if (!validateEmail(email)) {
       Toast.show({
         type: 'error',
-        text1: t('register', 'errors.invalidEmail'),
-        text2: t('register', 'errors.validEmail'),
+        text1: t('invalidEmail'),
+        text2: t('pleaseEnterAValidEmail'),
       });
       return;
     }
     if (!mobile.trim()) {
       Toast.show({
         type: 'error',
-        text1: t('register', 'errors.requiredField'),
-        text2: t('register', 'errors.enterMobile'),
+        text1: t('requiredField'),
+        text2: t('pleaseEnterYourMobileNumber'),
       });
       return;
     }
     if (!validatePhone(mobile)) {
       Toast.show({
         type: 'error',
-        text1: t('register', 'errors.invalidPhone'),
-        text2: t('register', 'errors.validPhone'),
+        text1: t('invalidPhone'),
+        text2: t('pleaseEnterAValid10digit'),
       });
       return;
     }
     if (!password.trim()) {
       Toast.show({
         type: 'error',
-        text1: t('register', 'errors.requiredField'),
-        text2: t('register', 'errors.enterPassword'),
+        text1: t('requiredField'),
+        text2: t('pleaseEnterYourPassword'),
       });
       return;
     }
     if (!validatePassword(password)) {
       Toast.show({
         type: 'error',
-        text1: t('register', 'errors.weakPassword'),
-        text2: t('register', 'errors.passwordLength'),
+        text1: t('weakPassword'),
+        text2: t('passwordMustBeAtLeast'),
       });
       return;
     }
     if (!gender) {
       Toast.show({
         type: 'error',
-        text1: t('register', 'errors.requiredField'),
-        text2: t('register', 'errors.selectGender'),
+        text1: t('requiredField'),
+        text2: t('pleaseSelectYourGender'),
       });
       return;
     }
@@ -229,14 +229,14 @@ function Register({ navigation }: Props): React.JSX.Element {
 
 
 
-// Helper to map string arrays to option objects
-const mapToOptions = (arr: string[]) => arr.map(item => ({ label: item, value: item }));
+  // Helper to map string arrays to option objects
+  const mapToOptions = (arr: string[]) => arr.map(item => ({ label: item, value: item }));
 
-// State for selected location in HomeScreen
-// Add this near other state declarations in HomeScreen component
-// const [selectedLocation, setSelectedLocation] = useState('');
+  // State for selected location in HomeScreen
+  // Add this near other state declarations in HomeScreen component
+  // const [selectedLocation, setSelectedLocation] = useState('');
 
-// Remove renderDropdownModal function and replace its calls with DropdownModal component
+  // Remove renderDropdownModal function and replace its calls with DropdownModal component
 
 
   return (
@@ -259,14 +259,14 @@ const mapToOptions = (arr: string[]) => arr.map(item => ({ label: item, value: i
               {/* Header texts */}
               <View style={styles.headerArea}>
                 <Text style={styles.titleContainer}>
-                  <Text style={styles.titleBlue}>{t('register', 'title.blue')}</Text>
-                  <Text style={styles.titleBlack}>{t('register', 'title.black')}</Text>
+                  <Text style={styles.titleBlue}>{t('sign')}</Text>
+                  <Text style={styles.titleBlack}>{t('up')}</Text>
                 </Text>
 
                 <View style={styles.subtitleRow}>
-                  <Text style={styles.subtitleBlack}>{t('register', 'subtitle.black')}</Text>
+                  <Text style={styles.subtitleBlack}>{t('alreadyHaveAnAccount')}</Text>
                   <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.replace('Login')}>
-                    <Text style={styles.subtitleBlue}>{t('register', 'subtitle.blue')}</Text>
+                    <Text style={styles.subtitleBlue}>{t('login')}</Text>
                   </TouchableOpacity>
                 </View>
 
@@ -277,20 +277,22 @@ const mapToOptions = (arr: string[]) => arr.map(item => ({ label: item, value: i
                     onPress={() => handleTabPress(1)}
                     style={styles.tabActive}
                   >
-                    <Text style={styles.tabTextActive}>{t('register', 'tabs.personnel')}</Text>
+                    <Text style={styles.tabTextActive}>{t('1Personnel')}</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
                     activeOpacity={0.8}
                     onPress={() => handleTabPress(2)}
                     style={step === 2 ? styles.tabActive : styles.tabInactive}
                   >
-                    <Text style={step === 2 ? styles.tabTextActive : styles.tabTextInactive}>{t('register', 'tabs.professional')}</Text>
+                    <Text style={step === 2 ? styles.tabTextActive : styles.tabTextInactive}>{t('2Professional')}</Text>
                   </TouchableOpacity>
                 </View>
-                <Animated.View style={[styles.tabDividerLine, { width: progressAnim.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: ['0%', '100%'],
-                }) }]} />
+                <Animated.View style={[styles.tabDividerLine, {
+                  width: progressAnim.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: ['0%', '100%'],
+                  })
+                }]} />
               </View>
 
               <Animated.View style={[styles.sliderContainer, { transform: [{ translateX: slideAnim }] }]}>
@@ -303,31 +305,31 @@ const mapToOptions = (arr: string[]) => arr.map(item => ({ label: item, value: i
                 >
                   <View style={styles.formContainer}>
                     {/* First Name */}
-                    <Text style={styles.inputLabel}>{t('register', 'personnel.firstNameLabel')}</Text>
+                    <Text style={styles.inputLabel}>{t('firstName')}</Text>
                     <StyledTextInput
                       value={firstName}
                       onChangeText={setFirstName}
-                      placeholder={t('register', 'personnel.firstNamePlaceholder')}
+                      placeholder={t('enterFirstName')}
                       iconUnselected={require('../../../../assets/icons/usernameUnselected.png')}
                       iconSelected={require('../../../../assets/icons/usernameSelected.png')}
                     />
 
                     {/* Last Name */}
-                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>{t('register', 'personnel.lastNameLabel')}</Text>
+                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>{t('lastName')}</Text>
                     <StyledTextInput
                       value={lastName}
                       onChangeText={setLastName}
-                      placeholder={t('register', 'personnel.lastNamePlaceholder')}
+                      placeholder={t('enterLastName')}
                       iconUnselected={require('../../../../assets/icons/usernameUnselected.png')}
                       iconSelected={require('../../../../assets/icons/usernameSelected.png')}
                     />
 
                     {/* Email */}
-                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>{t('register', 'personnel.emailLabel')}</Text>
+                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>{t('email')}</Text>
                     <StyledTextInput
                       value={email}
                       onChangeText={setEmail}
-                      placeholder={t('register', 'personnel.emailPlaceholder')}
+                      placeholder={t('enterEmail')}
                       iconUnselected={require('../../../../assets/icons/emailUnselected.png')}
                       iconSelected={require('../../../../assets/icons/emailSelected.png')}
                       keyboardType="email-address"
@@ -335,11 +337,11 @@ const mapToOptions = (arr: string[]) => arr.map(item => ({ label: item, value: i
                     />
 
                     {/* Mobile No */}
-                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>{t('register', 'personnel.mobileLabel')}</Text>
+                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>{t('mobileNo')}</Text>
                     <View style={[styles.gradientWrapper, styles.shadowUnfocused]}>
                       <LinearGradient colors={['#FFFFFF', '#C6D3E7']} start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }} style={styles.gradientBackground} />
                       <View style={styles.inputBoxInner}>
-                        <TouchableOpacity style={styles.mobilePrefixContainer} onPress={() => setShowCountryDropdown(!showCountryDropdown)}>  
+                        <TouchableOpacity style={styles.mobilePrefixContainer} onPress={() => setShowCountryDropdown(!showCountryDropdown)}>
                           <View style={styles.flagPlaceholder}>
                             <Text style={{ fontSize: moderateScale(12) }}>
                               {countryCode === '+966' ? '🇸🇦' :
@@ -366,7 +368,7 @@ const mapToOptions = (arr: string[]) => arr.map(item => ({ label: item, value: i
                               writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
                             }
                           ]}
-                          placeholder={t('register', 'personnel.mobilePlaceholder')}
+                          placeholder={t('enterNumber')}
                           placeholderTextColor="#7a7676"
                           value={mobile}
                           onChangeText={(text: string) => {
@@ -384,11 +386,11 @@ const mapToOptions = (arr: string[]) => arr.map(item => ({ label: item, value: i
                     </View>
 
                     {/* Password */}
-                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>{t('register', 'personnel.passwordLabel')}</Text>
+                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>{t('password1')}</Text>
                     <StyledTextInput
                       value={password}
                       onChangeText={setPassword}
-                      placeholder={t('register', 'personnel.passwordPlaceholder')}
+                      placeholder={t('enterPassword')}
                       iconUnselected={require('../../../../assets/icons/passwordUnselected.png')}
                       iconSelected={require('../../../../assets/icons/passwordSelected.png')}
                       secureTextEntry
@@ -396,7 +398,7 @@ const mapToOptions = (arr: string[]) => arr.map(item => ({ label: item, value: i
                     />
 
                     {/* Select Gender */}
-                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>{t('register', 'personnel.genderLabel')}</Text>
+                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>{t('selectGender')}</Text>
                     <View style={styles.genderRow}>
                       <TouchableOpacity
                         activeOpacity={0.8}
@@ -404,7 +406,7 @@ const mapToOptions = (arr: string[]) => arr.map(item => ({ label: item, value: i
                         onPress={() => setGender('female')}
                       >
                         <Image source={require('../../../../assets/icons/female.png')} style={styles.genderIcon} resizeMode="contain" />
-                        <Text style={[styles.genderText, gender === 'female' && styles.genderTextSelected]}>{t('register', 'personnel.genderFemale')}</Text>
+                        <Text style={[styles.genderText, gender === 'female' && styles.genderTextSelected]}>{t('female')}</Text>
                       </TouchableOpacity>
 
                       <TouchableOpacity
@@ -413,25 +415,25 @@ const mapToOptions = (arr: string[]) => arr.map(item => ({ label: item, value: i
                         onPress={() => setGender('male')}
                       >
                         <Image source={require('../../../../assets/icons/male.png')} style={styles.genderIcon} resizeMode="contain" />
-                        <Text style={[styles.genderText, gender === 'male' && styles.genderTextSelected]}>{t('register', 'personnel.genderMale')}</Text>
+                        <Text style={[styles.genderText, gender === 'male' && styles.genderTextSelected]}>{t('male')}</Text>
                       </TouchableOpacity>
 
                     </View>
                     <TouchableOpacity style={styles.loginButton} activeOpacity={0.8} onPress={handleNext}>
-                      <Text style={styles.loginButtonText}>{t('register', 'personnel.nextButton')}</Text>
+                      <Text style={styles.loginButtonText}>{t('next')}</Text>
                     </TouchableOpacity>
                   </View>
 
                   {/* Render Country Code Modal */}
-      <DropdownModal
-        visible={showCountryDropdown}
-        onClose={() => setShowCountryDropdown(false)}
-        title={t('register', 'modal.selectCountryCode')}
-        options={mapToOptions(countryCodes)}
-        onSelect={(opt) => {
-          setCountryCode(opt.value.split(' ')[0]);
-        }}
-      />
+                  <DropdownModal
+                    visible={showCountryDropdown}
+                    onClose={() => setShowCountryDropdown(false)}
+                    title={t('selectCountryCode')}
+                    options={mapToOptions(countryCodes)}
+                    onSelect={(opt) => {
+                      setCountryCode(opt.value.split(' ')[0]);
+                    }}
+                  />
                 </ScrollView>
 
                 {/* Step 2: Professional Fields */}
@@ -443,7 +445,7 @@ const mapToOptions = (arr: string[]) => arr.map(item => ({ label: item, value: i
                 >
                   <View style={styles.formContainer}>
                     {/* CV Upload */}
-                    <Text style={styles.inputLabel}>{t('register', 'professional.cvLabel')}</Text>
+                    <Text style={styles.inputLabel}>{t('cv')}</Text>
                     <TouchableOpacity
                       activeOpacity={0.8}
                       style={styles.dashedUploadBox}
@@ -451,12 +453,12 @@ const mapToOptions = (arr: string[]) => arr.map(item => ({ label: item, value: i
                     >
                       <Image source={require('../../../../assets/icons/upload.png')} style={styles.uploadIcon} />
                       <Text style={[styles.uploadText, cvFile ? styles.uploadTextSelected : styles.uploadTextPlaceholder]}>
-                        {cvFile ? cvFile.name : t('register', 'professional.cvPlaceholder')}
+                        {cvFile ? cvFile.name : t('uploadCv')}
                       </Text>
                     </TouchableOpacity>
 
                     {/* Medical License */}
-                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>{t('register', 'professional.licenseLabel')}</Text>
+                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>{t('medicalLicenseDocument')}</Text>
                     <TouchableOpacity
                       activeOpacity={0.8}
                       style={styles.dashedUploadBox}
@@ -464,12 +466,12 @@ const mapToOptions = (arr: string[]) => arr.map(item => ({ label: item, value: i
                     >
                       <Image source={require('../../../../assets/icons/upload.png')} style={styles.uploadIcon} />
                       <Text style={[styles.uploadText, licenseFile ? styles.uploadTextSelected : styles.uploadTextPlaceholder]}>
-                        {licenseFile ? licenseFile.name : t('register', 'professional.licensePlaceholder')}
+                        {licenseFile ? licenseFile.name : t('upload')}
                       </Text>
                     </TouchableOpacity>
 
                     {/* Select Profile */}
-                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>{t('register', 'professional.profileLabel')}</Text>
+                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>{t('selectProfile')}</Text>
                     <TouchableOpacity
                       activeOpacity={0.8}
                       style={[
@@ -486,13 +488,13 @@ const mapToOptions = (arr: string[]) => arr.map(item => ({ label: item, value: i
                         styles.dropdownValueText,
                         !selectedProfile && styles.dropdownPlaceholderText
                       ]}>
-                        {selectedProfile ? selectedProfile : t('register', 'professional.profilePlaceholder')}
+                        {selectedProfile ? selectedProfile : t('select')}
                       </Text>
                       <Image source={require('../../../../assets/icons/dropdown.png')} style={styles.dropdownRightIcon} />
                     </TouchableOpacity>
 
                     {/* Specialization */}
-                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>{t('register', 'professional.specializationLabel')}</Text>
+                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>{t('specialization')}</Text>
                     <TouchableOpacity
                       activeOpacity={0.8}
                       style={[
@@ -509,13 +511,13 @@ const mapToOptions = (arr: string[]) => arr.map(item => ({ label: item, value: i
                         styles.dropdownValueText,
                         !specialization && styles.dropdownPlaceholderText
                       ]}>
-                        {specialization ? specialization : t('register', 'professional.specializationPlaceholder')}
+                        {specialization ? specialization : t('enterSpecialization')}
                       </Text>
                       <Image source={require('../../../../assets/icons/dropdown.png')} style={styles.dropdownRightIcon} />
                     </TouchableOpacity>
 
                     {/* Select Sector */}
-                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>{t('register', 'professional.sectorLabel')}</Text>
+                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>{t('selectSector')}</Text>
                     <View style={styles.sectorRow}>
                       {(['Private', 'Public', 'Both'] as const).map((option) => {
                         const isSelected = sector === option;
@@ -540,7 +542,7 @@ const mapToOptions = (arr: string[]) => arr.map(item => ({ label: item, value: i
                               styles.sectorText,
                               isSelected && styles.sectorTextSelected
                             ]}>
-                              {t('register', 'sectors.' + option.toLowerCase())}
+                              {t(option.toLowerCase())}
                             </Text>
                           </TouchableOpacity>
                         );
@@ -548,7 +550,7 @@ const mapToOptions = (arr: string[]) => arr.map(item => ({ label: item, value: i
                     </View>
 
                     {/* Select Country */}
-                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>{t('register', 'professional.countryLabel')}</Text>
+                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>{t('selectCountry')}</Text>
                     <TouchableOpacity
                       activeOpacity={0.8}
                       style={[
@@ -565,13 +567,13 @@ const mapToOptions = (arr: string[]) => arr.map(item => ({ label: item, value: i
                         styles.dropdownValueText,
                         !selectedCountry && styles.dropdownPlaceholderText
                       ]}>
-                        {selectedCountry ? selectedCountry : t('register', 'professional.countryPlaceholder')}
+                        {selectedCountry ? selectedCountry : t('select')}
                       </Text>
                       <Image source={require('../../../../assets/icons/dropdown.png')} style={styles.dropdownRightIcon} />
                     </TouchableOpacity>
 
                     {/* Address */}
-                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>{t('register', 'professional.addressLabel')}</Text>
+                    <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>{t('address')}</Text>
                     <View style={[styles.addressInputWrapper]}>
                       <TextInput
                         style={[
@@ -583,7 +585,7 @@ const mapToOptions = (arr: string[]) => arr.map(item => ({ label: item, value: i
                         ]}
                         multiline
                         numberOfLines={3}
-                        placeholder={t('register', 'professional.addressPlaceholder')}
+                        placeholder={t('enterAddress')}
                         placeholderTextColor="#7a7676"
                         value={address}
                         onChangeText={setAddress}
@@ -606,7 +608,7 @@ const mapToOptions = (arr: string[]) => arr.map(item => ({ label: item, value: i
                         style={styles.checkboxIcon}
                       />
                       <Text style={styles.termsText}>
-                        {t('register', 'professional.terms')}
+                        {t('iAccept')}
                         <Text
                           style={styles.termsLink}
                           onPress={(e) => {
@@ -614,9 +616,9 @@ const mapToOptions = (arr: string[]) => arr.map(item => ({ label: item, value: i
                             setShowTermsAndConditions(true);
                           }}
                         >
-                          {t('register', 'professional.termsLink')}
+                          {t('termsConditions1')}
                         </Text>
-                        {t('register', 'professional.and')}
+                        {t('and')}
                         <Text
                           style={styles.termsLink}
                           onPress={(e) => {
@@ -624,7 +626,7 @@ const mapToOptions = (arr: string[]) => arr.map(item => ({ label: item, value: i
                             setShowPrivacyPolicy(true);
                           }}
                         >
-                          {t('register', 'professional.privacyLink')}
+                          {t('privacyPolicy')}
                         </Text>
                       </Text>
                     </TouchableOpacity>
@@ -638,72 +640,72 @@ const mapToOptions = (arr: string[]) => arr.map(item => ({ label: item, value: i
                         if (!firstName.trim()) {
                           Toast.show({
                             type: 'error',
-                            text1: t('register', 'errors.requiredField'),
-                            text2: t('register', 'errors.enterFirstName'),
+                            text1: t('requiredField'),
+                            text2: t('pleaseEnterYourFirstName'),
                           });
                           return;
                         }
                         if (!lastName.trim()) {
                           Toast.show({
                             type: 'error',
-                            text1: t('register', 'errors.requiredField'),
-                            text2: t('register', 'errors.enterLastName'),
+                            text1: t('requiredField'),
+                            text2: t('pleaseEnterYourLastName'),
                           });
                           return;
                         }
                         if (!email.trim()) {
                           Toast.show({
                             type: 'error',
-                            text1: t('register', 'errors.requiredField'),
-                            text2: t('register', 'errors.enterEmail'),
+                            text1: t('requiredField'),
+                            text2: t('pleaseEnterYourEmail'),
                           });
                           return;
                         }
                         if (!validateEmail(email)) {
                           Toast.show({
                             type: 'error',
-                            text1: t('register', 'errors.invalidEmail'),
-                            text2: t('register', 'errors.validEmail'),
+                            text1: t('invalidEmail'),
+                            text2: t('pleaseEnterAValidEmail'),
                           });
                           return;
                         }
                         if (!mobile.trim()) {
                           Toast.show({
                             type: 'error',
-                            text1: t('register', 'errors.requiredField'),
-                            text2: t('register', 'errors.enterMobile'),
+                            text1: t('requiredField'),
+                            text2: t('pleaseEnterYourMobileNumber'),
                           });
                           return;
                         }
                         if (!validatePhone(mobile)) {
                           Toast.show({
                             type: 'error',
-                            text1: t('register', 'errors.invalidPhone'),
-                            text2: t('register', 'errors.validPhone'),
+                            text1: t('invalidPhone'),
+                            text2: t('pleaseEnterAValid10digit'),
                           });
                           return;
                         }
                         if (!password.trim()) {
                           Toast.show({
                             type: 'error',
-                            text1: t('register', 'errors.requiredField'),
-                            text2: t('register', 'errors.enterPassword'),
+                            text1: t('requiredField'),
+                            text2: t('pleaseEnterYourPassword'),
                           });
                           return;
                         }
                         if (!validatePassword(password)) {
                           Toast.show({
                             type: 'error',
-                            text1: t('register', 'errors.weakPassword'),
-                            text2: t('register', 'errors.passwordLength'),
+                            text1: t('weakPassword'),
+                            text2: t('passwordMustBeAtLeast'),
                           });
                           return;
                         }
                         if (!gender) {
                           Toast.show({
                             type: 'error',
-                            text1: t('register', 'errors.requiredField'),
-                            text2: t('register', 'errors.selectGender'),
+                            text1: t('requiredField'),
+                            text2: t('pleaseSelectYourGender'),
                           });
                           return;
                         }
@@ -712,56 +714,56 @@ const mapToOptions = (arr: string[]) => arr.map(item => ({ label: item, value: i
                         if (!cvFile) {
                           Toast.show({
                             type: 'error',
-                            text1: t('register', 'errors.requiredField'),
-                            text2: t('register', 'errors.uploadCV'),
+                            text1: t('requiredField'),
+                            text2: t('pleaseUploadYourCv'),
                           });
                           return;
                         }
                         if (!licenseFile) {
                           Toast.show({
                             type: 'error',
-                            text1: t('register', 'errors.requiredField'),
-                            text2: t('register', 'errors.uploadLicense'),
+                            text1: t('requiredField'),
+                            text2: t('pleaseUploadYourMedicalLicense'),
                           });
                           return;
                         }
                         if (!selectedProfile) {
                           Toast.show({
                             type: 'error',
-                            text1: t('register', 'errors.requiredField'),
-                            text2: t('register', 'errors.selectProfile'),
+                            text1: t('requiredField'),
+                            text2: t('pleaseSelectAProfile'),
                           });
                           return;
                         }
                         if (!specialization) {
                           Toast.show({
                             type: 'error',
-                            text1: t('register', 'errors.requiredField'),
-                            text2: t('register', 'errors.selectSpecialization'),
+                            text1: t('requiredField'),
+                            text2: t('pleaseSelectYourSpecialization'),
                           });
                           return;
                         }
                         if (!selectedCountry) {
                           Toast.show({
                             type: 'error',
-                            text1: t('register', 'errors.requiredField'),
-                            text2: t('register', 'errors.selectCountry'),
+                            text1: t('requiredField'),
+                            text2: t('pleaseSelectACountry'),
                           });
                           return;
                         }
                         if (!address.trim()) {
                           Toast.show({
                             type: 'error',
-                            text1: t('register', 'errors.requiredField'),
-                            text2: t('register', 'errors.enterAddress'),
+                            text1: t('requiredField'),
+                            text2: t('pleaseEnterYourAddress'),
                           });
                           return;
                         }
                         if (!acceptedTerms) {
                           Toast.show({
                             type: 'error',
-                            text1: t('register', 'errors.requiredField'),
-                            text2: t('register', 'errors.acceptTerms'),
+                            text1: t('requiredField'),
+                            text2: t('pleaseAcceptTheTermsConditions'),
                           });
                           return;
                         }
@@ -769,37 +771,41 @@ const mapToOptions = (arr: string[]) => arr.map(item => ({ label: item, value: i
                         // All validations passed
                         Toast.show({
                           type: 'success',
-                          text1: t('register', 'errors.registrationSuccessful'),
-                          text2: t('register', 'errors.welcome'),
+                          text1: t('registrationSuccessful'),
+                          text2: t('welcomeToMedier'),
+                        });
+                        navigation.reset({
+                          index: 0,
+                          routes: [{ name: 'MainTabs' }],
                         });
                       }}
                     >
-                      <Text style={styles.signUpButtonText}>{t('register', 'professional.signUpButton')}</Text>
+                      <Text style={styles.signUpButtonText}>{t('signUp')}</Text>
                     </TouchableOpacity>
                   </View>
 
                   {/* Render Modals */}
-      <DropdownModal
-        visible={showProfileDropdown}
-        onClose={() => setShowProfileDropdown(false)}
-        title={t('register', 'modal.selectProfile')}
-        options={mapToOptions(profiles)}
-        onSelect={(opt) => setSelectedProfile(opt.value)}
-      />
-      <DropdownModal
-        visible={showSpecializationDropdown}
-        onClose={() => setShowSpecializationDropdown(false)}
-        title={t('register', 'modal.selectSpecialization')}
-        options={mapToOptions(specializations)}
-        onSelect={(opt) => setSpecialization(opt.value)}
-      />
-      <DropdownModal
-        visible={showCountrySelectDropdown}
-        onClose={() => setShowCountrySelectDropdown(false)}
-        title={t('register', 'modal.selectCountry')}
-        options={mapToOptions(countries)}
-        onSelect={(opt) => setSelectedCountry(opt.value)}
-      />
+                  <DropdownModal
+                    visible={showProfileDropdown}
+                    onClose={() => setShowProfileDropdown(false)}
+                    title={t('selectProfile')}
+                    options={mapToOptions(profiles)}
+                    onSelect={(opt) => setSelectedProfile(opt.value)}
+                  />
+                  <DropdownModal
+                    visible={showSpecializationDropdown}
+                    onClose={() => setShowSpecializationDropdown(false)}
+                    title={t('selectSpecialization')}
+                    options={mapToOptions(specializations)}
+                    onSelect={(opt) => setSpecialization(opt.value)}
+                  />
+                  <DropdownModal
+                    visible={showCountrySelectDropdown}
+                    onClose={() => setShowCountrySelectDropdown(false)}
+                    title={t('selectCountry')}
+                    options={mapToOptions(countries)}
+                    onSelect={(opt) => setSelectedCountry(opt.value)}
+                  />
                 </ScrollView>
               </Animated.View>
 

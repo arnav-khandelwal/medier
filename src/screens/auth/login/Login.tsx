@@ -41,32 +41,32 @@ function Login({ navigation }: Props): React.JSX.Element {
     if (!email.trim()) {
       Toast.show({
         type: 'error',
-        text1: t('login', 'errors.error'),
-        text2: t('login', 'errors.enterEmail'),
+        text1: t('error'),
+        text2: t('pleaseEnterYourEmail1'),
       });
       return;
     }
     if (!validateEmail(email)) {
       Toast.show({
         type: 'error',
-        text1: t('login', 'errors.error'),
-        text2: t('login', 'errors.invalidEmail'),
+        text1: t('error'),
+        text2: t('pleaseEnterAValidEmail'),
       });
       return;
     }
     if (!password.trim()) {
       Toast.show({
         type: 'error',
-        text1: t('login', 'errors.error'),
-        text2: t('login', 'errors.enterPassword'),
+        text1: t('error'),
+        text2: t('pleaseEnterYourPassword1'),
       });
       return;
     }
     if (password.length < 6) {
       Toast.show({
         type: 'error',
-        text1: t('login', 'errors.error'),
-        text2: t('login', 'errors.passwordLength'),
+        text1: t('error'),
+        text2: t('passwordMustBeAtLeast'),
       });
       return;
     }
@@ -106,14 +106,14 @@ function Login({ navigation }: Props): React.JSX.Element {
           {/* Header Texts */}
           <Text style={styles.RTLWrapper}>
             <Text style={styles.titleContainer}>
-              <Text style={styles.titleBlue}>{t('login', 'title.blue')}</Text>
-              <Text style={styles.titleBlack}>{t('login', 'title.black')}</Text>
+              <Text style={styles.titleBlue}>{t('login')}</Text>
+              <Text style={styles.titleBlack}>{t('toYourAccount')}</Text>
             </Text>
           </Text>
 
           <View style={styles.subtitleRow}>
             <Text style={styles.subtitleBlack}>
-              {t('login', 'subtitle.black')}
+              {t('newToMedicineApp')}
             </Text>
 
             <TouchableOpacity
@@ -121,29 +121,29 @@ function Login({ navigation }: Props): React.JSX.Element {
               onPress={() => navigation.replace('Register')}
             >
               <Text style={styles.subtitleBlue}>
-                {t('login', 'subtitle.blue')}
+                {t('register')}
               </Text>
             </TouchableOpacity>
           </View>
           
           {/* Form Fields */}
           <View style={styles.formContainer}>
-            <Text style={styles.inputLabel}>{t('login', 'form.emailLabel')}</Text>
+            <Text style={styles.inputLabel}>{t('email')}</Text>
             <StyledTextInput
               value={email}
               onChangeText={setEmail}
-              placeholder={t('login', 'form.emailPlaceholder')}
+              placeholder={t('enterEmail')}
               iconUnselected={require('../../../../assets/icons/emailUnselected.png')}
               iconSelected={require('../../../../assets/icons/emailSelected.png')}
               autoCapitalize="none"
               keyboardType="email-address"
             />
 
-            <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>{t('login', 'form.passwordLabel')}</Text>
+            <Text style={[styles.inputLabel, { marginTop: verticalScale(20) }]}>{t('password1')}</Text>
             <StyledTextInput
               value={password}
               onChangeText={setPassword}
-              placeholder={t('login', 'form.passwordPlaceholder')}
+              placeholder={t('enterPassword')}
               iconUnselected={require('../../../../assets/icons/passwordUnselected.png')}
               iconSelected={require('../../../../assets/icons/passwordSelected.png')}
               secureTextEntry
@@ -151,7 +151,7 @@ function Login({ navigation }: Props): React.JSX.Element {
             />
 
             <TouchableOpacity activeOpacity={0.8} style={styles.forgotPasswordButton}  onPress={() => navigation.replace('ForgotPassword')}>
-              <Text style={styles.forgotPasswordText}>{t('login', 'form.forgotPassword')}</Text>
+              <Text style={styles.forgotPasswordText}>{t('forgetPassword')}</Text>
             </TouchableOpacity>
           </View>
 
@@ -161,7 +161,7 @@ function Login({ navigation }: Props): React.JSX.Element {
             activeOpacity={0.8}
             onPress={handleLogin}
           >
-            <Text style={styles.loginButtonText}>{t('login', 'button.login')}</Text>
+            <Text style={styles.loginButtonText}>{t('login')}</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>

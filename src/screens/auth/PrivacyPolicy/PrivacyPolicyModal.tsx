@@ -16,11 +16,11 @@ const PrivacyPolicyModal: React.FC<PrivacyPolicyModalProps> = ({ visible, onClos
   const content = (
     <View>
       <Text style={styles.firstParagraph}>
-        {t('privacyPolicy', 'firstParagraph')}
+        {t('aPrivacyPolicyIsA')}
       </Text>
 
       <Text style={styles.bodyText}>
-        {t('privacyPolicy', 'bodyText')}
+        {t('loremIpsumDolorSitAmet')}
       </Text>
     </View>
   );
@@ -29,7 +29,7 @@ const PrivacyPolicyModal: React.FC<PrivacyPolicyModalProps> = ({ visible, onClos
     <CommonModal
       visible={visible}
       onClose={onClose}
-      title={t('privacyPolicy', 'title')}
+      title={t('privacyPolicy1')}
       content={content}
     />
   );

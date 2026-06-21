@@ -7,7 +7,7 @@ type LanguageCode = 'en' | 'fr' | 'ar';
 interface LanguageContextType {
   language: LanguageCode;
   setLanguage: (language: LanguageCode) => void;
-  t: (screen: string, key: string) => string;
+  t: (key: string) => string;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -26,68 +26,11 @@ const reverseLanguageCodeMap: Record<LanguageCode, string> = {
   'ar': 'Arabic',
 };
 
-// Pre-load all translation files
-const translations: Record<string, Record<LanguageCode, any>> = {
-  login: {
-    en: require('./login/en.json'),
-    fr: require('./login/fr.json'),
-    ar: require('./login/ar.json'),
-  },
-  register: {
-    en: require('./register/en.json'),
-    fr: require('./register/fr.json'),
-    ar: require('./register/ar.json'),
-  },
-  forgotPassword: {
-    en: require('./forgotPassword/en.json'),
-    fr: require('./forgotPassword/fr.json'),
-    ar: require('./forgotPassword/ar.json'),
-  },
-  languageSelection: {
-    en: require('./languageSelection/en.json'),
-    fr: require('./languageSelection/fr.json'),
-    ar: require('./languageSelection/ar.json'),
-  },
-  onBoarding: {
-    en: require('./onBoarding/en.json'),
-    fr: require('./onBoarding/fr.json'),
-    ar: require('./onBoarding/ar.json'),
-  },
-  privacyPolicy: {
-    en: require('./privacyPolicy/en.json'),
-    fr: require('./privacyPolicy/fr.json'),
-    ar: require('./privacyPolicy/ar.json'),
-  },
-  termsAndConditions: {
-    en: require('./termsAndConditions/en.json'),
-    fr: require('./termsAndConditions/fr.json'),
-    ar: require('./termsAndConditions/ar.json'),
-  },
-  agendaScreen: {
-    en: require('./agendaScreen/en.json'),
-    fr: require('./agendaScreen/fr.json'),
-    ar: require('./agendaScreen/ar.json'),
-  },
-  appointmentsScreen: {
-    en: require('./appointmentsScreen/en.json'),
-    fr: require('./appointmentsScreen/fr.json'),
-    ar: require('./appointmentsScreen/ar.json'),
-  },
-  homeScreen: {
-    en: require('./homeScreen/en.json'),
-    fr: require('./homeScreen/fr.json'),
-    ar: require('./homeScreen/ar.json'),
-  },
-  matchScreen: {
-    en: require('./matchScreen/en.json'),
-    fr: require('./matchScreen/fr.json'),
-    ar: require('./matchScreen/ar.json'),
-  },
-  profileScreen: {
-    en: require('./profileScreen/en.json'),
-    fr: require('./profileScreen/fr.json'),
-    ar: require('./profileScreen/ar.json'),
-  },
+// Pre-load the unified translation files
+const translations: Record<LanguageCode, any> = {
+  en: require('./en.json'),
+  fr: require('./fr.json'),
+  ar: require('./ar.json'),
 };
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -128,26 +71,17 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     }
   };
 
-  const t = (screen: string, key: string): string => {
+  const t = (key: string): string => {
     try {
-      const screenTranslations = translations[screen];
-      if (!screenTranslations) {
-        console.error(`Translation screen not found: ${screen}`);
-        return key;
-      }
-      const langTranslations = screenTranslations[language];
+      const langTranslations = translations[language];
       if (!langTranslations) {
-        console.error(`Translation language not found: ${screen}/${language}`);
+        console.error(`Translation language not found: ${language}`);
         return key;
       }
-      const keys = key.split('.');
-      let value: any = langTranslations;
-      for (const k of keys) {
-        value = value[k];
-      }
-      return value || key;
+      
+      return langTranslations[key] || key;
     } catch (error) {
-      console.error(`Failed to load translation for ${screen}/${language}:`, error);
+      console.error(`Failed to load translation for ${language}:`, error);
       return key;
     }
   };
