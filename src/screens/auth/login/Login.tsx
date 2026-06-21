@@ -119,7 +119,7 @@ function Login({ navigation }: Props): React.JSX.Element {
 
               <TouchableOpacity
                 activeOpacity={0.8}
-                onPress={() => navigation.replace('MainTabs')}
+                onPress={() => navigation.replace('Register')}
               >
                 <Text style={styles.subtitleBlue}>
                   {t('register')}

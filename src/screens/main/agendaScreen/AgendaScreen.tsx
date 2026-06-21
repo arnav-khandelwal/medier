@@ -16,6 +16,7 @@ import { colors } from '../../../theme/colors';
 import { scale, verticalScale, moderateScale } from '../../../theme/scaling';
 import { quicksandFonts } from '../../../theme/typography';
 import ScreenTitle from '../../../components/ScreenTitle';
+import CustomCalendar from '../../../components/CustomCalendar';
 import { useTranslation } from '../../../utils/translations/LanguageContext';
 import { agendaData, getAgendaDay, isDayBlocked, TimeSlot } from './data/mockData';
 import { IMAGES } from '../../../theme/images';
@@ -36,127 +37,40 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
   const agendaDay = getAgendaDay(selectedDate);
   const timeSlots = agendaDay?.timeSlots || [];
 
-  const navigateMonth = (direction: 'prev' | 'next') => {
-    setCurrentMonth((prev) => {
-      const newMonth = new Date(prev);
-      if (direction === 'prev') {
-        newMonth.setMonth(newMonth.getMonth() - 1);
-      } else {
-        newMonth.setMonth(newMonth.getMonth() + 1);
-      }
-      return newMonth;
-    });
-  };
-
-  const getMonthName = (date: Date) => {
-    return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-  };
-
-  const renderCalendarDay = (day: number, isCurrentMonth: boolean, isSelected: boolean, isDayBlockedParam: boolean) => {
-    const dayDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
-    const dayIsBlocked = isDayBlockedParam || isDayBlocked(dayDate);
+  const getMarkedDates = () => {
+    const dates: any = {};
+    const year = currentMonth.getFullYear();
+    const month = currentMonth.getMonth();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
     
-    return (
-      <TouchableOpacity
-        style={[
-          styles.calendarDay,
-          isSelected && !dayIsBlocked && styles.calendarDaySelectedAvailable,
-          isSelected && dayIsBlocked && styles.calendarDaySelectedBlocked,
-          !isCurrentMonth && styles.calendarDayOtherMonth,
-        ]}
-        onPress={() => setSelectedDate(dayDate)}
-      >
-        <Text style={[
-          styles.calendarDayText,
-          isSelected && styles.calendarDayTextSelected,
-          !isSelected && dayIsBlocked && styles.calendarDayTextBlocked,
-          !isCurrentMonth && styles.calendarDayTextOtherMonth,
-        ]}>
-          {day}
-        </Text>
-      </TouchableOpacity>
-    );
-  };
-
-  const renderWeek = (startDay: number, isCurrentMonth: boolean) => {
-    const days = [];
-    for (let i = 0; i < 7; i++) {
-      const day = startDay + i;
-      const dayDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
-      const isSelected = selectedDate.getDate() === day && 
-                        selectedDate.getMonth() === currentMonth.getMonth() &&
-                        selectedDate.getFullYear() === currentMonth.getFullYear();
-      const isBlocked = isDayBlocked(dayDate);
-      const isValidDay = day > 0 && day <= 31;
-      days.push(
-        <View key={i} style={styles.calendarDayContainer}>
-          {isValidDay ? renderCalendarDay(day, isCurrentMonth, isSelected, isBlocked) : <View style={styles.calendarDay} />}
-        </View>
-      );
-    }
-    return days;
-  };
-
-  const getDaysInMonth = (date: Date) => {
-    return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-  };
-
-  const getFirstDayOfMonth = (date: Date) => {
-    return new Date(date.getFullYear(), date.getMonth(), 1).getDay();
-  };
-
-  const renderCalendarDays = () => {
-    const daysInMonth = getDaysInMonth(currentMonth);
-    const firstDay = getFirstDayOfMonth(currentMonth);
-    const weeks = [];
-    let currentDay = 1;
-    
-    // First week (may include days from previous month)
-    const firstWeekDays = [];
-    for (let i = 0; i < 7; i++) {
-      if (i < firstDay) {
-        firstWeekDays.push(<View key={`empty-${i}`} style={styles.calendarDayContainer}><View style={styles.calendarDay} /></View>);
-      } else {
-        const dayDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), currentDay);
-        const isSelected = selectedDate.getDate() === currentDay && 
-                          selectedDate.getMonth() === currentMonth.getMonth() &&
-                          selectedDate.getFullYear() === currentMonth.getFullYear();
-        const isBlocked = isDayBlocked(dayDate);
-        firstWeekDays.push(
-          <View key={currentDay} style={styles.calendarDayContainer}>
-            {renderCalendarDay(currentDay, true, isSelected, isBlocked)}
-          </View>
-        );
-        currentDay++;
+    for (let i = 1; i <= daysInMonth; i++) {
+      const d = new Date(year, month, i);
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth() + 1).padStart(2, '0');
+      const dd = String(d.getDate()).padStart(2, '0');
+      const dateString = `${yyyy}-${mm}-${dd}`;
+      
+      if (isDayBlocked(d)) {
+        dates[dateString] = { blocked: true };
       }
     }
-    weeks.push(<View key="week-0" style={styles.calendarWeek}>{firstWeekDays}</View>);
     
-    // Remaining weeks
-    while (currentDay <= daysInMonth) {
-      const weekDays = [];
-      for (let i = 0; i < 7; i++) {
-        if (currentDay <= daysInMonth) {
-          const dayDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), currentDay);
-          const isSelected = selectedDate.getDate() === currentDay && 
-                            selectedDate.getMonth() === currentMonth.getMonth() &&
-                            selectedDate.getFullYear() === currentMonth.getFullYear();
-          const isBlocked = isDayBlocked(dayDate);
-          weekDays.push(
-            <View key={currentDay} style={styles.calendarDayContainer}>
-              {renderCalendarDay(currentDay, true, isSelected, isBlocked)}
-            </View>
-          );
-          currentDay++;
-        } else {
-          weekDays.push(<View key={`empty-${currentDay}-${i}`} style={styles.calendarDayContainer}><View style={styles.calendarDay} /></View>);
-        }
-      }
-      weeks.push(<View key={`week-${weeks.length}`} style={styles.calendarWeek}>{weekDays}</View>);
+    const selectedY = selectedDate.getFullYear();
+    const selectedM = String(selectedDate.getMonth() + 1).padStart(2, '0');
+    const selectedD = String(selectedDate.getDate()).padStart(2, '0');
+    const selectedDateString = `${selectedY}-${selectedM}-${selectedD}`;
+    
+    if (dates[selectedDateString]) {
+      dates[selectedDateString].selected = true;
+    } else {
+      dates[selectedDateString] = { selected: true };
     }
     
-    return weeks;
+    return dates;
   };
+
+  const markedDates = getMarkedDates();
+
 
   const formatDate = (date: Date) => {
     const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'short', year: 'numeric' };
@@ -198,33 +112,18 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
             </View>
 
             {/* Calendar */}
-            <View style={styles.calendarContainer}>
-              <View style={styles.calendarHeader}>
-                <Text style={styles.calendarMonth}>{getMonthName(currentMonth)}</Text>
-                <View style={styles.calendarNavigation}>
-                  <TouchableOpacity style={styles.navArrowButton} onPress={() => navigateMonth('prev')}>
-                    <Image
-                      source={IMAGES.arrowLeft}
-                      style={styles.navArrow}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.navArrowButton} onPress={() => navigateMonth('next')}>
-                    <Image
-                      source={IMAGES.arrowRight}
-                      style={styles.navArrow}
-                    />
-                  </TouchableOpacity>
-                </View>
-              </View>
-              <View style={styles.calendarWeekdays}>
-                {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
-                  <Text key={day} style={styles.weekdayText}>{day}</Text>
-                ))}
-              </View>
-              <View style={styles.calendarDays}>
-                {renderCalendarDays()}
-              </View>
-            </View>
+            <CustomCalendar
+              current={`${currentMonth.getFullYear()}-${String(currentMonth.getMonth() + 1).padStart(2, '0')}-01`}
+              markedDates={markedDates}
+              onDayPress={(dateData) => {
+                const newDate = new Date(dateData.year, dateData.month - 1, dateData.day);
+                setSelectedDate(newDate);
+              }}
+              onMonthChange={(dateData) => {
+                const newMonth = new Date(dateData.year, dateData.month - 1, 1);
+                setCurrentMonth(newMonth);
+              }}
+            />
 
             {/* Selected Date Section */}
             <View style={styles.selectedDateSection}>
