@@ -431,7 +431,7 @@ function Register({ navigation }: Props): React.JSX.Element {
                     onClose={() => setShowCountryDropdown(false)}
                     title={t('selectCountryCode')}
                     options={mapToOptions(countryCodes)}
-                    others={true}
+                    others={false}
                     validationType="countryCode"
                     onSelect={(opt) => {
                       setCountryCode(opt.value.split(' ')[0]);

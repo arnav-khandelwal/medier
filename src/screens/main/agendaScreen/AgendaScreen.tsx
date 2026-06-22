@@ -21,6 +21,7 @@ import AlertModal from '../../../components/AlertModal';
 import { useTranslation } from '../../../utils/translations/LanguageContext';
 import { agendaData, getAgendaDay, isDayBlocked, TimeSlot, AgendaDay } from './data/mockData';
 import { IMAGES } from '../../../theme/images';
+import TeamAvailability from './TeamAvailability';
 
 interface AgendaScreenProps {
   activeTab?: string;
@@ -126,8 +127,13 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
               </TouchableOpacity>
             </View>
 
-            {/* Calendar */}
-            <CustomCalendar
+            {/* Render Team Availability or My Availability based on selected tab */}
+            {selectedTab === 'teamAvailability' ? (
+              <TeamAvailability />
+            ) : (
+              <>
+              {/* Calendar */}
+              <CustomCalendar
               current={`${currentMonth.getFullYear()}-${String(currentMonth.getMonth() + 1).padStart(2, '0')}-01`}
               markedDates={markedDates}
               onDayPress={(dateData) => {
@@ -320,6 +326,8 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
             </View>
 
             <View style={{ height: verticalScale(80) }} />
+            </>
+            )}
           </ScrollView>
         </View>
       </View>

@@ -63,7 +63,7 @@ function OnBoarding({ navigation }: Props): React.JSX.Element {
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               style={styles.loginButton}
-              onPress={() => navigation.navigate('MainTabs')}
+              onPress={() => navigation.navigate('Login')}
               activeOpacity={0.8}>
               <Text style={styles.loginButtonText}>{t('loginToYourAccount')}</Text>
             </TouchableOpacity>
