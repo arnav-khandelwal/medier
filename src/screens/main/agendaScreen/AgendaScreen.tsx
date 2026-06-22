@@ -33,9 +33,17 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
   const currentDate = new Date(2026, 5, 12); // June 12, 2026
   const [selectedDate, setSelectedDate] = useState(currentDate);
   const [currentMonth, setCurrentMonth] = useState(new Date(2026, 5, 1)); // June 2026
+  const [selectedSlotId, setSelectedSlotId] = useState<string | null>(null);
+  const [localTimeSlots, setLocalTimeSlots] = useState<TimeSlot[]>([]);
 
   const agendaDay = getAgendaDay(selectedDate);
-  const timeSlots = agendaDay?.timeSlots || [];
+  const timeSlots = localTimeSlots.length > 0 ? localTimeSlots : (agendaDay?.timeSlots || []);
+
+  // Update local time slots when date changes
+  React.useEffect(() => {
+    const dayData = getAgendaDay(selectedDate);
+    setLocalTimeSlots(dayData?.timeSlots || []);
+  }, [selectedDate]);
 
   const getMarkedDates = () => {
     const dates: any = {};
@@ -140,24 +148,47 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
                     {/* Time Slots */}
                     <View style={styles.timeSlotsContainer}>
                       {timeSlots.map((slot) => (
-                        <View key={slot.id} style={styles.timeSlot}>
+                        <TouchableOpacity
+                          key={slot.id}
+                          onPress={() => setSelectedSlotId(slot.id)}
+                          style={[
+                            styles.timeSlot,
+                            selectedSlotId === slot.id && styles.timeSlotSelected
+                          ]}
+                        >
                           <Text style={styles.timeSlotText}>{slot.startTime} - {slot.endTime}</Text>
-                        </View>
+                        </TouchableOpacity>
                       ))}
                     </View>
 
-                    {/* Action Buttons */}
-                    <View style={styles.actionButtons}>
-                      <TouchableOpacity style={styles.deleteDayButton}>
-                        <Image
-                          source={IMAGES.delete}
-                          style={styles.deleteDayIcon}
-                        />
-                      </TouchableOpacity>
-                      <TouchableOpacity style={styles.editDayButton}>
-                        <Text style={styles.editDayButtonText}>{t('edit')}</Text>
-                      </TouchableOpacity>
-                    </View>
+                    {/* Action Buttons - Show only when slot is selected */}
+                    {selectedSlotId && (
+                      <View style={styles.actionButtons}>
+                        <TouchableOpacity
+                          style={styles.deleteDayButton}
+                          onPress={() => {
+                            // Handle delete action
+                            setLocalTimeSlots(localTimeSlots.filter(slot => slot.id !== selectedSlotId));
+                            setSelectedSlotId(null);
+                          }}
+                        >
+                          <Image
+                            source={IMAGES.delete}
+                            style={styles.deleteDayIcon}
+                          />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          style={styles.editDayButton}
+                          onPress={() => {
+                            // Handle edit action - for now just deselect
+                            // TODO: Implement edit functionality (open modal or navigate to edit screen)
+                            setSelectedSlotId(null);
+                          }}
+                        >
+                          <Text style={styles.editDayButtonText}>{t('edit')}</Text>
+                        </TouchableOpacity>
+                      </View>
+                    )}
                   </View>
 
                   {/* Block/Add Availability */}
@@ -393,6 +424,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: scale(20),
     borderRadius: scale(8),
     alignSelf: 'flex-start',
+  },
+  timeSlotSelected: {
+    backgroundColor: '#C0E6FF',
   },
   timeSlotText: {
     fontSize: moderateScale(10),
