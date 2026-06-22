@@ -164,138 +164,142 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
                   {/* Online Slots Section */}
                   {onlineSlots.length > 0 && (
                     <View style={styles.dateContainer}>
-                      <View style={styles.dateHeader}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                          <Text style={styles.selectedDateText}>{formatDate(selectedDate)}</Text>
-                          <View style={styles.statusBadge}>
-                            <Text style={styles.statusText}>{t('online')}</Text>
+                      {selectedSlotId && onlineSlots.find(s => s.id === selectedSlotId && s.isBlocked) && (
+                        <TouchableOpacity style={styles.headerRestoreButton} onPress={() => {
+                          setLocalOnlineSlots(localOnlineSlots.map(s => s.id === selectedSlotId ? { ...s, isBlocked: false } : s));
+                          setSelectedSlotId(null);
+                        }}>
+                          <Text style={styles.headerRestoreButtonText}>{t('restore')}</Text>
+                        </TouchableOpacity>
+                      )}
+                      <View style={styles.dateContent}>
+                        <View style={styles.dateHeader}>
+                          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <Text style={styles.selectedDateText}>{formatDate(selectedDate)}</Text>
+                            <View style={styles.statusBadge}>
+                              <Text style={styles.statusText}>{t('online')}</Text>
+                            </View>
                           </View>
                         </View>
-                        {selectedSlotId && onlineSlots.find(s => s.id === selectedSlotId && s.isBlocked) && (
-                          <TouchableOpacity style={styles.headerRestoreButton} onPress={() => {
-                            setLocalOnlineSlots(localOnlineSlots.map(s => s.id === selectedSlotId ? { ...s, isBlocked: false } : s));
-                            setSelectedSlotId(null);
-                          }}>
-                            <Text style={styles.headerRestoreButtonText}>{t('restore')}</Text>
-                          </TouchableOpacity>
+
+                        {/* Online Time Slots */}
+                        <View style={styles.timeSlotsContainer}>
+                          {onlineSlots.map((slot: TimeSlot) => (
+                            <TouchableOpacity
+                              key={slot.id}
+                              onPress={() => setSelectedSlotId(slot.id)}
+                              style={[
+                                styles.timeSlot,
+                                slot.isBlocked && styles.timeSlotBlocked,
+                                selectedSlotId === slot.id && (slot.isBlocked ? styles.timeSlotBlockedSelected : styles.timeSlotSelected)
+                              ]}
+                            >
+                              <Text style={[styles.timeSlotText, slot.isBlocked && styles.timeSlotTextBlocked]}>{slot.startTime} - {slot.endTime}</Text>
+                            </TouchableOpacity>
+                          ))}
+                        </View>
+
+                        {/* Action Buttons - Show only when available slot is selected */}
+                        {selectedSlotId && onlineSlots.find(s => s.id === selectedSlotId && !s.isBlocked) && (
+                          <View style={styles.actionButtons}>
+                            <TouchableOpacity
+                              style={styles.deleteDayButton}
+                              onPress={() => {
+                                setLocalOnlineSlots(localOnlineSlots.filter(slot => slot.id !== selectedSlotId));
+                                setSelectedSlotId(null);
+                              }}
+                            >
+                              <Image
+                                source={IMAGES.delete}
+                                style={styles.deleteDayIcon}
+                              />
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                              style={styles.editDayButton}
+                              onPress={() => {
+                                setSelectedSlotId(null);
+                              }}
+                            >
+                              <Text style={styles.editDayButtonText}>{t('edit')}</Text>
+                            </TouchableOpacity>
+                          </View>
                         )}
                       </View>
-
-                      {/* Online Time Slots */}
-                      <View style={styles.timeSlotsContainer}>
-                        {onlineSlots.map((slot: TimeSlot) => (
-                          <TouchableOpacity
-                            key={slot.id}
-                            onPress={() => setSelectedSlotId(slot.id)}
-                            style={[
-                              styles.timeSlot,
-                              slot.isBlocked && styles.timeSlotBlocked,
-                              selectedSlotId === slot.id && (slot.isBlocked ? styles.timeSlotBlockedSelected : styles.timeSlotSelected)
-                            ]}
-                          >
-                            <Text style={[styles.timeSlotText, slot.isBlocked && styles.timeSlotTextBlocked]}>{slot.startTime} - {slot.endTime}</Text>
-                          </TouchableOpacity>
-                        ))}
-                      </View>
-
-                      {/* Action Buttons - Show only when available slot is selected */}
-                      {selectedSlotId && onlineSlots.find(s => s.id === selectedSlotId && !s.isBlocked) && (
-                        <View style={styles.actionButtons}>
-                          <TouchableOpacity
-                            style={styles.deleteDayButton}
-                            onPress={() => {
-                              setLocalOnlineSlots(localOnlineSlots.filter(slot => slot.id !== selectedSlotId));
-                              setSelectedSlotId(null);
-                            }}
-                          >
-                            <Image
-                              source={IMAGES.delete}
-                              style={styles.deleteDayIcon}
-                            />
-                          </TouchableOpacity>
-                          <TouchableOpacity
-                            style={styles.editDayButton}
-                            onPress={() => {
-                              setSelectedSlotId(null);
-                            }}
-                          >
-                            <Text style={styles.editDayButtonText}>{t('edit')}</Text>
-                          </TouchableOpacity>
-                        </View>
-                      )}
                     </View>
                   )}
 
                   {/* Offline Slots Section */}
                   {offlineSlots.length > 0 && (
                     <View style={styles.dateContainer}>
-                      <View style={styles.dateHeader}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                          <Text style={styles.selectedDateText}>{formatDate(selectedDate)}</Text>
-                          <View style={styles.statusBadge}>
-                            <Text style={styles.statusText}>Offline</Text>
+                      {selectedSlotId && offlineSlots.find(s => s.id === selectedSlotId && s.isBlocked) && (
+                        <TouchableOpacity style={styles.headerRestoreButton} onPress={() => {
+                          setLocalOfflineSlots(localOfflineSlots.map(s => s.id === selectedSlotId ? { ...s, isBlocked: false } : s));
+                          setSelectedSlotId(null);
+                        }}>
+                          <Text style={styles.headerRestoreButtonText}>{t('restore')}</Text>
+                        </TouchableOpacity>
+                      )}
+                      <View style={styles.dateContent}>
+                        <View style={styles.dateHeader}>
+                          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <Text style={styles.selectedDateText}>{formatDate(selectedDate)}</Text>
+                            <View style={styles.statusBadge}>
+                              <Text style={styles.statusText}>Offline</Text>
+                            </View>
                           </View>
                         </View>
-                        {selectedSlotId && offlineSlots.find(s => s.id === selectedSlotId && s.isBlocked) && (
-                          <TouchableOpacity style={styles.headerRestoreButton} onPress={() => {
-                            setLocalOfflineSlots(localOfflineSlots.map(s => s.id === selectedSlotId ? { ...s, isBlocked: false } : s));
-                            setSelectedSlotId(null);
-                          }}>
-                            <Text style={styles.headerRestoreButtonText}>{t('restore')}</Text>
-                          </TouchableOpacity>
+
+                        {/* Offline Time Slots */}
+                        <View style={styles.timeSlotsContainer}>
+                          {offlineSlots.map((slot: TimeSlot) => (
+                            <TouchableOpacity
+                              key={slot.id}
+                              onPress={() => setSelectedSlotId(slot.id)}
+                              style={[
+                                styles.timeSlot,
+                                slot.isBlocked && styles.timeSlotBlocked,
+                                selectedSlotId === slot.id && (slot.isBlocked ? styles.timeSlotBlockedSelected : styles.timeSlotSelected)
+                              ]}
+                            >
+                              <Text style={[styles.timeSlotText, slot.isBlocked && styles.timeSlotTextBlocked]}>{slot.startTime} - {slot.endTime}</Text>
+                            </TouchableOpacity>
+                          ))}
+                        </View>
+
+                        {/* Address at bottom of offline div */}
+                        {offlineSlots.some(slot => slot.address) && (
+                          <View style={styles.offlineAddressContainer}>
+                            <Image source={IMAGES.location} style={styles.locationIcon} />
+                            <Text style={styles.addressText}>{offlineSlots.find(slot => slot.address)?.address}</Text>
+                          </View>
+                        )}
+
+                        {/* Action Buttons - Show only when available slot is selected */}
+                        {selectedSlotId && offlineSlots.find(s => s.id === selectedSlotId && !s.isBlocked) && (
+                          <View style={styles.actionButtons}>
+                            <TouchableOpacity
+                              style={styles.deleteDayButton}
+                              onPress={() => {
+                                setLocalOfflineSlots(localOfflineSlots.filter(slot => slot.id !== selectedSlotId));
+                                setSelectedSlotId(null);
+                              }}
+                            >
+                              <Image
+                                source={IMAGES.delete}
+                                style={styles.deleteDayIcon}
+                              />
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                              style={styles.editDayButton}
+                              onPress={() => {
+                                setSelectedSlotId(null);
+                              }}
+                            >
+                              <Text style={styles.editDayButtonText}>{t('edit')}</Text>
+                            </TouchableOpacity>
+                          </View>
                         )}
                       </View>
-
-                      {/* Offline Time Slots */}
-                      <View style={styles.timeSlotsContainer}>
-                        {offlineSlots.map((slot: TimeSlot) => (
-                          <TouchableOpacity
-                            key={slot.id}
-                            onPress={() => setSelectedSlotId(slot.id)}
-                            style={[
-                              styles.timeSlot,
-                              slot.isBlocked && styles.timeSlotBlocked,
-                              selectedSlotId === slot.id && (slot.isBlocked ? styles.timeSlotBlockedSelected : styles.timeSlotSelected)
-                            ]}
-                          >
-                            <Text style={[styles.timeSlotText, slot.isBlocked && styles.timeSlotTextBlocked]}>{slot.startTime} - {slot.endTime}</Text>
-                          </TouchableOpacity>
-                        ))}
-                      </View>
-
-                      {/* Address at bottom of offline div */}
-                      {offlineSlots.some(slot => slot.address) && (
-                        <View style={styles.offlineAddressContainer}>
-                          <Image source={IMAGES.location} style={styles.locationIcon} />
-                          <Text style={styles.addressText}>{offlineSlots.find(slot => slot.address)?.address}</Text>
-                        </View>
-                      )}
-
-                      {/* Action Buttons - Show only when available slot is selected */}
-                      {selectedSlotId && offlineSlots.find(s => s.id === selectedSlotId && !s.isBlocked) && (
-                        <View style={styles.actionButtons}>
-                          <TouchableOpacity
-                            style={styles.deleteDayButton}
-                            onPress={() => {
-                              setLocalOfflineSlots(localOfflineSlots.filter(slot => slot.id !== selectedSlotId));
-                              setSelectedSlotId(null);
-                            }}
-                          >
-                            <Image
-                              source={IMAGES.delete}
-                              style={styles.deleteDayIcon}
-                            />
-                          </TouchableOpacity>
-                          <TouchableOpacity
-                            style={styles.editDayButton}
-                            onPress={() => {
-                              setSelectedSlotId(null);
-                            }}
-                          >
-                            <Text style={styles.editDayButtonText}>{t('edit')}</Text>
-                          </TouchableOpacity>
-                        </View>
-                      )}
                     </View>
                   )}
 
@@ -479,8 +483,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#C8E9FF',
     borderRadius: scale(16),
-    padding: scale(16),
     marginBottom: verticalScale(20),
+    position: 'relative',
+  },
+  dateContent: {
+    padding: scale(16),
   },
   dateHeader: {
     flexDirection: 'row',
@@ -511,13 +518,19 @@ const styles = StyleSheet.create({
   },
   headerRestoreButton: {
     backgroundColor: '#C8E9FF',
-    paddingHorizontal: scale(16),
-    paddingVertical: verticalScale(6),
-    borderRadius: scale(8),
+    paddingHorizontal: scale(18),
+    paddingVertical: verticalScale(8),
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: scale(16),
+    borderBottomRightRadius: 0,
+    borderBottomLeftRadius: scale(8),
+    position: 'absolute',
+    top: 0,
+    right: 0,
   },
   headerRestoreButtonText: {
-    fontSize: moderateScale(12),
-    fontFamily: quicksandFonts.semiBold,
+    fontSize: moderateScale(14),
+    fontFamily: quicksandFonts.regular,
     color: '#0099FF',
     writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
   },
