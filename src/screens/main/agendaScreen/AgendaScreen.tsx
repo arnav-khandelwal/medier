@@ -17,6 +17,7 @@ import { scale, verticalScale, moderateScale } from '../../../theme/scaling';
 import { quicksandFonts } from '../../../theme/typography';
 import ScreenTitle from '../../../components/ScreenTitle';
 import CustomCalendar from '../../../components/CustomCalendar';
+import AlertModal from '../../../components/AlertModal';
 import { useTranslation } from '../../../utils/translations/LanguageContext';
 import { agendaData, getAgendaDay, isDayBlocked, TimeSlot, AgendaDay } from './data/mockData';
 import { IMAGES } from '../../../theme/images';
@@ -36,6 +37,8 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
   const [selectedSlotId, setSelectedSlotId] = useState<string | null>(null);
   const [localOnlineSlots, setLocalOnlineSlots] = useState<TimeSlot[]>([]);
   const [localOfflineSlots, setLocalOfflineSlots] = useState<TimeSlot[]>([]);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [slotToDelete, setSlotToDelete] = useState<{ id: string; type: 'online' | 'offline' } | null>(null);
 
   const agendaDay = getAgendaDay(selectedDate);
   const onlineSlots = localOnlineSlots.length > 0 || localOfflineSlots.length > 0 ? localOnlineSlots : (agendaDay?.onlineSlots || []);
@@ -205,8 +208,8 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
                             <TouchableOpacity
                               style={styles.deleteDayButton}
                               onPress={() => {
-                                setLocalOnlineSlots(localOnlineSlots.filter(slot => slot.id !== selectedSlotId));
-                                setSelectedSlotId(null);
+                                setSlotToDelete({ id: selectedSlotId, type: 'online' });
+                                setShowDeleteModal(true);
                               }}
                             >
                               <Image
@@ -280,8 +283,8 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
                             <TouchableOpacity
                               style={styles.deleteDayButton}
                               onPress={() => {
-                                setLocalOfflineSlots(localOfflineSlots.filter(slot => slot.id !== selectedSlotId));
-                                setSelectedSlotId(null);
+                                setSlotToDelete({ id: selectedSlotId, type: 'offline' });
+                                setShowDeleteModal(true);
                               }}
                             >
                               <Image
@@ -320,6 +323,44 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
           </ScrollView>
         </View>
       </View>
+
+      <AlertModal
+        visible={showDeleteModal}
+        onClose={() => {
+          setShowDeleteModal(false);
+          setSlotToDelete(null);
+        }}
+        icon={IMAGES.confirmRemoveTimeSlot}
+        title="Do You Want to remove slot"
+        buttons={[
+          {
+            text: 'Cancel',
+            onPress: () => {
+              setShowDeleteModal(false);
+              setSlotToDelete(null);
+            },
+            backgroundColor: '#C8E9FF',
+            textColor: '#0099FF',
+          },
+          {
+            text: 'Remove',
+            onPress: () => {
+              if (slotToDelete) {
+                if (slotToDelete.type === 'online') {
+                  setLocalOnlineSlots(localOnlineSlots.filter(slot => slot.id !== slotToDelete.id));
+                } else {
+                  setLocalOfflineSlots(localOfflineSlots.filter(slot => slot.id !== slotToDelete.id));
+                }
+              }
+              setShowDeleteModal(false);
+              setSlotToDelete(null);
+              setSelectedSlotId(null);
+            },
+            backgroundColor: '#FFEBEB',
+            textColor: '#FF4C4C',
+          },
+        ]}
+      />
     </SafeAreaView>
   );
 };

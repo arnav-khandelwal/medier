@@ -87,7 +87,7 @@ const AlertModal: React.FC<AlertModalProps> = ({
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 153, 255, 0.75)',
+    backgroundColor: 'rgba(0, 153, 255, 0.85)',
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: scale(24),
