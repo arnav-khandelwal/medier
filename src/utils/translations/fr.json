@@ -1,4 +1,5 @@
 {
+  "10000": "10000 +",
   "chooseYourPreferredLanguage": "Choisissez votre langue préférée",
   "english": "Anglais",
   "french": "Français",
@@ -39,7 +40,6 @@
   "howManyStepsYouWalk": "Combien de pas marchez-vous quotidiennement?",
   "whenDidYouDoneYour": "Quand avez-vous fait votre dernier bilan?",
   "headache": "Maux de tête",
-  "10000": "10000 +",
   "6Months": "6 mois +",
   "sign": "S'ins",
   "up": "crire",
@@ -155,5 +155,7 @@
   "medier": "MEDIER",
   "becomeADoctorForA": "Devenez médecin, pour un avenir plus sain",
   "loginToYourAccount": "Connectez-vous à votre compte",
-  "doYouWantToLogout": "Voulez-vous vous déconnecter? "
+  "doYouWantToLogout": "Voulez-vous vous déconnecter? ",
+  "youHaveBlockedAvailabilityForThisDate": "Vous avez bloqué la disponibilité\npour cette date",
+  "restore": "Restaurer"
 }

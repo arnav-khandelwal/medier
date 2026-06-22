@@ -1,4 +1,5 @@
 {
+  "10000": "١٠٠٠٠ +",
   "chooseYourPreferredLanguage": "اپنی پسندیدہ زبان منتخب کریں",
   "english": "انگریزی",
   "french": "فرانسیسی",
@@ -39,7 +40,6 @@
   "howManyStepsYouWalk": "كم عدد الخطوات التي تمشيها يومياً؟",
   "whenDidYouDoneYour": "متى أجريت آخر فحص طبي لك؟",
   "headache": "صداع",
-  "10000": "١٠٠٠٠ +",
   "6Months": "٦ أشهر +",
   "sign": "سائن ",
   "up": "اپ",
@@ -155,5 +155,7 @@
   "medier": "MEDIER",
   "becomeADoctorForA": "ڈاکٹر بنیں، ایک صحت مند مستقبل کے لیے",
   "loginToYourAccount": "اپنے اکاؤنٹ میں لاگ ان کریں",
-  "doYouWantToLogout": "هل تريد تسجيل الخروج؟"
+  "doYouWantToLogout": "هل تريد تسجيل الخروج؟",
+  "youHaveBlockedAvailabilityForThisDate": "لقد قمت بحظر التوفر\nلهذا التاريخ",
+  "restore": "استعادة"
 }

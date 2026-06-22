@@ -1,4 +1,5 @@
 {
+  "10000": "10000 +",
   "chooseYourPreferredLanguage": "Choose Your Preferred Language",
   "english": "English",
   "french": "French",
@@ -39,7 +40,6 @@
   "howManyStepsYouWalk": "How Many Steps You Walk Daily ?",
   "whenDidYouDoneYour": "When Did You Done Your Last Checkup ?",
   "headache": "Headache",
-  "10000": "10000 +",
   "6Months": "6 Months +",
   "sign": "Sign ",
   "up": "Up",
@@ -155,5 +155,7 @@
   "medier": "MEDIER",
   "becomeADoctorForA": "Become a Doctor, For a Healthier Future",
   "loginToYourAccount": "Login To Your Account",
-  "doYouWantToLogout": "Do You Want To Logout? "
+  "doYouWantToLogout": "Do You Want To Logout? ",
+  "youHaveBlockedAvailabilityForThisDate": "You Have Blocked Availability\nFor This Date",
+  "restore": "Restore"
 }
