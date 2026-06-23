@@ -86,5 +86,7 @@ export const IMAGES = {
   usernameUnselected: require('../../assets/icons/usernameUnselected.png'),
   viewMore: require('../../assets/icons/viewMore.png'),
   blockAvailability: require('../../assets/icons/blockAvailability.png'),
-  confirmRemoveTimeSlot: require('../../assets/icons/confirmRemove.png')
+  confirmRemoveTimeSlot: require('../../assets/icons/confirmRemove.png'),
+  clockIcon: require('../../assets/icons/clock.png'),
+  calendarIcon: require('../../assets/icons/calendar.png')
 };

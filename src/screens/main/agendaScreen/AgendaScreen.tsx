@@ -22,6 +22,7 @@ import { useTranslation } from '../../../utils/translations/LanguageContext';
 import { agendaData, getAgendaDay, isDayBlocked, TimeSlot, AgendaDay } from './data/mockData';
 import { IMAGES } from '../../../theme/images';
 import TeamAvailability from './TeamAvailability';
+import BlockAvailabilityModal from './BlockAvailabilityModal';
 
 interface AgendaScreenProps {
   activeTab?: string;
@@ -40,6 +41,7 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
   const [localOfflineSlots, setLocalOfflineSlots] = useState<TimeSlot[]>([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [slotToDelete, setSlotToDelete] = useState<{ id: string; type: 'online' | 'offline' } | null>(null);
+  const [showBlockAvailabilityModal, setShowBlockAvailabilityModal] = useState(false);
 
   const agendaDay = getAgendaDay(selectedDate);
   const onlineSlots = localOnlineSlots.length > 0 || localOfflineSlots.length > 0 ? localOnlineSlots : (agendaDay?.onlineSlots || []);
@@ -91,6 +93,11 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
   const formatDate = (date: Date) => {
     const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'short', year: 'numeric' };
     return date.toLocaleDateString('en-US', options);
+  };
+
+  const handleBlockAvailability = (data: any) => {
+    console.log('Block availability data:', data);
+    // TODO: Implement the actual blocking logic
   };
 
   return (
@@ -314,7 +321,7 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
 
                   {/* Block/Add Availability */}
                   <View style={styles.blockAddButtons}>
-                    <TouchableOpacity style={styles.blockButton}>
+                    <TouchableOpacity style={styles.blockButton} onPress={() => setShowBlockAvailabilityModal(true)}>
                       <Text style={styles.blockButtonText}>{t('blockAvailability')}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.addButton}>
@@ -368,6 +375,12 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
             textColor: '#FF4C4C',
           },
         ]}
+      />
+
+      <BlockAvailabilityModal
+        visible={showBlockAvailabilityModal}
+        onClose={() => setShowBlockAvailabilityModal(false)}
+        onBlockAvailability={handleBlockAvailability}
       />
     </SafeAreaView>
   );
