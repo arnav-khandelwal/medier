@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, TextInput, Platform, I18nManager, Image, Modal, ScrollView } from 'react-native';
+import { Calendar } from 'react-native-calendars';
+import { Picker } from '@react-native-picker/picker';
 import { scale, verticalScale, moderateScale } from '../../../theme/scaling';
 import { quicksandFonts } from '../../../theme/typography';
 import { colors } from '../../../theme/colors';
@@ -23,6 +25,12 @@ const BlockAvailabilityModal: React.FC<BlockAvailabilityModalProps> = ({
   const [toTime, setToTime] = useState('');
   const [reason, setReason] = useState('');
   const [date, setDate] = useState('');
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [pickerType, setPickerType] = useState<'fromDate' | 'toDate' | 'date' | 'fromTime' | 'toTime' | null>(null);
+  const [showTimePicker, setShowTimePicker] = useState(false);
+  const [tempHour, setTempHour] = useState('12');
+  const [tempMinute, setTempMinute] = useState('00');
+  const [tempPeriod, setTempPeriod] = useState<'AM' | 'PM'>('AM');
 
   const handleBlockAvailability = () => {
     const data = activeTab === 'date' 
@@ -37,6 +45,44 @@ const BlockAvailabilityModal: React.FC<BlockAvailabilityModalProps> = ({
     setToTime('');
     setReason('');
     setDate('');
+  };
+
+  const handleDateSelect = (day: any) => {
+    const formattedDate = `${day.year}-${String(day.month).padStart(2, '0')}-${String(day.day).padStart(2, '0')}`;
+    
+    if (pickerType === 'fromDate') {
+      setFromDate(formattedDate);
+    } else if (pickerType === 'toDate') {
+      setToDate(formattedDate);
+    } else if (pickerType === 'date') {
+      setDate(formattedDate);
+    }
+    
+    setShowDatePicker(false);
+    setPickerType(null);
+  };
+
+  const openDatePicker = (type: 'fromDate' | 'toDate' | 'date') => {
+    setPickerType(type);
+    setShowDatePicker(true);
+  };
+
+  const openTimePicker = (type: 'fromTime' | 'toTime') => {
+    setPickerType(type);
+    setShowTimePicker(true);
+  };
+
+  const handleTimeSelect = () => {
+    const formattedTime = `${tempHour}:${tempMinute} ${tempPeriod}`;
+    
+    if (pickerType === 'fromTime') {
+      setFromTime(formattedTime);
+    } else if (pickerType === 'toTime') {
+      setToTime(formattedTime);
+    }
+    
+    setShowTimePicker(false);
+    setPickerType(null);
   };
 
   const handleClose = () => {
@@ -110,30 +156,36 @@ const BlockAvailabilityModal: React.FC<BlockAvailabilityModalProps> = ({
                   <View style={styles.rowContainer}>
                     {/* From Date */}
                     <View style={[styles.inputContainer, styles.halfWidth]}>
-                      <View style={styles.inputWrapper}>
-                        <Image source={IMAGES.calendarIcon} style={styles.inputIconLeft} />
-                        <TextInput
-                          style={styles.input}
-                          placeholder="From Date"
-                          placeholderTextColor="#8E8E93"
-                          value={fromDate}
-                          onChangeText={setFromDate}
-                        />
-                      </View>
+                      <TouchableOpacity onPress={() => openDatePicker('fromDate')}>
+                        <View style={styles.inputWrapper}>
+                          <Image source={IMAGES.calendarIcon} style={styles.inputIconLeft} />
+                          <TextInput
+                            style={styles.input}
+                            placeholder="From Date"
+                            placeholderTextColor="#8E8E93"
+                            value={fromDate}
+                            onChangeText={setFromDate}
+                            editable={false}
+                          />
+                        </View>
+                      </TouchableOpacity>
                     </View>
 
                     {/* To Date */}
                     <View style={[styles.inputContainer, styles.halfWidth]}>
-                      <View style={styles.inputWrapper}>
-                        <Image source={IMAGES.calendarIcon} style={styles.inputIconLeft} />
-                        <TextInput
-                          style={styles.input}
-                          placeholder="To Date"
-                          placeholderTextColor="#8E8E93"
-                          value={toDate}
-                          onChangeText={setToDate}
-                        />
-                      </View>
+                      <TouchableOpacity onPress={() => openDatePicker('toDate')}>
+                        <View style={styles.inputWrapper}>
+                          <Image source={IMAGES.calendarIcon} style={styles.inputIconLeft} />
+                          <TextInput
+                            style={styles.input}
+                            placeholder="To Date"
+                            placeholderTextColor="#8E8E93"
+                            value={toDate}
+                            onChangeText={setToDate}
+                            editable={false}
+                          />
+                        </View>
+                      </TouchableOpacity>
                     </View>
                   </View>
                 </>
@@ -141,46 +193,55 @@ const BlockAvailabilityModal: React.FC<BlockAvailabilityModalProps> = ({
                 <>
                   {/* Date */}
                   <View style={styles.inputContainer}>
-                    <View style={styles.inputWrapper}>
-                      <Image source={IMAGES.calendarIcon} style={styles.inputIconLeft} />
-                      <TextInput
-                        style={styles.input}
-                        placeholder="Date"
-                        placeholderTextColor="#8E8E93"
-                        value={date}
-                        onChangeText={setDate}
-                      />
-                    </View>
+                    <TouchableOpacity onPress={() => openDatePicker('date')}>
+                      <View style={styles.inputWrapper}>
+                        <Image source={IMAGES.calendarIcon} style={styles.inputIconLeft} />
+                        <TextInput
+                          style={styles.input}
+                          placeholder="Date"
+                          placeholderTextColor="#8E8E93"
+                          value={date}
+                          onChangeText={setDate}
+                          editable={false}
+                        />
+                      </View>
+                    </TouchableOpacity>
                   </View>
 
                   {/* Time Inputs Side by Side */}
                   <View style={styles.rowContainer}>
                     {/* From Time */}
                     <View style={[styles.inputContainer, styles.halfWidth]}>
-                      <View style={styles.inputWrapper}>
-                        <Image source={IMAGES.clockIcon} style={styles.inputIconLeft} />
-                        <TextInput
-                          style={styles.input}
-                          placeholder="From Time"
-                          placeholderTextColor="#8E8E93"
-                          value={fromTime}
-                          onChangeText={setFromTime}
-                        />
-                      </View>
+                      <TouchableOpacity onPress={() => openTimePicker('fromTime')}>
+                        <View style={styles.inputWrapper}>
+                          <Image source={IMAGES.clockIcon} style={styles.inputIconLeft} />
+                          <TextInput
+                            style={styles.input}
+                            placeholder="From Time"
+                            placeholderTextColor="#8E8E93"
+                            value={fromTime}
+                            onChangeText={setFromTime}
+                            editable={false}
+                          />
+                        </View>
+                      </TouchableOpacity>
                     </View>
 
                     {/* To Time */}
                     <View style={[styles.inputContainer, styles.halfWidth]}>
-                      <View style={styles.inputWrapper}>
-                        <Image source={IMAGES.clockIcon} style={styles.inputIconLeft} />
-                        <TextInput
-                          style={styles.input}
-                          placeholder="To Time"
-                          placeholderTextColor="#8E8E93"
-                          value={toTime}
-                          onChangeText={setToTime}
-                        />
-                      </View>
+                      <TouchableOpacity onPress={() => openTimePicker('toTime')}>
+                        <View style={styles.inputWrapper}>
+                          <Image source={IMAGES.clockIcon} style={styles.inputIconLeft} />
+                          <TextInput
+                            style={styles.input}
+                            placeholder="To Time"
+                            placeholderTextColor="#8E8E93"
+                            value={toTime}
+                            onChangeText={setToTime}
+                            editable={false}
+                          />
+                        </View>
+                      </TouchableOpacity>
                     </View>
                   </View>
                 </>
@@ -207,6 +268,117 @@ const BlockAvailabilityModal: React.FC<BlockAvailabilityModalProps> = ({
           </ScrollView>
         </View>
       </View>
+
+      {/* Date Picker Modal */}
+      <Modal
+        visible={showDatePicker}
+        transparent
+        animationType="slide"
+        onRequestClose={() => setShowDatePicker(false)}
+      >
+        <View style={styles.datePickerOverlay}>
+          <TouchableOpacity 
+            style={styles.datePickerOverlayTouchable}
+            activeOpacity={1}
+            onPress={() => setShowDatePicker(false)}
+          />
+          <View style={styles.datePickerContainer}>
+            <View style={styles.datePickerHeader}>
+              <TouchableOpacity onPress={() => setShowDatePicker(false)}>
+                <Text style={styles.datePickerCloseText}>Cancel</Text>
+              </TouchableOpacity>
+              <Text style={styles.datePickerTitle}>Select Date</Text>
+              <TouchableOpacity onPress={() => setShowDatePicker(false)}>
+                <Text style={styles.datePickerConfirmText}>Done</Text>
+              </TouchableOpacity>
+            </View>
+            <Calendar
+              onDayPress={handleDateSelect}
+              theme={{
+                backgroundColor: '#FFFFFF',
+                calendarBackground: '#FFFFFF',
+                textSectionTitleColor: colors.primary,
+                selectedDayBackgroundColor: colors.primary,
+                selectedDayTextColor: '#FFFFFF',
+                todayTextColor: colors.primary,
+                dayTextColor: '#000000',
+                textDisabledColor: '#D9D9D9',
+                arrowColor: colors.primary,
+                monthTextColor: '#000000',
+                textDayFontFamily: quicksandFonts.regular,
+                textMonthFontFamily: quicksandFonts.semiBold,
+                textDayHeaderFontFamily: quicksandFonts.medium,
+              }}
+            />
+          </View>
+        </View>
+      </Modal>
+
+      {/* Time Picker Modal */}
+      <Modal
+        visible={showTimePicker}
+        transparent
+        animationType="slide"
+        onRequestClose={() => setShowTimePicker(false)}
+      >
+        <View style={styles.datePickerOverlay}>
+          <TouchableOpacity 
+            style={styles.datePickerOverlayTouchable}
+            activeOpacity={1}
+            onPress={() => setShowTimePicker(false)}
+          />
+          <View style={styles.timePickerContainer}>
+            <View style={styles.datePickerHeader}>
+              <TouchableOpacity onPress={() => setShowTimePicker(false)}>
+                <Text style={styles.datePickerCloseText}>Cancel</Text>
+              </TouchableOpacity>
+              <Text style={styles.datePickerTitle}>Select Time</Text>
+              <TouchableOpacity onPress={handleTimeSelect}>
+                <Text style={styles.datePickerConfirmText}>Done</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.timePickerContent}>
+              <View style={styles.timePickerRow}>
+                <View style={styles.timePickerColumn}>
+                  <Text style={styles.timePickerLabel}>Hour</Text>
+                  <Picker
+                    selectedValue={tempHour}
+                    onValueChange={(itemValue) => setTempHour(itemValue)}
+                    style={styles.timePicker}
+                  >
+                    {[...Array(12)].map((_, i) => (
+                      <Picker.Item key={i} label={String(i + 1).padStart(2, '0')} value={String(i + 1).padStart(2, '0')} />
+                    ))}
+                  </Picker>
+                </View>
+                <View style={styles.timePickerColumn}>
+                  <Text style={styles.timePickerLabel}>Minute</Text>
+                  <Picker
+                    selectedValue={tempMinute}
+                    onValueChange={(itemValue) => setTempMinute(itemValue)}
+                    style={styles.timePicker}
+                  >
+                    {[0, 15, 30, 45].map((i) => (
+                      <Picker.Item key={i} label={String(i).padStart(2, '0')} value={String(i).padStart(2, '0')} />
+                    ))}
+                  </Picker>
+                </View>
+                <View style={styles.timePickerColumn}>
+                  <Text style={styles.timePickerLabel}>Period</Text>
+                  <Picker
+                    selectedValue={tempPeriod}
+                    onValueChange={(itemValue) => setTempPeriod(itemValue as 'AM' | 'PM')}
+                    style={styles.timePicker}
+                  >
+                    <Picker.Item label="AM" value="AM" />
+                    <Picker.Item label="PM" value="PM" />
+                  </Picker>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </Modal>
   );
 };
@@ -303,6 +475,7 @@ const styles = StyleSheet.create({
   },
   rowContainer: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     gap: scale(12),
   },
   inputContainer: {
@@ -369,6 +542,77 @@ const styles = StyleSheet.create({
     fontFamily: quicksandFonts.semiBold,
     color: '#FFFFFF',
     writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
+  },
+  datePickerOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'flex-end',
+  },
+  datePickerOverlayTouchable: {
+    flex: 1,
+  },
+  datePickerContainer: {
+    backgroundColor: '#FFFFFF',
+    borderTopLeftRadius: scale(20),
+    borderTopRightRadius: scale(20),
+    paddingBottom: verticalScale(20),
+  },
+  datePickerHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: scale(20),
+    paddingVertical: verticalScale(16),
+    borderBottomWidth: 1,
+    borderBottomColor: '#E0E0E0',
+  },
+  datePickerCloseText: {
+    fontSize: moderateScale(16),
+    fontFamily: quicksandFonts.medium,
+    color: colors.primary,
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
+  },
+  datePickerTitle: {
+    fontSize: moderateScale(18),
+    fontFamily: quicksandFonts.semiBold,
+    color: colors.textDark,
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
+  },
+  datePickerConfirmText: {
+    fontSize: moderateScale(16),
+    fontFamily: quicksandFonts.medium,
+    color: colors.primary,
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
+  },
+  timePickerContainer: {
+    backgroundColor: '#FFFFFF',
+    borderTopLeftRadius: scale(20),
+    borderTopRightRadius: scale(20),
+    paddingBottom: verticalScale(20),
+  },
+  timePickerContent: {
+    paddingHorizontal: scale(20),
+    paddingVertical: verticalScale(20),
+  },
+  timePickerRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    gap: scale(16),
+  },
+  timePickerColumn: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  timePickerLabel: {
+    fontSize: moderateScale(14),
+    fontFamily: quicksandFonts.medium,
+    color: colors.textDark,
+    marginBottom: verticalScale(8),
+    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
+  },
+  timePicker: {
+    width: '100%',
+    height: verticalScale(150),
   },
 });
 
