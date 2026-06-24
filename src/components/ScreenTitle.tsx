@@ -29,19 +29,22 @@ const ScreenTitle: React.FC<ScreenTitleProps> = ({ title, onBackPress }) => {
           ]}
         />
       </TouchableOpacity>
-      <Text style={styles.headerTitle}>{title}</Text>
-      <View style={styles.headerSpacer} />
+      <View style={styles.titleContainer}>
+        <Text style={styles.headerTitle}>{title}</Text>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   header: {
+    width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: scale(16),
     paddingTop: verticalScale(16),
     paddingBottom: verticalScale(20),
+    backgroundColor: 'transparent',
   },
   backButton: {
     width: scale(40),
@@ -54,16 +57,16 @@ const styles = StyleSheet.create({
     height: scale(24),
     resizeMode: 'contain',
   },
-  headerTitle: {
+  titleContainer: {
     flex: 1,
+    alignItems: 'center',
+  },
+  headerTitle: {
     fontSize: moderateScale(20),
     fontWeight: '700',
     color: colors.textLight,
     textAlign: 'center',
     fontFamily: quicksandFonts.bold,
-  },
-  headerSpacer: {
-    width: scale(40),
   },
 });
 

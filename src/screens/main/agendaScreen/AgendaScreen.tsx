@@ -101,7 +101,7 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
   };
 
   return (
-    <SafeAreaView style={styles.root} edges={['bottom']}>
+    <SafeAreaView style={{ flex: 1 }} edges={['bottom']}>
       <StatusBar barStyle="light-content" backgroundColor={colors.primary} />
       <Image
         source={IMAGES.firstscreenbg}
@@ -389,7 +389,6 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
   },
   backgroundImage: {
     position: 'absolute',
@@ -397,10 +396,13 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     height: verticalScale(200),
+    width: '100%',
     resizeMode: 'cover',
   },
   container: {
     flex: 1,
+    overflow: 'hidden',
+    backgroundColor: 'transparent',
   },
   whiteContainer: {
     flex: 1,

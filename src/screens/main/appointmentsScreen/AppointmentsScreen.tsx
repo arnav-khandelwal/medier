@@ -183,6 +183,7 @@ const styles = StyleSheet.create({
     right: 0,
     height: verticalScale(200),
     resizeMode: 'cover',
+    width: '100%',
   },
   container: {
     flex: 1,
