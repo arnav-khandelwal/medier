@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, TextInput, Platform, I18nManager, Image, Modal, ScrollView } from 'react-native';
 import { Calendar } from 'react-native-calendars';
-import { Picker } from '@react-native-picker/picker';
+import TimePicker from '../../../components/TimePicker';
 import { scale, verticalScale, moderateScale } from '../../../theme/scaling';
 import { quicksandFonts } from '../../../theme/typography';
 import { colors } from '../../../theme/colors';
@@ -28,9 +28,6 @@ const BlockAvailabilityModal: React.FC<BlockAvailabilityModalProps> = ({
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [pickerType, setPickerType] = useState<'fromDate' | 'toDate' | 'date' | 'fromTime' | 'toTime' | null>(null);
   const [showTimePicker, setShowTimePicker] = useState(false);
-  const [tempHour, setTempHour] = useState('12');
-  const [tempMinute, setTempMinute] = useState('00');
-  const [tempPeriod, setTempPeriod] = useState<'AM' | 'PM'>('AM');
 
   const handleBlockAvailability = () => {
     const data = activeTab === 'date' 
@@ -72,13 +69,11 @@ const BlockAvailabilityModal: React.FC<BlockAvailabilityModalProps> = ({
     setShowTimePicker(true);
   };
 
-  const handleTimeSelect = () => {
-    const formattedTime = `${tempHour}:${tempMinute} ${tempPeriod}`;
-    
+  const handleTimeSelect = (time: string) => {
     if (pickerType === 'fromTime') {
-      setFromTime(formattedTime);
+      setFromTime(time);
     } else if (pickerType === 'toTime') {
-      setToTime(formattedTime);
+      setToTime(time);
     }
     
     setShowTimePicker(false);
@@ -315,70 +310,11 @@ const BlockAvailabilityModal: React.FC<BlockAvailabilityModalProps> = ({
       </Modal>
 
       {/* Time Picker Modal */}
-      <Modal
+      <TimePicker
         visible={showTimePicker}
-        transparent
-        animationType="slide"
-        onRequestClose={() => setShowTimePicker(false)}
-      >
-        <View style={styles.datePickerOverlay}>
-          <TouchableOpacity 
-            style={styles.datePickerOverlayTouchable}
-            activeOpacity={1}
-            onPress={() => setShowTimePicker(false)}
-          />
-          <View style={styles.timePickerContainer}>
-            <View style={styles.datePickerHeader}>
-              <TouchableOpacity onPress={() => setShowTimePicker(false)}>
-                <Text style={styles.datePickerCloseText}>Cancel</Text>
-              </TouchableOpacity>
-              <Text style={styles.datePickerTitle}>Select Time</Text>
-              <TouchableOpacity onPress={handleTimeSelect}>
-                <Text style={styles.datePickerConfirmText}>Done</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.timePickerContent}>
-              <View style={styles.timePickerRow}>
-                <View style={styles.timePickerColumn}>
-                  <Text style={styles.timePickerLabel}>Hour</Text>
-                  <Picker
-                    selectedValue={tempHour}
-                    onValueChange={(itemValue) => setTempHour(itemValue)}
-                    style={styles.timePicker}
-                  >
-                    {[...Array(12)].map((_, i) => (
-                      <Picker.Item key={i} label={String(i + 1).padStart(2, '0')} value={String(i + 1).padStart(2, '0')} />
-                    ))}
-                  </Picker>
-                </View>
-                <View style={styles.timePickerColumn}>
-                  <Text style={styles.timePickerLabel}>Minute</Text>
-                  <Picker
-                    selectedValue={tempMinute}
-                    onValueChange={(itemValue) => setTempMinute(itemValue)}
-                    style={styles.timePicker}
-                  >
-                    {[0, 15, 30, 45].map((i) => (
-                      <Picker.Item key={i} label={String(i).padStart(2, '0')} value={String(i).padStart(2, '0')} />
-                    ))}
-                  </Picker>
-                </View>
-                <View style={styles.timePickerColumn}>
-                  <Text style={styles.timePickerLabel}>Period</Text>
-                  <Picker
-                    selectedValue={tempPeriod}
-                    onValueChange={(itemValue) => setTempPeriod(itemValue as 'AM' | 'PM')}
-                    style={styles.timePicker}
-                  >
-                    <Picker.Item label="AM" value="AM" />
-                    <Picker.Item label="PM" value="PM" />
-                  </Picker>
-                </View>
-              </View>
-            </View>
-          </View>
-        </View>
-      </Modal>
+        onClose={() => setShowTimePicker(false)}
+        onTimeSelect={handleTimeSelect}
+      />
     </Modal>
   );
 };
@@ -583,36 +519,6 @@ const styles = StyleSheet.create({
     fontFamily: quicksandFonts.medium,
     color: colors.primary,
     writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
-  },
-  timePickerContainer: {
-    backgroundColor: '#FFFFFF',
-    borderTopLeftRadius: scale(20),
-    borderTopRightRadius: scale(20),
-    paddingBottom: verticalScale(20),
-  },
-  timePickerContent: {
-    paddingHorizontal: scale(20),
-    paddingVertical: verticalScale(20),
-  },
-  timePickerRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    gap: scale(16),
-  },
-  timePickerColumn: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  timePickerLabel: {
-    fontSize: moderateScale(14),
-    fontFamily: quicksandFonts.medium,
-    color: colors.textDark,
-    marginBottom: verticalScale(8),
-    writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
-  },
-  timePicker: {
-    width: '100%',
-    height: verticalScale(150),
   },
 });
 

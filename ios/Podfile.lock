@@ -1924,6 +1924,28 @@ PODS:
     - ReactCommon/turbomodule/core
     - ReactNativeDependencies
     - Yoga
+  - RNDateTimePicker (9.1.0):
+    - hermes-engine
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-Core-prebuilt
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-renderercss
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - ReactNativeDependencies
+    - Yoga
   - RNReanimated (4.4.0):
     - hermes-engine
     - RCTRequired
@@ -2198,6 +2220,7 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - ReactNativeDependencies (from `../node_modules/react-native/third-party-podspecs/ReactNativeDependencies.podspec`)
   - "RNCPicker (from `../node_modules/@react-native-picker/picker`)"
+  - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNWorklets (from `../node_modules/react-native-worklets`)
@@ -2361,6 +2384,8 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/ReactNativeDependencies.podspec"
   RNCPicker:
     :path: "../node_modules/@react-native-picker/picker"
+  RNDateTimePicker:
+    :path: "../node_modules/@react-native-community/datetimepicker"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
@@ -2449,6 +2474,7 @@ SPEC CHECKSUMS:
   ReactCommon: 7dfc3250793bf36cf221096ff59e1179e13eef7f
   ReactNativeDependencies: 2b84c81cc9e5ea4f5672f3e6cbe09b3194a87eed
   RNCPicker: d74667bdfc08ed389a2a277d95b8faf2349290a9
+  RNDateTimePicker: 7b2738f1e595f83c14580a11c476872755c5befc
   RNReanimated: 56d68c745cfbb80187b7d78caa72a738901294ee
   RNScreens: 991cc417cd396602a6cf59a42139e5a9d91462a9
   RNWorklets: a6ebd7b1ae53f150d747986d70bfc34932d7ffb4
@@ -2456,4 +2482,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 3259efa6c7483c18b5ddd712803afb6f958e1865
 
-COCOAPODS: 1.16.2
+COCOAPODS: 1.15.2
