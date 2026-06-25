@@ -7,6 +7,8 @@ import {
   Modal,
   ScrollView,
   Image,
+  Platform,
+  KeyboardAvoidingView,
 } from 'react-native';
 import { scale, verticalScale, moderateScale } from '../theme/scaling';
 import { quicksandFonts } from '../theme/typography';
@@ -29,48 +31,56 @@ const CommonModal: React.FC<CommonModalProps> = ({ visible, onClose, title, cont
       transparent
       onRequestClose={onClose}
     >
-      <View style={styles.overlay}>
-        {/* Overlay area that dismisses on tap */}
-        <TouchableOpacity 
-          style={styles.overlayTouchable} 
-          activeOpacity={1}
-          onPress={onClose}
-        />
-
-        {/* Close Button - Above the container */}
-        <TouchableOpacity style={styles.closeButton} onPress={onClose}>
-          <Image 
-            source={IMAGES.closeButton} 
-            style={styles.closeIcon} 
-            resizeMode="contain"
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        style={styles.keyboardAvoidingView}
+      >
+        <View style={styles.overlay}>
+          {/* Overlay area that dismisses on tap */}
+          <TouchableOpacity 
+            style={styles.overlayTouchable} 
+            activeOpacity={1}
+            onPress={onClose}
           />
-        </TouchableOpacity>
 
-        <View style={[styles.bottomSheetContainer, modalHeight ? { height: modalHeight as any } : {}]}>
-          {/* Content */}
-          {scrollEnabled ? (
-            <ScrollView 
-              style={styles.scrollView} 
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={styles.scrollContent}
-              nestedScrollEnabled={true}
-            >
-              <Text style={styles.heading}>{title}</Text>
-              {content}
-            </ScrollView>
-          ) : (
-            <View style={[styles.scrollView, styles.scrollContent]}>
-              <Text style={styles.heading}>{title}</Text>
-              {content}
-            </View>
-          )}
+          {/* Close Button - Above the container */}
+          <TouchableOpacity style={styles.closeButton} onPress={onClose}>
+            <Image 
+              source={IMAGES.closeButton} 
+              style={styles.closeIcon} 
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
+
+          <View style={[styles.bottomSheetContainer, modalHeight ? { height: modalHeight as any } : {}]}>
+            {/* Content */}
+            {scrollEnabled ? (
+              <ScrollView 
+                style={styles.scrollView} 
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={styles.scrollContent}
+                nestedScrollEnabled={true}
+              >
+                <Text style={styles.heading}>{title}</Text>
+                {content}
+              </ScrollView>
+            ) : (
+              <View style={[styles.scrollView, styles.scrollContent]}>
+                <Text style={styles.heading}>{title}</Text>
+                {content}
+              </View>
+            )}
+          </View>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </Modal>
   );
 };
 
 const styles = StyleSheet.create({
+  keyboardAvoidingView: {
+    flex: 1,
+  },
   overlay: {
     flex: 1,
     backgroundColor: 'rgba(0, 153, 255, 0.75)',
