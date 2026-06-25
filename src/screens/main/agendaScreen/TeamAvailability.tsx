@@ -197,7 +197,6 @@ const styles = StyleSheet.create({
     borderTopRightRadius: scale(34),
     marginTop: verticalScale(0),
     paddingTop: verticalScale(24),
-    paddingLeft: Platform.OS === 'ios' ? I18nManager.isRTL ? scale(12) : 0 : 0,
   },
   scrollView: {
     flex: 1,

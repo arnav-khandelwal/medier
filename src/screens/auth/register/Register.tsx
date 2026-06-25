@@ -835,7 +835,7 @@ function Register({ navigation }: Props): React.JSX.Element {
 // STYLES TO BE CONTINUED
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#FFFFFF', paddingHorizontal: Platform.OS === 'ios' ? scale(10) : 0 },
+  container: { flex: 1, backgroundColor: '#FFFFFF' },
   safeArea: { flex: 1 },
   content: { flex: 1, paddingTop: verticalScale(60) },
   // Background images
