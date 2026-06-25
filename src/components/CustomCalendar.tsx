@@ -11,6 +11,7 @@ interface CustomCalendarProps {
   markedDates?: any;
   onDayPress?: (date: DateData) => void;
   onMonthChange?: (date: DateData) => void;
+  enableContinuousSelection?: boolean;
 }
 
 const CustomCalendar: React.FC<CustomCalendarProps> = ({
@@ -18,14 +19,92 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({
   markedDates,
   onDayPress,
   onMonthChange,
+  enableContinuousSelection = false,
 }) => {
+  const getMarkedDatesWithStyling = () => {
+    if (!enableContinuousSelection || !markedDates) return markedDates;
+    
+    const dateStrings = Object.keys(markedDates).sort();
+    const styledDates: { [key: string]: any } = {};
+    
+    if (dateStrings.length === 0) return markedDates;
+    
+    if (dateStrings.length === 1) {
+      // Single date - rounded on all sides
+      styledDates[dateStrings[0]] = {
+        ...markedDates[dateStrings[0]],
+        startingDay: false,
+        endingDay: false,
+      };
+    } else {
+      // Multiple dates - check for continuous ranges
+      const ranges: string[][] = [];
+      let currentRange: string[] = [dateStrings[0]];
+      
+      for (let i = 1; i < dateStrings.length; i++) {
+        const prevDate = new Date(dateStrings[i - 1]);
+        const currDate = new Date(dateStrings[i]);
+        const diffDays = (currDate.getTime() - prevDate.getTime()) / (1000 * 60 * 60 * 24);
+        
+        if (diffDays === 1) {
+          // Continuous
+          currentRange.push(dateStrings[i]);
+        } else {
+          // Break in continuity
+          ranges.push(currentRange);
+          currentRange = [dateStrings[i]];
+        }
+      }
+      ranges.push(currentRange);
+      
+      // Apply styling to each range
+      ranges.forEach(range => {
+        range.forEach((dateStr, index) => {
+          if (range.length === 1) {
+            // Single date in range - rounded on all sides
+            styledDates[dateStr] = {
+              ...markedDates[dateStr],
+              startingDay: false,
+              endingDay: false,
+            };
+          } else if (index === 0) {
+            // Start of range - rounded left only
+            styledDates[dateStr] = {
+              ...markedDates[dateStr],
+              startingDay: true,
+              endingDay: false,
+            };
+          } else if (index === range.length - 1) {
+            // End of range - rounded right only
+            styledDates[dateStr] = {
+              ...markedDates[dateStr],
+              startingDay: false,
+              endingDay: true,
+            };
+          } else {
+            // Middle of range - no rounding
+            styledDates[dateStr] = {
+              ...markedDates[dateStr],
+              startingDay: false,
+              endingDay: false,
+            };
+          }
+        });
+      });
+    }
+    
+    return styledDates;
+  };
+
+  const styledMarkedDates = getMarkedDatesWithStyling();
+
   return (
     <View style={styles.calendarContainer}>
       <Calendar
         current={current}
         onDayPress={onDayPress}
         onMonthChange={onMonthChange}
-        markedDates={markedDates}
+        markedDates={styledMarkedDates}
         theme={{
           backgroundColor: '#ffffff',
           calendarBackground: '#ffffff',
@@ -40,7 +119,7 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({
               flexDirection: 'row',
               justifyContent: 'flex-end', // pushes arrows to the right
               alignItems: 'center',
-              marginBottom: verticalScale(16),
+              marginBottom: verticalScale(12),
               minHeight: verticalScale(30),
             },
             headerContainer: {
@@ -61,13 +140,24 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({
             },
             dayHeader: {
               marginTop: 2,
-              marginBottom: 7,
+              marginBottom: 4,
               width: 32,
               textAlign: 'center',
               fontSize: moderateScale(10),
               fontFamily: quicksandFonts.medium,
               color: colors.textMuted,
               writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
+            },
+          },
+          'stylesheet.calendar.day': {
+            base: {
+              width: scale(32),
+              height: scale(32),
+              alignItems: 'center',
+            },
+            text: {
+              fontSize: moderateScale(12),
+              fontFamily: quicksandFonts.medium,
             },
           },
         } as any}
@@ -84,6 +174,31 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({
           
           const isSelected = marking?.selected;
           const isBlocked = marking?.blocked;
+          const isStarting = marking?.startingDay;
+          const isEnding = marking?.endingDay;
+          
+          if (enableContinuousSelection && isSelected) {
+            return (
+              <TouchableOpacity
+                style={[
+                  styles.calendarDayContinuous,
+                  isStarting && styles.calendarDayStart,
+                  isEnding && styles.calendarDayEnd,
+                  (!isStarting && !isEnding) && styles.calendarDayMiddle,
+                ]}
+                onPress={() => {
+                  if (state !== 'disabled' && onDayPress) {
+                    onDayPress(date);
+                  }
+                }}
+                activeOpacity={0.7}
+              >
+                <Text style={styles.calendarDayTextSelected}>
+                  {date.day}
+                </Text>
+              </TouchableOpacity>
+            );
+          }
           
           return (
             <TouchableOpacity
@@ -143,6 +258,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: scale(6),
     width: scale(32),
+  },
+  calendarDayContinuous: {
+    aspectRatio: 1.2,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#0099FF',
+    width: scale(36),
+    marginHorizontal: -2,
+  },
+  calendarDayStart: {
+    borderTopLeftRadius: scale(6),
+    borderBottomLeftRadius: scale(6),
+    marginLeft: 0,
+  },
+  calendarDayEnd: {
+    borderTopRightRadius: scale(6),
+    borderBottomRightRadius: scale(6),
+    marginRight: 0,
+  },
+  calendarDayMiddle: {
+    borderRadius: 0,
   },
   calendarDaySelectedAvailable: {
     backgroundColor: '#0099FF',

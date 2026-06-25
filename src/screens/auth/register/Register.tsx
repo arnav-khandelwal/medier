@@ -242,8 +242,8 @@ function Register({ navigation }: Props): React.JSX.Element {
 
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
       style={{ flex: 1 }}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -863,7 +863,7 @@ const styles = StyleSheet.create({
   pageScreen: { width: width, paddingHorizontal: scale(16), paddingTop: verticalScale(20), flex: 1 },
   step2Screen: { justifyContent: 'center', alignItems: 'center' },
   professionalHeading: { fontFamily: quicksandFonts.bold, fontSize: moderateScale(24), color: colors.primary },
-  scrollContent: { paddingBottom: verticalScale(40) },
+  scrollContent: { paddingBottom: verticalScale(300) },
 
   formContainer: {},
   inputLabel: { fontFamily: quicksandFonts.medium, fontSize: moderateScale(14), color: '#000000', marginBottom: verticalScale(8), lineHeight: moderateScale(14), writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr', marginRight: I18nManager.isRTL ? scale(44) : 0 },

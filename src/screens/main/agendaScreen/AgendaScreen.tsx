@@ -23,6 +23,7 @@ import { agendaData, getAgendaDay, isDayBlocked, TimeSlot, AgendaDay } from './d
 import { IMAGES } from '../../../theme/images';
 import TeamAvailability from './TeamAvailability';
 import BlockAvailabilityModal from './BlockAvailabilityModal';
+import AddAvailabilityModal from './AddAvailabilityModal';
 
 interface AgendaScreenProps {
   activeTab?: string;
@@ -42,6 +43,7 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [slotToDelete, setSlotToDelete] = useState<{ id: string; type: 'online' | 'offline' } | null>(null);
   const [showBlockAvailabilityModal, setShowBlockAvailabilityModal] = useState(false);
+  const [showAddAvailabilityModal, setShowAddAvailabilityModal] = useState(false);
 
   const agendaDay = getAgendaDay(selectedDate);
   const onlineSlots = localOnlineSlots.length > 0 || localOfflineSlots.length > 0 ? localOnlineSlots : (agendaDay?.onlineSlots || []);
@@ -98,6 +100,11 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
   const handleBlockAvailability = (data: any) => {
     console.log('Block availability data:', data);
     // TODO: Implement the actual blocking logic
+  };
+
+  const handleAddAvailability = (data: any) => {
+    console.log('Add availability data:', data);
+    // TODO: Implement the actual adding logic
   };
 
   return (
@@ -324,7 +331,7 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
                     <TouchableOpacity style={styles.blockButton} onPress={() => setShowBlockAvailabilityModal(true)}>
                       <Text style={styles.blockButtonText}>{t('blockAvailability')}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.addButton}>
+                    <TouchableOpacity style={styles.addButton} onPress={() => setShowAddAvailabilityModal(true)}>
                       <Text style={styles.addButtonText}>{t('addAvailability')}</Text>
                     </TouchableOpacity>
                   </View>
@@ -381,6 +388,12 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
         visible={showBlockAvailabilityModal}
         onClose={() => setShowBlockAvailabilityModal(false)}
         onBlockAvailability={handleBlockAvailability}
+      />
+
+      <AddAvailabilityModal
+        visible={showAddAvailabilityModal}
+        onClose={() => setShowAddAvailabilityModal(false)}
+        onAddAvailability={handleAddAvailability}
       />
     </SafeAreaView>
   );
