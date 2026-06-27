@@ -88,5 +88,7 @@ export const IMAGES = {
   blockAvailability: require('../../assets/icons/blockAvailability.png'),
   confirmRemoveTimeSlot: require('../../assets/icons/confirmRemove.png'),
   clockIcon: require('../../assets/icons/clock.png'),
-  calendarIcon: require('../../assets/icons/calendar.png')
+  calendarIcon: require('../../assets/icons/calendar.png'),
+  addAvailabilityFilled: require('../../assets/icons/availabilityAdded.png'),
+  blockAvailabilityFilled: require('../../assets/icons/availabilityBlocked.png'),
 };

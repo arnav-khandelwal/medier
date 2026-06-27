@@ -161,6 +161,7 @@ const BlockAvailabilityModal: React.FC<BlockAvailabilityModalProps> = ({
                             value={fromDate}
                             onChangeText={setFromDate}
                             editable={false}
+                            pointerEvents="none"
                           />
                         </View>
                       </TouchableOpacity>
@@ -178,6 +179,7 @@ const BlockAvailabilityModal: React.FC<BlockAvailabilityModalProps> = ({
                             value={toDate}
                             onChangeText={setToDate}
                             editable={false}
+                            pointerEvents="none"
                           />
                         </View>
                       </TouchableOpacity>
@@ -198,6 +200,7 @@ const BlockAvailabilityModal: React.FC<BlockAvailabilityModalProps> = ({
                           value={date}
                           onChangeText={setDate}
                           editable={false}
+                          pointerEvents="none"
                         />
                       </View>
                     </TouchableOpacity>
@@ -217,6 +220,7 @@ const BlockAvailabilityModal: React.FC<BlockAvailabilityModalProps> = ({
                             value={fromTime}
                             onChangeText={setFromTime}
                             editable={false}
+                            pointerEvents="none"
                           />
                         </View>
                       </TouchableOpacity>
@@ -234,6 +238,7 @@ const BlockAvailabilityModal: React.FC<BlockAvailabilityModalProps> = ({
                             value={toTime}
                             onChangeText={setToTime}
                             editable={false}
+                            pointerEvents="none"
                           />
                         </View>
                       </TouchableOpacity>

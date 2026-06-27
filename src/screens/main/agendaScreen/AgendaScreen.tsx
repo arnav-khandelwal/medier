@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -44,6 +44,17 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
   const [slotToDelete, setSlotToDelete] = useState<{ id: string; type: 'online' | 'offline' } | null>(null);
   const [showBlockAvailabilityModal, setShowBlockAvailabilityModal] = useState(false);
   const [showAddAvailabilityModal, setShowAddAvailabilityModal] = useState(false);
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [successAlertType, setSuccessAlertType] = useState<'added' | 'blocked' | null>(null);
+
+  // Debug modal state changes
+  useEffect(() => {
+    console.log('showBlockAvailabilityModal changed:', showBlockAvailabilityModal);
+  }, [showBlockAvailabilityModal]);
+
+  useEffect(() => {
+    console.log('showAddAvailabilityModal changed:', showAddAvailabilityModal);
+  }, [showAddAvailabilityModal]);
 
   const agendaDay = getAgendaDay(selectedDate);
   const onlineSlots = localOnlineSlots.length > 0 || localOfflineSlots.length > 0 ? localOnlineSlots : (agendaDay?.onlineSlots || []);
@@ -56,6 +67,17 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
     setLocalOfflineSlots(dayData?.offlineSlots || []);
     setSelectedSlotId(null);
   }, [selectedDate]);
+
+  // Auto-dismiss success alert after 2 seconds
+  useEffect(() => {
+    if (showSuccessAlert) {
+      const timer = setTimeout(() => {
+        setShowSuccessAlert(false);
+        setSuccessAlertType(null);
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [showSuccessAlert]);
 
   const getMarkedDates = () => {
     const dates: any = {};
@@ -99,11 +121,17 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
 
   const handleBlockAvailability = (data: any) => {
     console.log('Block availability data:', data);
+    setShowBlockAvailabilityModal(false);
+    setSuccessAlertType('blocked');
+    setShowSuccessAlert(true);
     // TODO: Implement the actual blocking logic
   };
 
   const handleAddAvailability = (data: any) => {
     console.log('Add availability data:', data);
+    setShowAddAvailabilityModal(false);
+    setSuccessAlertType('added');
+    setShowSuccessAlert(true);
     // TODO: Implement the actual adding logic
   };
 
@@ -328,10 +356,28 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
 
                   {/* Block/Add Availability */}
                   <View style={styles.blockAddButtons}>
-                    <TouchableOpacity style={styles.blockButton} onPress={() => setShowBlockAvailabilityModal(true)}>
+                    <TouchableOpacity
+                      style={styles.blockButton}
+                      onPress={() => {
+                        console.log('Block button pressed, setting modal to true');
+                        setShowBlockAvailabilityModal(true);
+                        console.log('showBlockAvailabilityModal after set:', true);
+                      }}
+                      activeOpacity={0.7}
+                      hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
+                    >
                       <Text style={styles.blockButtonText}>{t('blockAvailability')}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.addButton} onPress={() => setShowAddAvailabilityModal(true)}>
+                    <TouchableOpacity
+                      style={styles.addButton}
+                      onPress={() => {
+                        console.log('Add button pressed, setting modal to true');
+                        setShowAddAvailabilityModal(true);
+                        console.log('showAddAvailabilityModal after set:', true);
+                      }}
+                      activeOpacity={0.7}
+                      hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
+                    >
                       <Text style={styles.addButtonText}>{t('addAvailability')}</Text>
                     </TouchableOpacity>
                   </View>
@@ -394,6 +440,18 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
         visible={showAddAvailabilityModal}
         onClose={() => setShowAddAvailabilityModal(false)}
         onAddAvailability={handleAddAvailability}
+      />
+
+      {/* Success Alert Modal */}
+      <AlertModal
+        visible={showSuccessAlert}
+        onClose={() => {
+          setShowSuccessAlert(false);
+          setSuccessAlertType(null);
+        }}
+        icon={successAlertType === 'added' ? IMAGES.addAvailabilityFilled : IMAGES.blockAvailabilityFilled}
+        title={successAlertType === 'added' ? t('availabilityAdded') : t('availabilityBlocked')}
+        buttons={[]}
       />
     </SafeAreaView>
   );

@@ -253,7 +253,8 @@ const styles = StyleSheet.create({
     height: verticalScale(200),
   },
   pickerContent: {
-    paddingVertical: verticalScale(75),
+    paddingTop: verticalScale(100),
+    paddingBottom: verticalScale(200),
   },
   pickerItem: {
     height: verticalScale(50),
