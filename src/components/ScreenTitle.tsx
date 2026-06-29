@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   headerTitle: {
+    paddingRight: scale(20),
     fontSize: moderateScale(20),
     fontWeight: '700',
     color: colors.textLight,

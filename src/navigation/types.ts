@@ -6,4 +6,6 @@ export type RootStackParamList = {
   ForgotPassword: undefined;
   MainTabs: undefined;
   AppointmentDetail: { appointment: any } | undefined;
+  Profile: undefined;
 };
+

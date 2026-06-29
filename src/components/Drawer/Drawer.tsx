@@ -69,7 +69,7 @@ const Drawer: React.FC<DrawerProps> = ({ visible, onClose }) => {
   }, [visible, slideAnim, screenWidth, isRTL]);
 
   const drawerItems = [
-    { icon: IMAGES.myAccount, label: t('myAccount'), onPress: onClose },
+    { icon: IMAGES.myAccount, label: t('myAccount'), onPress: () => { navigation.navigate('Profile'); onClose(); } },
     { icon: IMAGES.myLocation, label: t('myLocation'), onPress: onClose },
     { icon: IMAGES.myRating, label: t('myRating'), onPress: onClose },
     { icon: IMAGES.myContract, label: t('myContract'), onPress: onClose },
