@@ -24,6 +24,7 @@ import { IMAGES } from '../../../theme/images';
 import TeamAvailability from './TeamAvailability';
 import BlockAvailabilityModal from './BlockAvailabilityModal';
 import AddAvailabilityModal from './AddAvailabilityModal';
+import EditTimeSlotModal from './EditTimeSlotModal';
 
 interface AgendaScreenProps {
   activeTab?: string;
@@ -44,8 +45,10 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
   const [slotToDelete, setSlotToDelete] = useState<{ id: string; type: 'online' | 'offline' } | null>(null);
   const [showBlockAvailabilityModal, setShowBlockAvailabilityModal] = useState(false);
   const [showAddAvailabilityModal, setShowAddAvailabilityModal] = useState(false);
+  const [showEditTimeSlotModal, setShowEditTimeSlotModal] = useState(false);
+  const [editingSlot, setEditingSlot] = useState<{ id: string; type: 'online' | 'offline' } | null>(null);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
-  const [successAlertType, setSuccessAlertType] = useState<'added' | 'blocked' | null>(null);
+  const [successAlertType, setSuccessAlertType] = useState<'added' | 'blocked' | 'edited' | null>(null);
 
   // Debug modal state changes
   useEffect(() => {
@@ -133,6 +136,23 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
     setSuccessAlertType('added');
     setShowSuccessAlert(true);
     // TODO: Implement the actual adding logic
+  };
+
+  const handleEditTimeSlot = (data: any) => {
+    console.log('Edit time slot data:', data);
+    setShowEditTimeSlotModal(false);
+    setSuccessAlertType('edited');
+    setShowSuccessAlert(true);
+    // TODO: Implement the actual editing logic
+  };
+
+  const openEditTimeSlotModal = (slotId: string, type: 'online' | 'offline') => {
+    const slots = type === 'online' ? onlineSlots : offlineSlots;
+    const slot = slots.find(s => s.id === slotId);
+    if (slot) {
+      setEditingSlot({ id: slotId, type });
+      setShowEditTimeSlotModal(true);
+    }
   };
 
   return (
@@ -268,7 +288,7 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
                             <TouchableOpacity
                               style={styles.editDayButton}
                               onPress={() => {
-                                setSelectedSlotId(null);
+                                openEditTimeSlotModal(selectedSlotId, 'online');
                               }}
                             >
                               <Text style={styles.editDayButtonText}>{t('edit')}</Text>
@@ -295,7 +315,7 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
                           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                             <Text style={styles.selectedDateText}>{formatDate(selectedDate)}</Text>
                             <View style={styles.statusBadge}>
-                              <Text style={styles.statusText}>Offline</Text>
+                              <Text style={styles.statusText}>{t('offline')}</Text>
                             </View>
                           </View>
                         </View>
@@ -343,7 +363,7 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
                             <TouchableOpacity
                               style={styles.editDayButton}
                               onPress={() => {
-                                setSelectedSlotId(null);
+                                openEditTimeSlotModal(selectedSlotId, 'offline');
                               }}
                             >
                               <Text style={styles.editDayButtonText}>{t('edit')}</Text>
@@ -442,6 +462,27 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
         onAddAvailability={handleAddAvailability}
       />
 
+      <EditTimeSlotModal
+        visible={showEditTimeSlotModal}
+        onClose={() => {
+          setShowEditTimeSlotModal(false);
+          setEditingSlot(null);
+        }}
+        onSave={handleEditTimeSlot}
+        initialData={editingSlot ? {
+          mode: editingSlot.type,
+          startTime: editingSlot.type === 'online' 
+            ? onlineSlots.find(s => s.id === editingSlot.id)?.startTime || ''
+            : offlineSlots.find(s => s.id === editingSlot.id)?.startTime || '',
+          endTime: editingSlot.type === 'online'
+            ? onlineSlots.find(s => s.id === editingSlot.id)?.endTime || ''
+            : offlineSlots.find(s => s.id === editingSlot.id)?.endTime || '',
+          location: editingSlot.type === 'offline'
+            ? offlineSlots.find(s => s.id === editingSlot.id)?.address || ''
+            : undefined,
+        } : undefined}
+      />
+
       {/* Success Alert Modal */}
       <AlertModal
         visible={showSuccessAlert}
@@ -449,8 +490,20 @@ const AgendaScreen: React.FC<AgendaScreenProps> = ({ onTabPress }) => {
           setShowSuccessAlert(false);
           setSuccessAlertType(null);
         }}
-        icon={successAlertType === 'added' ? IMAGES.addAvailabilityFilled : IMAGES.blockAvailabilityFilled}
-        title={successAlertType === 'added' ? t('availabilityAdded') : t('availabilityBlocked')}
+        icon={
+          successAlertType === 'added' 
+            ? IMAGES.addAvailabilityFilled 
+            : successAlertType === 'blocked' 
+              ? IMAGES.blockAvailabilityFilled 
+              : IMAGES.editAvailabilityFilled
+        }
+        title={
+          successAlertType === 'added' 
+            ? t('availabilityAdded') 
+            : successAlertType === 'blocked' 
+              ? t('availabilityBlocked') 
+              : t('availabilityEdited')
+        }
         buttons={[]}
       />
     </SafeAreaView>

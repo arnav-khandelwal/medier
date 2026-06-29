@@ -124,13 +124,13 @@ const TeamAvailability: React.FC = () => {
                   <View style={styles.statusTag}>
                     <View style={[styles.statusDot, doctor.online ? styles.statusDotOnline : styles.statusDotOffline]} />
                     <Text style={[styles.statusTagText, doctor.online ? styles.statusTagTextOnline : styles.statusTagTextOffline]}>
-                      {doctor.online ? 'Online' : 'Offline'}
+                      {doctor.online ? t('online') : t('offline')}
                     </Text>
                   </View>
                   <View style={styles.statusTag}>
                     <View style={[styles.statusDot, !doctor.online ? styles.statusDotOnline : styles.statusDotOffline]} />
                     <Text style={[styles.statusTagText, !doctor.online ? styles.statusTagTextOnline : styles.statusTagTextOffline]}>
-                      {!doctor.online ? 'Online' : 'Offline'}
+                      {!doctor.online ? t('online') : t('offline')}
                     </Text>
                   </View>
                 </View>

@@ -2,16 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Modal, ScrollView, Image, TouchableWithoutFeedback } from 'react-native';
 import CustomCalendar from '../../../components/CustomCalendar';
 import TimePicker from '../../../components/TimePicker';
+import DropdownModal from '../../../components/DropdownModal';
 import { scale, verticalScale, moderateScale } from '../../../theme/scaling';
 import { quicksandFonts } from '../../../theme/typography';
 import { colors } from '../../../theme/colors';
 import { IMAGES } from '../../../theme/images';
+import { useTranslation } from '../../../utils/translations/LanguageContext';
 
 interface TimeSlot {
   id: string;
   mode: 'online' | 'offline';
   startTime: string;
   endTime: string;
+  location?: string;
 }
 
 interface AddAvailabilityModalProps {
@@ -25,6 +28,7 @@ const AddAvailabilityModal: React.FC<AddAvailabilityModalProps> = ({
   onClose,
   onAddAvailability,
 }) => {
+  const { t } = useTranslation();
   const [selectedDates, setSelectedDates] = useState<{ [key: string]: any }>({});
   const [repeatType, setRepeatType] = useState<'none' | 'date' | 'week'>('none');
   const [timeSlots, setTimeSlots] = useState<TimeSlot[]>([
@@ -33,6 +37,15 @@ const AddAvailabilityModal: React.FC<AddAvailabilityModalProps> = ({
   const [showTimePicker, setShowTimePicker] = useState(false);
   const [pickerSlotId, setPickerSlotId] = useState<string | null>(null);
   const [pickerType, setPickerType] = useState<'start' | 'end' | null>(null);
+  const [showLocationDropdown, setShowLocationDropdown] = useState(false);
+  const [locationSlotId, setLocationSlotId] = useState<string | null>(null);
+
+  const locationOptions = [
+    { label: 'Office A', value: 'office_a' },
+    { label: 'Office B', value: 'office_b' },
+    { label: 'Remote', value: 'remote' },
+    { label: 'Client Site', value: 'client_site' },
+  ];
 
   // Reset selected dates when repeat type changes
   useEffect(() => {
@@ -116,6 +129,23 @@ const AddAvailabilityModal: React.FC<AddAvailabilityModalProps> = ({
     setPickerType(null);
   };
 
+  const openLocationDropdown = (slotId: string) => {
+    setLocationSlotId(slotId);
+    setShowLocationDropdown(true);
+  };
+
+  const handleLocationSelect = (option: { label: string; value: string }) => {
+    if (locationSlotId) {
+      setTimeSlots(timeSlots.map(slot => 
+        slot.id === locationSlotId 
+          ? { ...slot, location: option.label }
+          : slot
+      ));
+    }
+    setShowLocationDropdown(false);
+    setLocationSlotId(null);
+  };
+
   const handleAddAvailability = () => {
     const data = {
       dates: Object.keys(selectedDates),
@@ -167,12 +197,12 @@ const AddAvailabilityModal: React.FC<AddAvailabilityModalProps> = ({
           >
             {/* Header */}
             <View style={styles.header}>
-              <Text style={styles.title}>Add Availability</Text>
+              <Text style={styles.title}>{t('addAvailabilityTitle')}</Text>
             </View>
 
             {/* Date Selection Section */}
             <View style={styles.section}>
-              <Text style={styles.sectionLabel}>Select Date</Text>
+              <Text style={styles.sectionLabel}>{t('selectDate')}</Text>
               <CustomCalendar
                 onDayPress={handleDayPress}
                 markedDates={selectedDates}
@@ -182,14 +212,14 @@ const AddAvailabilityModal: React.FC<AddAvailabilityModalProps> = ({
 
             {/* Repeat Selection Section */}
             <View style={styles.section}>
-              <Text style={styles.sectionLabel}>Select Repeat</Text>
+              <Text style={styles.sectionLabel}>{t('selectRepeat')}</Text>
               <View style={styles.repeatButtons}>
                 <TouchableOpacity
                   style={[styles.repeatButton, repeatType === 'none' && styles.repeatButtonActive]}
                   onPress={() => setRepeatType('none')}
                 >
                   <Text style={[styles.repeatButtonText, repeatType === 'none' && styles.repeatButtonTextActive]}>
-                    No Repeat
+                    {t('noRepeat')}
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -197,7 +227,7 @@ const AddAvailabilityModal: React.FC<AddAvailabilityModalProps> = ({
                   onPress={() => setRepeatType('date')}
                 >
                   <Text style={[styles.repeatButtonText, repeatType === 'date' && styles.repeatButtonTextActive]}>
-                    Date
+                    {t('date')}
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -205,7 +235,7 @@ const AddAvailabilityModal: React.FC<AddAvailabilityModalProps> = ({
                   onPress={() => setRepeatType('week')}
                 >
                   <Text style={[styles.repeatButtonText, repeatType === 'week' && styles.repeatButtonTextActive]}>
-                    Week
+                    {t('week')}
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -214,7 +244,7 @@ const AddAvailabilityModal: React.FC<AddAvailabilityModalProps> = ({
             {/* Time Slot Section */}
             <View style={styles.section}>
               <View style={styles.timeSlotHeader}>
-                <Text style={styles.sectionLabel}>Time Slot</Text>
+                <Text style={styles.sectionLabel}>{t('timeSlot')}</Text>
                 <TouchableOpacity style={styles.addSlotButton} onPress={addTimeSlot}>
                   <Text style={styles.addSlotButtonText}>+</Text>
                 </TouchableOpacity>
@@ -224,7 +254,7 @@ const AddAvailabilityModal: React.FC<AddAvailabilityModalProps> = ({
                 <View key={slot.id} style={styles.timeSlotCard}>
                   {/* Slot Header */}
                   <View style={styles.slotCardHeader}>
-                    <Text style={styles.slotCardTitle}>Time Slot {index + 1}</Text>
+                    <Text style={styles.slotCardTitle}>{t('timeSlotNumber').replace('{number}', String(index + 1))}</Text>
                     {timeSlots.length > 1 && (
                       <TouchableOpacity onPress={() => removeTimeSlot(slot.id)}>
                         <Image source={IMAGES.delete} style={styles.deleteIcon} />
@@ -239,7 +269,7 @@ const AddAvailabilityModal: React.FC<AddAvailabilityModalProps> = ({
                       onPress={() => updateSlotMode(slot.id, 'online')}
                     >
                       <Text style={[styles.modeButtonText, slot.mode === 'online' && styles.modeButtonTextActive]}>
-                        Online
+                        {t('online')}
                       </Text>
                     </TouchableOpacity>
                     <TouchableOpacity
@@ -247,39 +277,52 @@ const AddAvailabilityModal: React.FC<AddAvailabilityModalProps> = ({
                       onPress={() => updateSlotMode(slot.id, 'offline')}
                     >
                       <Text style={[styles.modeButtonText, slot.mode === 'offline' && styles.modeButtonTextActive]}>
-                        Offline
+                        {t('offline')}
                       </Text>
                     </TouchableOpacity>
                   </View>
 
                   {/* Time Pickers */}
                   <View style={styles.timePickersRow}>
-                    <TouchableOpacity 
+                    <TouchableOpacity
                       style={styles.timePickerInput}
                       onPress={() => openTimePicker(slot.id, 'start')}
                     >
                       <Image source={IMAGES.clockIcon} style={styles.timePickerIcon} />
                       <Text style={styles.timePickerText}>
-                        {slot.startTime || 'Start Time'}
+                        {slot.startTime || t('startTime')}
                       </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity 
+                    <TouchableOpacity
                       style={styles.timePickerInput}
                       onPress={() => openTimePicker(slot.id, 'end')}
                     >
                       <Image source={IMAGES.clockIcon} style={styles.timePickerIcon} />
                       <Text style={styles.timePickerText}>
-                        {slot.endTime || 'End Time'}
+                        {slot.endTime || t('endTime')}
                       </Text>
                     </TouchableOpacity>
                   </View>
+
+                  {/* Location Dropdown - Only for offline mode */}
+                  {slot.mode === 'offline' && (
+                    <TouchableOpacity
+                      style={styles.locationInput}
+                      onPress={() => openLocationDropdown(slot.id)}
+                    >
+                      <Text style={styles.locationText}>
+                        {slot.location || t('selectLocation')}
+                      </Text>
+                      <Image source={IMAGES.dropdown} style={styles.dropdownIcon} />
+                    </TouchableOpacity>
+                  )}
                 </View>
               ))}
             </View>
 
             {/* Add Availability Button */}
             <TouchableOpacity style={styles.addButton} onPress={handleAddAvailability}>
-              <Text style={styles.addButtonText}>Add Availability</Text>
+              <Text style={styles.addButtonText}>{t('addAvailabilityTitle')}</Text>
             </TouchableOpacity>
           </ScrollView>
         </View>
@@ -290,6 +333,17 @@ const AddAvailabilityModal: React.FC<AddAvailabilityModalProps> = ({
         visible={showTimePicker}
         onClose={() => setShowTimePicker(false)}
         onTimeSelect={handleTimeSelect}
+      />
+
+      {/* Location Dropdown Modal */}
+      <DropdownModal
+        visible={showLocationDropdown}
+        onClose={() => setShowLocationDropdown(false)}
+        title="Select Location"
+        options={locationOptions}
+        onSelect={handleLocationSelect}
+        initialValue={locationSlotId ? timeSlots.find(s => s.id === locationSlotId)?.location : undefined}
+        others={true}
       />
     </Modal>
   );
@@ -490,6 +544,30 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(12),
     fontFamily: quicksandFonts.regular,
     color: colors.textDark,
+  },
+  locationInput: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderWidth: 1,
+    borderColor: '#C8E9FF',
+    borderRadius: scale(8),
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: scale(12),
+    paddingVertical: verticalScale(10),
+    marginTop: verticalScale(12),
+  },
+  locationText: {
+    flex: 1,
+    fontSize: moderateScale(12),
+    fontFamily: quicksandFonts.regular,
+    color: colors.textDark,
+  },
+  dropdownIcon: {
+    width: scale(12),
+    height: scale(12),
+    resizeMode: 'contain',
+    tintColor: colors.primary,
   },
   addButton: {
     backgroundColor: colors.primary,

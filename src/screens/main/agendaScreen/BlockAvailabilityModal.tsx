@@ -6,6 +6,7 @@ import { scale, verticalScale, moderateScale } from '../../../theme/scaling';
 import { quicksandFonts } from '../../../theme/typography';
 import { colors } from '../../../theme/colors';
 import { IMAGES } from '../../../theme/images';
+import { useTranslation } from '../../../utils/translations/LanguageContext';
 
 interface BlockAvailabilityModalProps {
   visible: boolean;
@@ -18,6 +19,7 @@ const BlockAvailabilityModal: React.FC<BlockAvailabilityModalProps> = ({
   onClose,
   onBlockAvailability,
 }) => {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<'date' | 'time'>('date');
   const [fromDate, setFromDate] = useState('');
   const [toDate, setToDate] = useState('');
@@ -120,7 +122,7 @@ const BlockAvailabilityModal: React.FC<BlockAvailabilityModalProps> = ({
           >
             {/* Header */}
             <View style={styles.header}>
-              <Text style={styles.title}>Block Availability</Text>
+              <Text style={styles.title}>{t('blockAvailabilityTitle')}</Text>
             </View>
 
             {/* Tabs */}
@@ -130,7 +132,7 @@ const BlockAvailabilityModal: React.FC<BlockAvailabilityModalProps> = ({
                 onPress={() => setActiveTab('date')}
               >
                 <Text style={[styles.tabText, activeTab === 'date' && styles.tabTextActive]}>
-                  Block By Date
+                  {t('blockByDate')}
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -138,7 +140,7 @@ const BlockAvailabilityModal: React.FC<BlockAvailabilityModalProps> = ({
                 onPress={() => setActiveTab('time')}
               >
                 <Text style={[styles.tabText, activeTab === 'time' && styles.tabTextActive]}>
-                  Block By Time
+                  {t('blockByTime')}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -262,7 +264,7 @@ const BlockAvailabilityModal: React.FC<BlockAvailabilityModalProps> = ({
 
               {/* Block Availability Button */}
               <TouchableOpacity style={styles.blockButton} onPress={handleBlockAvailability}>
-                <Text style={styles.blockButtonText}>Block Availability</Text>
+                <Text style={styles.blockButtonText}>{t('blockAvailabilityTitle')}</Text>
               </TouchableOpacity>
             </View>
           </ScrollView>
@@ -285,11 +287,11 @@ const BlockAvailabilityModal: React.FC<BlockAvailabilityModalProps> = ({
           <View style={styles.datePickerContainer}>
             <View style={styles.datePickerHeader}>
               <TouchableOpacity onPress={() => setShowDatePicker(false)}>
-                <Text style={styles.datePickerCloseText}>Cancel</Text>
+                <Text style={styles.datePickerCloseText}>{t('cancel')}</Text>
               </TouchableOpacity>
-              <Text style={styles.datePickerTitle}>Select Date</Text>
+              <Text style={styles.datePickerTitle}>{t('selectDate')}</Text>
               <TouchableOpacity onPress={() => setShowDatePicker(false)}>
-                <Text style={styles.datePickerConfirmText}>Done</Text>
+                <Text style={styles.datePickerConfirmText}>{t('done')}</Text>
               </TouchableOpacity>
             </View>
             <Calendar

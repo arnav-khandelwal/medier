@@ -91,4 +91,6 @@ export const IMAGES = {
   calendarIcon: require('../../assets/icons/calendar.png'),
   addAvailabilityFilled: require('../../assets/icons/availabilityAdded.png'),
   blockAvailabilityFilled: require('../../assets/icons/availabilityBlocked.png'),
+  editAvailabilityFilled: require('../../assets/icons/availabilityEdited.png'),
+  editIcon: require('../../assets/icons/editIcon.png'),
 };
