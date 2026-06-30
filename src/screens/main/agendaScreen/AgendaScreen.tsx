@@ -545,7 +545,7 @@ const styles = StyleSheet.create({
     marginBottom: verticalScale(20),
     borderWidth: 1,
     borderColor: '#C8E9FF',
-    borderRadius: scale(8),
+    borderRadius: scale(25),
     overflow: 'hidden',
   },
   tab: {
@@ -555,6 +555,7 @@ const styles = StyleSheet.create({
   },
   tabSelected: {
     backgroundColor: '#0099FF',
+    borderRadius: scale(25),
   },
   tabText: {
     fontSize: moderateScale(14),

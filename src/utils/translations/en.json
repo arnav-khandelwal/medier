@@ -178,5 +178,8 @@
   "blockByTime": "Block By Time",
   "done": "Done",
   "availabilityAdded": "Availability Added",
-  "availabilityBlocked": "Availability Blocked"
+  "availabilityBlocked": "Availability Blocked",
+  "myProfile": "My Profile",
+  "personal": "Personal",
+  "professional": "Professional"
 }

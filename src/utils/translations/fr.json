@@ -178,5 +178,8 @@
   "blockByTime": "Bloquer par heure",
   "done": "Terminé",
   "availabilityAdded": "Disponibilité ajoutée",
-  "availabilityBlocked": "Disponibilité bloquée"
+  "availabilityBlocked": "Disponibilité bloquée",
+  "myProfile": "Mon profil",
+  "personal": "Personnel",
+  "professional": "Professionnel"
 }

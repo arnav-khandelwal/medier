@@ -178,5 +178,8 @@
   "blockByTime": "حظر حسب الوقت",
   "done": "تم",
   "availabilityAdded": "تمت إضافة التوفر",
-  "availabilityBlocked": "تم حظر التوفر"
+  "availabilityBlocked": "تم حظر التوفر",
+  "myProfile": "ملفي",
+  "personal": "شخصي",
+  "professional": "مهني"
 }

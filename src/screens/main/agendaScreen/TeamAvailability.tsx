@@ -94,8 +94,9 @@ const TeamAvailability: React.FC = () => {
         style={styles.clinicDropdown}
         onPress={() => setShowClinicDropdown(true)}
       >
+        <Image source={IMAGES.countrySelectUnselected} style={styles.dropdownIconLeft} />
         <Text style={styles.clinicDropdownText}>{selectedClinic.label}</Text>
-        <Image source={IMAGES.countrySelectUnselected} style={styles.dropdownIcon} />
+        <Image source={IMAGES.dropdown} style={styles.dropdownIcon} />
       </TouchableOpacity>
 
       {/* Calendar */}
@@ -205,8 +206,7 @@ const styles = StyleSheet.create({
   clinicDropdown: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    backgroundColor: '#F0F9FF',
+    backgroundColor: '#FFFFFF',
     borderWidth: 1,
     borderColor: '#C8E9FF',
     borderRadius: scale(12),
@@ -214,7 +214,14 @@ const styles = StyleSheet.create({
     paddingVertical: verticalScale(14),
     marginBottom: verticalScale(20),
   },
+  dropdownIconLeft: {
+    width: scale(20),
+    height: scale(20),
+    resizeMode: 'contain',
+    marginRight: scale(8),
+  },
   clinicDropdownText: {
+    flex: 1,
     fontSize: moderateScale(14),
     fontFamily: quicksandFonts.medium,
     color: colors.textDark,
@@ -242,7 +249,7 @@ const styles = StyleSheet.create({
   doctorPhoto: {
     width: scale(50),
     height: scale(50),
-    borderRadius: scale(25),
+    borderRadius: scale(12),
     resizeMode: 'cover',
     marginRight: scale(12),
   },
